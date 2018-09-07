@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 23787568163201610}
   - component: {fileID: 136273785158263568}
   - component: {fileID: 114586832916759270}
+  - component: {fileID: 114932646731660738}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -77,6 +78,7 @@ GameObject:
   - component: {fileID: 143148801094373848}
   - component: {fileID: 114062547106032106}
   - component: {fileID: 114734795990099724}
+  - component: {fileID: 114445141573690772}
   m_Layer: 0
   m_Name: ShooterPlayer
   m_TagString: Player
@@ -118,7 +120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750704476559634}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.56, y: 1.017786, z: 2.45}
+  m_LocalPosition: {x: -4.2428923, y: -0.12246466, z: 7.018022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4271187968781326}
@@ -276,7 +278,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750704476559634}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -468,6 +470,38 @@ MonoBehaviour:
   m_FootstepSounds: []
   m_JumpSound: {fileID: 0}
   m_LandSound: {fileID: 0}
+--- !u!114 &114445141573690772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750704476559634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 139
+    i1: 120
+    i2: 119
+    i3: 108
+    i4: 150
+    i5: 167
+    i6: 184
+    i7: 228
+    i8: 184
+    i9: 183
+    i10: 141
+    i11: 59
+    i12: 29
+    i13: 19
+    i14: 178
+    i15: 93
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114586832916759270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -493,6 +527,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114932646731660738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1486960269439844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 139
+    i1: 120
+    i2: 119
+    i3: 108
+    i4: 150
+    i5: 167
+    i6: 184
+    i7: 228
+    i8: 184
+    i9: 183
+    i10: 141
+    i11: 59
+    i12: 29
+    i13: 19
+    i14: 178
+    i15: 93
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!136 &136273785158263568
 CapsuleCollider:
   m_ObjectHideFlags: 1

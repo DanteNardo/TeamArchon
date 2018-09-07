@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 namespace actionPhase
 {
     public class Weapon : MonoBehaviour
@@ -24,7 +25,7 @@ namespace actionPhase
             }
 
 
-            void Fire()
+            public void Fire()
             {
                 // Create the Bullet from the Bullet Prefab
                 var bullet = Instantiate(
