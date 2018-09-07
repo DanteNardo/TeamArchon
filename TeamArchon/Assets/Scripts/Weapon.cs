@@ -19,7 +19,6 @@ namespace actionPhase
 
             if (Input.GetButtonDown("Fire1"))
                 {
-                Debug.Log("FIRED");
                     Fire();
                 }
             }

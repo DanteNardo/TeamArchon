@@ -15,7 +15,12 @@ namespace actionPhase
         // Update is called once per frame
         void Update()
         {
-
+            
+            if (health <= 0)
+            {
+                Debug.Log("You dead boi");
+                Destroy(gameObject);
+            }
         }
 
         public float Health
