@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 23787568163201610}
   - component: {fileID: 136273785158263568}
   - component: {fileID: 114586832916759270}
-  - component: {fileID: 114932646731660738}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -79,6 +78,8 @@ GameObject:
   - component: {fileID: 114062547106032106}
   - component: {fileID: 114734795990099724}
   - component: {fileID: 114445141573690772}
+  - component: {fileID: 114171322493113516}
+  - component: {fileID: 114055047704705650}
   m_Layer: 0
   m_Name: ShooterPlayer
   m_TagString: Player
@@ -120,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750704476559634}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.2428923, y: -0.12246466, z: 7.018022}
+  m_LocalPosition: {x: -2.2223573, y: -2.1047747, z: 2.530791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4271187968781326}
@@ -147,7 +148,7 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640688436244610}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -367,6 +368,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114055047704705650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750704476559634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4271187968781326}
+  m_ChildIndex: 0
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!114 &114062547106032106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,6 +490,29 @@ MonoBehaviour:
   m_FootstepSounds: []
   m_JumpSound: {fileID: 0}
   m_LandSound: {fileID: 0}
+  bulletPrefab: {fileID: 1415128890340098, guid: 2b20ff341ddb0db48a6d95bcae121aee,
+    type: 2}
+--- !u!114 &114171322493113516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750704476559634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 4
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114445141573690772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -527,38 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114932646731660738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1486960269439844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 139
-    i1: 120
-    i2: 119
-    i3: 108
-    i4: 150
-    i5: 167
-    i6: 184
-    i7: 228
-    i8: 184
-    i9: 183
-    i10: 141
-    i11: 59
-    i12: 29
-    i13: 19
-    i14: 178
-    i15: 93
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!136 &136273785158263568
 CapsuleCollider:
   m_ObjectHideFlags: 1
