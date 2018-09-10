@@ -296,7 +296,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             // Add velocity to the bullet
 
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
+            //bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
 
             NetworkServer.Spawn(bullet);
 

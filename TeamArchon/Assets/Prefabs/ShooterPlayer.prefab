@@ -121,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750704476559634}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.2223573, y: -2.1047747, z: 2.530791}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4271187968781326}
@@ -402,9 +402,9 @@ MonoBehaviour:
   m_WalkSpeed: 1
   m_RunSpeed: 2
   m_RunstepLenghten: 0
-  m_JumpSpeed: 1
+  m_JumpSpeed: 4
   m_StickToGroundForce: 0
-  m_GravityMultiplier: 0
+  m_GravityMultiplier: 1
   m_MouseLook:
     XSensitivity: 2
     YSensitivity: 2
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1415128890340098, guid: 2b20ff341ddb0db48a6d95bcae121aee,
     type: 2}
-  bulletSpawn: {fileID: 4646019716713720}
+  bulletSpawn: {fileID: 4303865713391752}
 --- !u!114 &114734795990099724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,6 +570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathCamera: {fileID: 1960549617083328, guid: e21927cc3230cd7458d5ba0ddb2df1c7,
+    type: 2}
 --- !u!136 &136273785158263568
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -578,7 +580,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1486960269439844}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

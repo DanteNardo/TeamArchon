@@ -7,26 +7,32 @@ namespace actionPhase
     {
         public GameObject bulletPrefab;
         public Transform bulletSpawn;
+        public float firerate;
         // Use this for initialization
+        private float timer;
         void Start()
         {
-            
+            timer = 0.0f;
         }
 
         // Update is called once per frame
         void Update()
         {
+            timer += Time.deltaTime;
+            if (timer >= 1 / firerate) { 
             var bullet = Instantiate(
                   bulletPrefab,
                   bulletSpawn.position,
                   bulletSpawn.rotation);
-
+                timer = 0.0f;
             // Add velocity to the bullet
 
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * 6;
+           
 
             // Destroy the bullet after 2 seconds
             Destroy(bullet, 2.0f);
+            }
+
         }
     }
 }

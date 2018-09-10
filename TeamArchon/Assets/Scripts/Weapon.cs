@@ -14,6 +14,7 @@ namespace actionPhase
         //bullet prefab
         public GameObject bulletPrefab;
         public Transform bulletSpawn;
+        public float FireRate 
 
 
         void Update()

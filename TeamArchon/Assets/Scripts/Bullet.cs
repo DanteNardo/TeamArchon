@@ -30,16 +30,21 @@ namespace actionPhase
             timer += Time.deltaTime;
         }
 
-        private void OnCollisionEnter(Collision collision)
+
+        void OnTriggerEnter(Collider other)
         {
-            if (timer >= 0.1f)
-            {
-                if (collision.other.tag == "Player")
+            Debug.Log("collision");
+            if (timer >= 0.1f) {
+                GameObject hit = other.gameObject;
+                PlayerStats health = hit.GetComponent<PlayerStats>();
+                if (health != null)
                 {
-                    collision.other.GetComponent<PlayerStats>().Health -= 10.0f;
-                    Debug.Log("HIT!");
+                health.Health -= 10;
                 }
+
+                Destroy(gameObject);
             }
         }
+       
     }
 }

@@ -5,6 +5,7 @@ namespace actionPhase
 {
     public class PlayerStats : MonoBehaviour
     {
+        public GameObject deathCamera;
         private float health;
         // Use this for initialization
         void Start()
@@ -20,6 +21,7 @@ namespace actionPhase
             {
                 Debug.Log("You dead boi");
                 Destroy(gameObject);
+                Instantiate(deathCamera);
             }
         }
 
