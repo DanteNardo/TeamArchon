@@ -21,7 +21,8 @@ public class BoardManager : Singleton<BoardManager> {
     /// <summary>
     /// Initializes the Board data.
     /// </summary>
-    private void Start () {
+    private void Awake() {
+        gameBoard = GetComponent<GameBoard>();
         // Generate the gameobject board
         boardTiles = new GameObject[gameBoard.size, gameBoard.size];
         GenerateBoard();

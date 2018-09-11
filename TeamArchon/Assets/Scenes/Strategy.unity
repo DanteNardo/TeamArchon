@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -122,13 +122,15 @@ GameObject:
   m_Component:
   - component: {fileID: 146234036}
   - component: {fileID: 146234035}
+  - component: {fileID: 146234038}
+  - component: {fileID: 146234037}
   m_Layer: 0
   m_Name: BoardManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &146234035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39fc9bf56af96841804fc3e1737301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardSize: 8
   pieceCount: 1
+  gameBoard: {fileID: 0}
   lightTilePrefab: {fileID: 1650051499942268, guid: 874631d2fa598744eb885bcea0d2a8fa,
     type: 2}
   darkTilePrefab: {fileID: 1651039227364472, guid: 9653b35d281bc884cbae250c4e96d651,
@@ -159,6 +161,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &146234037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 146234034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a9e20bd9d98af4c989ff0b08b8172c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 8
+--- !u!114 &146234038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 146234034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &564867050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &982549805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1140796967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,7 +501,7 @@ MonoBehaviour:
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
   m_NetworkAddress: localhost
-  m_DontDestroyOnLoad: 1
+  m_DontDestroyOnLoad: 0
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
@@ -579,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5e6222c04cc464ba580b6cfb200c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nm: {fileID: 1453843529}
 --- !u!4 &1878091437
 Transform:
   m_ObjectHideFlags: 0

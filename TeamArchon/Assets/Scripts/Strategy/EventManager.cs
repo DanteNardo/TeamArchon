@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// A Singleton that controls the listening and invoking of events in the game.
@@ -10,11 +11,16 @@ public class EventManager : Singleton<EventManager> {
     public Dictionary<string, UnityEvent> EventDictionary { get; private set; }
     #endregion
 
+    public GameObject nm;
+
     #region Methods
     /// <summary>
     /// Instantiates the event dictionary.
     /// </summary>
     private void Start() {
+        
+        SceneManager.LoadScene("NetworkingScene");
+
         if (EventDictionary == null) {
             EventDictionary = new Dictionary<string, UnityEvent>();
         }
