@@ -279,13 +279,13 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750704476559634}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: -1.17
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_LandSound: {fileID: 0}
   bulletPrefab: {fileID: 1415128890340098, guid: 2b20ff341ddb0db48a6d95bcae121aee,
     type: 2}
+  playerPrefab: {fileID: 1750704476559634}
 --- !u!114 &114171322493113516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -559,6 +560,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1415128890340098, guid: 2b20ff341ddb0db48a6d95bcae121aee,
     type: 2}
   bulletSpawn: {fileID: 4303865713391752}
+  FireRate: 0
 --- !u!114 &114734795990099724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,8 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathCamera: {fileID: 1960549617083328, guid: e21927cc3230cd7458d5ba0ddb2df1c7,
-    type: 2}
+  deathCamera: {fileID: 0}
 --- !u!136 &136273785158263568
 CapsuleCollider:
   m_ObjectHideFlags: 1

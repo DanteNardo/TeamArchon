@@ -34,6 +34,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         public GameObject bulletPrefab;
+        public GameObject playerPrefab;
+
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -52,6 +54,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+
+            Debug.Log("test1" + isLocalPlayer);
+            if (!isLocalPlayer)
+            {
+                GetComponentInChildren<Camera>().enabled = false;
+                return;
+            }
+
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -62,11 +72,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
             m_MouseLook.Init(transform, m_Camera.transform);
+
+
         }
 
 
         public override void OnStartLocalPlayer()
         {
+
+            Debug.Log("test2 " + isLocalPlayer);
+
+            if (!isLocalPlayer) { return; }
             GetComponent<MeshRenderer>().material.color = Color.blue;
 
             transform.GetChild(0).GetComponent<Camera>().enabled = true;
@@ -76,7 +92,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
 
-            if (!isLocalPlayer) { return; }
+            if (!isLocalPlayer)
+            {
+
+                return;
+
+            }
 
             RotateView();
             // the jump state needs to read here to make sure it is not missed
@@ -85,13 +106,37 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (this)
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+
+                    //GameObject bullet = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<actionPhase.Weapon>().bulletPrefab;
+
+                    CmdFire();
+
+                }
+            if (Input.GetButtonDown("Fire3"))
             {
 
-                //GameObject bullet = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<actionPhase.Weapon>().bulletPrefab;
+                if (isServer)
+                {
 
-                CmdFire();
+                    Debug.Log(NetworkServer.connections.Count);
+                    GameObject newPlayer = Instantiate<GameObject>(playerPrefab, Vector3.zero, Quaternion.identity);
+                    NetworkIdentity id = GetComponent<NetworkIdentity>();
+                    //Debug.Log(NetworkServer.FindLocalObject(id.netId));
+                    NetworkConnection localConnection;
 
+                    localConnection = NetworkServer.connections[1];
+
+
+
+                    NetworkServer.DestroyPlayersForConnection(localConnection);
+
+                    NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, playerControllerId);
+                    //Destroy(this.gameObject);
+                }
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
