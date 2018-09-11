@@ -279,7 +279,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750704476559634}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_LandSound: {fileID: 0}
   bulletPrefab: {fileID: 1415128890340098, guid: 2b20ff341ddb0db48a6d95bcae121aee,
     type: 2}
+  playerPrefab: {fileID: 1750704476559634}
 --- !u!114 &114171322493113516
 MonoBehaviour:
   m_ObjectHideFlags: 1

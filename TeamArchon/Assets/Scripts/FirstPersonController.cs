@@ -35,6 +35,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         public GameObject bulletPrefab;
+        public GameObject playerPrefab;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -55,6 +56,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+
+            if (!isLocalPlayer)
+            {
+                GetComponentInChildren<Camera>().enabled = false;
+                return;
+            }
+
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -66,7 +74,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
             m_MouseLook.Init(transform, m_Camera.transform);
             m_weapon = gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Weapon>();
-            m_weaponTimer = 1.0f/m_weapon.FireRate;
+            m_weaponTimer = 1.0f / m_weapon.FireRate;
         }
 
 
@@ -90,14 +98,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
-            if (Input.GetButtonDown("Fire1")&&m_weaponTimer>=1.0f/m_weapon.FireRate)
+            if (Input.GetButtonDown("Fire1") && m_weaponTimer >= 1.0f / m_weapon.FireRate)
             {
 
                 //GameObject bullet = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<actionPhase.Weapon>().bulletPrefab;
-                
+
                 CmdFire();
                 m_weaponTimer = 0.0f;
             }
+
+            if (Input.GetButtonDown("Fire3"))
+            {
+
+                if (isServer)
+                {
+                    Debug.Log(NetworkServer.connections.Count);
+
+                    GameObject newPlayer = Instantiate<GameObject>(playerPrefab, Vector3.zero, Quaternion.identity);
+                    NetworkIdentity id = GetComponent<NetworkIdentity>();
+                    //Debug.Log(NetworkServer.FindLocalObject(id.netId));
+                    NetworkConnection localConnection;
+                    localConnection = NetworkServer.connections[1];
+
+                    
+                    //NetworkServer.DestroyPlayersForConnection(localConnection);
+                    NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, playerControllerId);
+                    //Destroy(this.gameObject);
+                }
+            }
+
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
