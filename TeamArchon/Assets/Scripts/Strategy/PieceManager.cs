@@ -29,7 +29,8 @@ public class PieceManager : NetworkBehaviour {
             var instance = Instantiate(prefabs[i], Vector3.zero, Quaternion.identity);
             Piece piece = instance.GetComponent<Piece>();
             pieces[i] = piece;
-            BoardManager.Instance.Place(piece);
+            BoardManager.Instance.gameBoard.Place(piece);
+            NetworkServer.Spawn(instance);
         }
     }
     #endregion

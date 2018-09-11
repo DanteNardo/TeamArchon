@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 23249252145258762}
   - component: {fileID: 65753169212496366}
   - component: {fileID: 114799697797992598}
+  - component: {fileID: 114553661370822644}
+  - component: {fileID: 114081249302599088}
   m_Layer: 0
   m_Name: DarkWall
   m_TagString: Untagged
@@ -97,6 +99,59 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114081249302599088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1343552552093904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114553661370822644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1343552552093904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 102
+    i1: 153
+    i2: 15
+    i3: 68
+    i4: 232
+    i5: 177
+    i6: 242
+    i7: 180
+    i8: 40
+    i9: 102
+    i10: 52
+    i11: 96
+    i12: 178
+    i13: 236
+    i14: 49
+    i15: 215
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114799697797992598
 MonoBehaviour:
   m_ObjectHideFlags: 1

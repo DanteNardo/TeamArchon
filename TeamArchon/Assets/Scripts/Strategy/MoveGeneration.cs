@@ -9,11 +9,11 @@ public class MoveGeneration {
     /// </summary>
     public void GenerateMoves() {
         // Iterate through the board
-        for (int x = 0; x < BoardManager.Instance.boardSize; x++) {
-            for (int z = 0; z < BoardManager.Instance.boardSize; z++) {
+        for (int x = 0; x < BoardManager.Instance.Size; x++) {
+            for (int z = 0; z < BoardManager.Instance.Size; z++) {
 
                 // Select piece, if none, go to next square
-                Piece p = BoardManager.Instance.gameBoard[x, z];
+                Piece p = BoardManager.Instance.Board[x, z];
                 if (p == null) continue;
 
                 // If the piece is a minotaur and it is not their turn, do not generate moves
@@ -46,25 +46,25 @@ public class MoveGeneration {
     public static Move GenerateMove(Piece piece, EDirection direction) {
         switch (direction) {
             case EDirection.North:
-                if (BoardManager.Instance.SquareExists(piece.X, piece.Z + 1)) {
+                if (BoardManager.Instance.gameBoard.SquareExists(piece.X, piece.Z + 1)) {
                     return new Move(piece.X, piece.Z, piece.X, piece.Z + 1);
                 }
                 break;
 
             case EDirection.South:
-                if (BoardManager.Instance.SquareExists(piece.X, piece.Z - 1)) {
+                if (BoardManager.Instance.gameBoard.SquareExists(piece.X, piece.Z - 1)) {
                     return new Move(piece.X, piece.Z, piece.X, piece.Z - 1);
                 }
                 break;
 
             case EDirection.East:
-                if (BoardManager.Instance.SquareExists(piece.X + 1, piece.Z)) {
+                if (BoardManager.Instance.gameBoard.SquareExists(piece.X + 1, piece.Z)) {
                     return new Move(piece.X, piece.Z, piece.X + 1, piece.Z);
                 }
                 break;
 
             case EDirection.West:
-                if (BoardManager.Instance.SquareExists(piece.X - 1, piece.Z)) {
+                if (BoardManager.Instance.gameBoard.SquareExists(piece.X - 1, piece.Z)) {
                     return new Move(piece.X, piece.Z, piece.X - 1, piece.Z);
                 }
                 break;

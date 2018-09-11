@@ -52,7 +52,7 @@ public class Rules : MonoBehaviour {
     /// <returns>Tre if the Wall move is valid, else false</returns>
     private bool ValidWallMove(EPieceColor color, Move m) {
         // Check to make sure the space isn't occupied
-        return BoardManager.Instance.gameBoard[m.TX, m.TZ] == null;
+        return BoardManager.Instance.Board[m.TX, m.TZ] == null;
     }
 
     /// <summary>
@@ -62,10 +62,10 @@ public class Rules : MonoBehaviour {
     /// <returns>True if the piece is surrounded, else false</returns>
     private bool Surrounded(Piece piece) {
         // Check all four movement possibilities
-        return BoardManager.Instance.PieceAt(piece.X, piece.Z, EDirection.North) &&
-               BoardManager.Instance.PieceAt(piece.X, piece.Z, EDirection.South) &&
-               BoardManager.Instance.PieceAt(piece.X, piece.Z, EDirection.East) &&
-               BoardManager.Instance.PieceAt(piece.X, piece.Z, EDirection.West);
+        return BoardManager.Instance.gameBoard.PieceAt(piece.X, piece.Z, EDirection.North) &&
+               BoardManager.Instance.gameBoard.PieceAt(piece.X, piece.Z, EDirection.South) &&
+               BoardManager.Instance.gameBoard.PieceAt(piece.X, piece.Z, EDirection.East) &&
+               BoardManager.Instance.gameBoard.PieceAt(piece.X, piece.Z, EDirection.West);
     }
     #endregion
 }

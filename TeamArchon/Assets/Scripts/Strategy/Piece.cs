@@ -75,7 +75,7 @@ public class Piece : MonoBehaviour {
 		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
             if (Rules.Instance.ValidMove(pieceType, pieceColor, m)) {
-                BoardManager.Instance.MovePiece(m);
+                BoardManager.Instance.gameBoard.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
             InputManager.Instance.MoveAttemptMade();

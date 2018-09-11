@@ -32,18 +32,16 @@ public class Game : MonoBehaviour {
     private int currentPlayer = 0;
     private int movedWallCount = 0;
 
+    public MoveGeneration moveGenerator;
+
     private UnityAction wallMoved;
-    private UnityAction gladiatorMoved;
-    private UnityAction minotaurMoved;
     #endregion
 
     #region Properties
     public EGameState GameState { get; private set; }
     public EGamePhase GamePhase { get; private set; }
     public ETurnState TurnState { get; private set; }
-    private bool WallsMoved { get; set; } = false;
-    private bool MinotaurMoved { get; set; } = false;
-    private bool GladiatorMoved { get; set; } = false;
+    private bool WallsMoved { get; set; }
     #endregion
 
     #region Methods
@@ -52,16 +50,20 @@ public class Game : MonoBehaviour {
     /// Initializes the events.
     /// </summary>
     private void Start() {
+        // Create MoveGenerator
+        moveGenerator = new MoveGeneration();
+
+        // Generate movement
+        moveGenerator.GenerateMoves();
 
         // Create piece movement listeners
         wallMoved = new UnityAction(OnWallsMoved);
-        gladiatorMoved = new UnityAction(OnGladiatorMoved);
-        minotaurMoved = new UnityAction(OnMinotaurMoved);
 
         // Start listening to piece movement listeners
         EventManager.Instance.StartListening("WallMoved", wallMoved);
-        EventManager.Instance.StartListening("GladiatorMoved", gladiatorMoved);
-        EventManager.Instance.StartListening("MinotaurMoved", minotaurMoved);
+
+        // Set inital bools to false
+        WallsMoved = false;
     }
 
     /// <summary>
@@ -82,19 +84,16 @@ public class Game : MonoBehaviour {
     /// </summary>
     /// <returns>True if turn is over, else false</returns>
     private bool TurnOver() {
-        return WallsMoved && MinotaurMoved && GladiatorMoved;
+        return WallsMoved;
     }
 
     /// <summary>
     /// Iterates the entire game to the next turn.
     /// </summary>
     public void NextTurn() {
-
         // Reset movement booleans
         movedWallCount = 0;
         WallsMoved = false;
-        MinotaurMoved = false;
-        GladiatorMoved = false;
 
         // Reset pieces' states
         BoardManager.Instance.ResetPieceStates();
@@ -118,20 +117,7 @@ public class Game : MonoBehaviour {
         if (movedWallCount == 2) {
             WallsMoved = true;
         }
-    }
-
-    /// <summary>
-    /// Called on gladiator move events.
-    /// </summary>
-    private void OnGladiatorMoved() {
-        GladiatorMoved = true;
-    }
-
-    /// <summary>
-    /// Called on minotaur move events.
-    /// </summary>
-    private void OnMinotaurMoved() {
-        MinotaurMoved = true;
+        moveGenerator.GenerateMoves();
     }
     #endregion
 }
