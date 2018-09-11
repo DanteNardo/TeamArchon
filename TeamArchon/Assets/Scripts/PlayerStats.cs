@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 namespace actionPhase
 {
-    public class PlayerStats : MonoBehaviour
+    public class PlayerStats : NetworkBehaviour
     {
         public GameObject deathCamera;
         private float health;
@@ -16,12 +17,14 @@ namespace actionPhase
         // Update is called once per frame
         void Update()
         {
-            
-            if (health <= 0)
+            if (isLocalPlayer)
             {
-                Debug.Log("You dead boi");
-                Destroy(gameObject);
-                Instantiate(deathCamera);
+                if (health <= 0)
+                {
+
+                    Destroy(gameObject);
+                    Instantiate(deathCamera);
+                }
             }
         }
 
