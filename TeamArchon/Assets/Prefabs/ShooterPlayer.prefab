@@ -556,6 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8a6236cc6abbb4c9de5d5faba8369c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: 0
   bulletPrefab: {fileID: 1415128890340098, guid: 2b20ff341ddb0db48a6d95bcae121aee,
     type: 2}
   bulletSpawn: {fileID: 4303865713391752}
@@ -570,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathCamera: {fileID: 1960549617083328, guid: e21927cc3230cd7458d5ba0ddb2df1c7,
+  deathCamera: {fileID: 1851491309584878, guid: 74f40aa764d897245bdec8e853e5da26,
     type: 2}
 --- !u!136 &136273785158263568
 CapsuleCollider:

@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using actionPhase;
 
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -48,6 +49,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private Weapon m_weapon;
+        private float m_weaponTimer;
 
         // Use this for initialization
         private void Start()
@@ -62,6 +65,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
             m_MouseLook.Init(transform, m_Camera.transform);
+            m_weapon = gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Weapon>();
+            m_weaponTimer = 1.0f/m_weapon.FireRate;
         }
 
 
@@ -85,13 +90,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1")&&m_weaponTimer>=1.0f/m_weapon.FireRate)
             {
 
                 //GameObject bullet = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<actionPhase.Weapon>().bulletPrefab;
-
+                
                 CmdFire();
-
+                m_weaponTimer = 0.0f;
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -107,6 +112,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            m_weaponTimer += Time.deltaTime;
         }
 
 

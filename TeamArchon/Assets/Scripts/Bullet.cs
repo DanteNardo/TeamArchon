@@ -33,7 +33,7 @@ namespace actionPhase
 
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log("collision");
+            
             if (timer >= 0.1f) {
                 GameObject hit = other.gameObject;
                 PlayerStats health = hit.GetComponent<PlayerStats>();
