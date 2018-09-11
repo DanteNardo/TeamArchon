@@ -9,7 +9,7 @@ namespace actionPhase
 
         //enumerator for typ of weapons
         //unsued
-        public enum weaponType { Pistol };
+        public enum weaponType { Pistol, BoltRifle, SubMachineGun };
         public weaponType weapon;
 
         //bullet prefab
@@ -26,6 +26,15 @@ namespace actionPhase
             {
                 fireRate = 2.0f;
                 weaponDamage = 10.0f;
+            }else if(weapon == weaponType.BoltRifle)
+            {
+                fireRate = 1.0f;
+                weaponDamage = 20.0f;
+            }
+            else if(weapon == weaponType.SubMachineGun)
+            {
+                fireRate = 2.0f;
+                weaponDamage = 5.0f;
             }
             timer = 1.0f / fireRate;
         }
