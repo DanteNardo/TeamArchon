@@ -77,6 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_weaponTimer = 1.0f / m_weapon.FireRate;
         }
 
+      
 
         public override void OnStartLocalPlayer()
         {
@@ -110,19 +111,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (Input.GetButtonDown("Fire3"))
             {
 
-                if (isServer)
+                if (false)
                 {
                     Debug.Log(NetworkServer.connections.Count);
 
                     GameObject newPlayer = Instantiate<GameObject>(playerPrefab, Vector3.zero, Quaternion.identity);
                     NetworkIdentity id = GetComponent<NetworkIdentity>();
                     //Debug.Log(NetworkServer.FindLocalObject(id.netId));
-                    NetworkConnection localConnection;
-                    localConnection = NetworkServer.connections[1];
 
-                    
-                    //NetworkServer.DestroyPlayersForConnection(localConnection);
-                    NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, playerControllerId);
+                 
                     //Destroy(this.gameObject);
                 }
             }

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4209201104615162}
   - component: {fileID: 114052451323101650}
   - component: {fileID: 114630746547411300}
+  - component: {fileID: 114633819368750896}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -139,3 +140,16 @@ MonoBehaviour:
   showGUI: 1
   offsetX: 0
   offsetY: 0
+--- !u!114 &114633819368750896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432099329616356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b30ccc6c4202c4685f877ffcb3799e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooterPlayerPrefab: {fileID: 1750704476559634, guid: 8b78776c96a7b8e4b8b78d3b1d13b25d,
+    type: 2}
