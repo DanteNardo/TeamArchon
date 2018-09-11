@@ -8,7 +8,7 @@ public class GameBoard : NetworkBehaviour {
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         Instantiate();
 	}
 

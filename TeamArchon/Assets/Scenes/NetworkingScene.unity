@@ -390,6 +390,11 @@ Prefab:
       propertyPath: m_PlayerSpawnMethod
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114052451323101650, guid: c78a6021341b01e49b4a1608dce80168,
+        type: 2}
+      propertyPath: m_DontDestroyOnLoad
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c78a6021341b01e49b4a1608dce80168, type: 2}
   m_IsPrefabAsset: 0

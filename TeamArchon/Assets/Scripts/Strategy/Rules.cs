@@ -9,7 +9,7 @@ public class Rules : MonoBehaviour {
     #endregion
 
     #region Properties
-    public bool MinotaurTurn { get; private set; } = true;
+    public bool MinotaurTurn { get; private set; }
     #endregion
 
     #region Methods
