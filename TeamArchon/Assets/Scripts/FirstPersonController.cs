@@ -323,8 +323,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Create the Bullet from the Bullet Prefab
             var bullet = Instantiate(
                 bulletPrefab,
-                transform.position + transform.forward,
-                transform.GetChild(0).GetChild(0).transform.rotation);
+                transform.GetChild(0).GetChild(0).GetChild(0).position,
+                transform.GetChild(0).GetChild(0).GetChild(0).rotation);
 
             // Add velocity to the bullet
 
