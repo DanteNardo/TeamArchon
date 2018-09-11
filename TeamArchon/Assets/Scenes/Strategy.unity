@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 146234036}
   - component: {fileID: 146234035}
   m_Layer: 0
-  m_Name: Board
+  m_Name: BoardManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

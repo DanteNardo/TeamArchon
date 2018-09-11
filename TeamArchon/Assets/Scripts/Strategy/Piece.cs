@@ -74,7 +74,7 @@ public class Piece : MonoBehaviour {
     private void Update() {
 		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
-            if (Rules.Instance.ValidMove(pieceType, pieceColor, m) && HasMove(m)) {
+            if (Rules.Instance.ValidMove(pieceType, pieceColor, m)) {
                 BoardManager.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
@@ -86,7 +86,6 @@ public class Piece : MonoBehaviour {
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
     private void OnMouseDown() {
-
 		// Select the piece if it is possible
 		if (!selected && pieceState == EPieceState.Unmoved) {
             selected = true;
@@ -108,7 +107,6 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data</param>
     /// <returns>An Enumerator for the coroutine</returns>
     private IEnumerator Moving(Move m) {
-
 		// Initialize variables and set moving to true
 		Vector3 from = transform.position;
 		Vector3 to = NextPosition(m);

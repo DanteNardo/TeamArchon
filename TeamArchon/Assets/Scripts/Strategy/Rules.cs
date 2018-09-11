@@ -51,28 +51,8 @@ public class Rules : MonoBehaviour {
     /// <param name="m">The move data</param>
     /// <returns>Tre if the Wall move is valid, else false</returns>
     private bool ValidWallMove(EPieceColor color, Move m) {
-
-        // Wall movements are valid if and only if:
-        // 1. The square is not already occupied
-        // 2. The movement wouldn't cause the wall to touch two other walls of the same color
-
         // Check to make sure the space isn't occupied
-        if (BoardManager.Instance.gameBoard[m.TX, m.TZ] != null)
-            return false;
-
-        // Count the total amount of neighbors
-        int count = 0;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.Northeast)) count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.Northwest)) count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.North))     count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.Southeast)) count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.Southwest)) count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.South))     count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.East))      count++;
-        if (BoardManager.Instance.PieceAt(m.TX, m.TZ, EPieceType.Wall, color, EDirection.West))      count++;
-
-        // Return false if 2 or more neighbors would exist
-        return count >= 2 ? false : true;
+        return BoardManager.Instance.gameBoard[m.TX, m.TZ] == null;
     }
 
     /// <summary>

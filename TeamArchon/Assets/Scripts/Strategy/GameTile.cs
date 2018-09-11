@@ -15,7 +15,11 @@ public class GameTile : MonoBehaviour {
             EDirection direction = DetermineDirection();
 
             // Generate potential move and save it in InputManager
-            InputManager.Instance.AttemptMove(MoveGeneration.GenerateMove(InputManager.Instance.Selected, direction));
+            Debug.Log("Selected: " + InputManager.Instance.Selected);
+            Debug.Log("Direction: " + direction);
+            var move = MoveGeneration.GenerateMove(InputManager.Instance.Selected, direction);
+            Debug.Log("Invalid Move?: " + move.Invalid);
+            InputManager.Instance.AttemptMove(move);
         }
     }
 
