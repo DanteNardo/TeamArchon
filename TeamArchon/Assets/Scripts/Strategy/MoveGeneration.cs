@@ -46,25 +46,25 @@ public class MoveGeneration {
     public static Move GenerateMove(Piece piece, EDirection direction) {
         switch (direction) {
             case EDirection.North:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X, piece.Z + 1)) {
+                if (BoardManager.Instance.gameBoard.TileExists(piece.X, piece.Z + 1)) {
                     return new Move(piece.X, piece.Z, piece.X, piece.Z + 1);
                 }
                 break;
 
             case EDirection.South:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X, piece.Z - 1)) {
+                if (BoardManager.Instance.gameBoard.TileExists(piece.X, piece.Z - 1)) {
                     return new Move(piece.X, piece.Z, piece.X, piece.Z - 1);
                 }
                 break;
 
             case EDirection.East:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X + 1, piece.Z)) {
+                if (BoardManager.Instance.gameBoard.TileExists(piece.X + 1, piece.Z)) {
                     return new Move(piece.X, piece.Z, piece.X + 1, piece.Z);
                 }
                 break;
 
             case EDirection.West:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X - 1, piece.Z)) {
+                if (BoardManager.Instance.gameBoard.TileExists(piece.X - 1, piece.Z)) {
                     return new Move(piece.X, piece.Z, piece.X - 1, piece.Z);
                 }
                 break;

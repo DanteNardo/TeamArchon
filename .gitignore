@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/TeamArchon/.vs/TeamArchon/v15
+/TeamArchon/.vscode
+/TeamArchon/Build
+/TeamArchon/Library
+/TeamArchon/TeamArchon.sln
+/TeamArchon/obj/Debug
+/TeamArchon/Assembly-CSharp.csproj
+/TeamArchon/Assembly-CSharp-firstpass.csproj
+/TeamArchon/Assembly-CSharp-Editor-firstpass.csproj
