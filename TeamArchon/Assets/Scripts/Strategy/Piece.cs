@@ -4,10 +4,17 @@ using UnityEngine;
 
 #region Piece Enumerators
 public enum EPieceType {
-    Gladiator,
-    Minotaur,
-    Wall,
-    None
+    None,
+    LScout,
+    LShotgun,
+    LSniper,
+    LGrenade,
+    LMachineGun,
+    DScout,
+    DShotgun,
+    DSniper,
+    DGrenade,
+    DMachineGun
 };
 public enum EPieceState {
 	Unmoved,
@@ -75,7 +82,7 @@ public class Piece : MonoBehaviour {
 		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
             if (Rules.Instance.ValidMove(pieceType, pieceColor, m)) {
-                BoardManager.Instance.gameBoard.MovePiece(m);
+                GameBoard.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
             InputManager.Instance.MoveAttemptMade();
@@ -139,7 +146,7 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data</param>
     /// <returns>The world position</returns>
     private Vector3 FromPosition(Move m) {
-        return new Vector3(m.FX, transform.position.y, m.FZ);
+        return new Vector3(Board.Col(m.From), transform.position.y, Board.Row(m.From));
     }
 
     /// <summary>
@@ -148,7 +155,7 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data</param>
     /// <returns>The world position</returns>
     private Vector3 NextPosition(Move m) {
-        return new Vector3(m.TX, transform.position.y, m.TZ);
+        return new Vector3(Board.Col(m.To), transform.position.y, Board.Row(m.To));
 	}
 
     /// <summary>
@@ -158,8 +165,7 @@ public class Piece : MonoBehaviour {
     /// <returns>True if contained, else false</returns>
     private bool HasMove(Move m) {
         foreach (var move in Moves) {
-            if (m.FX == move.FX && m.FZ == move.FZ && 
-                m.TX == move.TX && m.TZ == move.TZ) {
+            if (m.From == move.From && m.To == move.To) {
                 return true;
             }
         }
