@@ -21,11 +21,6 @@ public enum EPieceState {
 	Moved,
     None
 };
-public enum EPieceColor {
-    White,
-    Black,
-    None
-};
 public enum EDirection {
 	North,
 	South,
@@ -43,27 +38,31 @@ public enum EDirection {
 /// A parent to every possible piece type. Implements generic piece abilities.
 /// </summary>
 public class Piece : MonoBehaviour {
-
 	#region Piece Members
 	public Material material;
 	public Color defaultColor;
 	public Color selectedColor;
     public EPieceType pieceType;
 	public EPieceState pieceState;
-    public EPieceColor pieceColor;
 	public EDirection direction;
 	public bool selected;
+    public int speed = 3;
 	private bool moving;
 	#endregion
 
 	#region Piece Properties
 	public int X { get; private set; }
 	public int Z { get; private set; }
+    public int Index {
+        get {
+            return Board.IndexFromRowAndCol(X, Z);
+        }
+    }
+    public int Speed { get { return speed; } }
     public List<Move> Moves { get; private set; }
     #endregion
 
     #region Piece Methods
-
     /// <summary>
     /// Get components and set initial position
     /// </summary>
@@ -81,7 +80,7 @@ public class Piece : MonoBehaviour {
     private void Update() {
 		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
-            if (Rules.Instance.ValidMove(pieceType, pieceColor, m)) {
+            if (Rules.Instance.ValidMove(pieceType, m)) {
                 GameBoard.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
@@ -172,6 +171,43 @@ public class Piece : MonoBehaviour {
 
         // Default return
         return false;
+    }
+
+    /// <summary>
+    /// Determines if a piece is light from its type.
+    /// </summary>
+    /// <param name="type">The type of the piece</param>
+    /// <returns>True or false</returns>
+    public static bool IsLight(EPieceType type) {
+        return type == EPieceType.LSniper ||
+               type == EPieceType.LShotgun ||
+               type == EPieceType.LScout ||
+               type == EPieceType.LMachineGun ||
+               type == EPieceType.LGrenade;
+    }
+
+    /// <summary>
+    /// Determines if a piece is dark from its type.
+    /// </summary>
+    /// <param name="type">The type of the piece</param>
+    /// <returns>True or false</returns>
+    public static bool IsDark(EPieceType type) {
+        return type == EPieceType.DSniper ||
+               type == EPieceType.DShotgun ||
+               type == EPieceType.DScout ||
+               type == EPieceType.DMachineGun ||
+               type == EPieceType.DGrenade;
+    }
+
+    /// <summary>
+    /// Determines if two pieces are opposite colors.
+    /// </summary>
+    /// <param name="type1">The type of the first piece</param>
+    /// <param name="type2">The type of the second piece</param>
+    /// <returns>True or false</returns>
+    public static bool IsOtherColor(EPieceType type1, EPieceType type2) {
+        return (IsLight(type1) && IsDark(type2)) ||
+               (IsDark(type1) && IsLight(type2));
     }
 	#endregion
 }

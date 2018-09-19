@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 /// <summary>
 /// Manages a specific set of pieces based on given input.
 /// </summary>
-public class PieceManager : NetworkBehaviour {
+public class SquadManager : NetworkBehaviour {
     #region Members
     public GameObject[] prefabs;
     private GameObject[] pieceObjects;

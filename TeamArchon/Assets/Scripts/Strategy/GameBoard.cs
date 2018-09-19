@@ -29,6 +29,18 @@ public class GameBoard : Singleton<GameBoard> {
 	public void MovePiece(Move move) {
 		board.MovePiece(move);
 	}
-	#endregion
-	#endregion
+
+    public bool PieceAt(int index) {
+        return board.PieceAt(index);
+    }
+
+    public bool PieceAt(int index, EDirection direction) {
+        return board.PieceAt(index, direction);
+    }
+
+    public bool PieceAt(int index, EPieceType pieceType, EDirection direction) {
+        return board.PieceAt(index, pieceType, direction);
+    }
+    #endregion
+    #endregion
 }
