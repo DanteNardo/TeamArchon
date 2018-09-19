@@ -1,4 +1,5 @@
-﻿using UnityEngine.Networking;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
 public class Board : NetworkBehaviour {
     #region Members
@@ -10,7 +11,7 @@ public class Board : NetworkBehaviour {
     /// from an index in the list. Every variable in the list is an
     /// enumerator that has been cast to an integer.
     /// </summary>
-    SyncListInt board;
+    SyncListInt board = new SyncListInt();
 
     /// <summary>
     /// This is an indexer that allows people to use brackets on this
@@ -26,7 +27,7 @@ public class Board : NetworkBehaviour {
     /// <summary>
     /// Creates important information for initialization.
     /// </summary>
-    void Awake () {
+    void Start () {
         Instantiate();
 	}
 
@@ -34,7 +35,9 @@ public class Board : NetworkBehaviour {
     /// Instantiates all of the game board's pieces.
     /// </summary>
     private void Instantiate() {
-        board = new SyncListInt();
+        Debug.Log(board);
+        Debug.Log(board.Count);
+        Debug.Break();
         for (int i = 0; i < Size*Size; i++) {
             board.Add((int)EPieceType.None);
         }

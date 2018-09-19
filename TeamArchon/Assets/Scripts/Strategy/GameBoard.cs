@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// The purpose of this class is to effectively act as
 /// a Singleton wrapper around the Board component with 
 /// the same indexer properties.
