@@ -26,15 +26,13 @@ public enum ETurnState {
 /// <summary>
 /// A component that handles the game state over time.
 /// </summary>
-public class Game : MonoBehaviour {
+public class StrategyGame : Singleton<StrategyGame> {
     #region Members
     public int playerCount = 2;
     private int currentPlayer = 0;
     private int movedPieceCount = 0;
     private List<Player> players;
     private List<Piece> pieces;
-
-    public MoveGeneration moveGenerator;
 
     private UnityAction pieceMoved;
     #endregion
@@ -43,6 +41,8 @@ public class Game : MonoBehaviour {
     public EGameState GameState { get; private set; }
     public EGamePhase GamePhase { get; private set; }
     public ETurnState TurnState { get; private set; }
+    public List<Player> Players { get { return players; } }
+    public List<Piece> Pieces { get { return pieces; } }
     #endregion
 
     #region Methods
@@ -55,9 +55,6 @@ public class Game : MonoBehaviour {
 
         // Create piece list
         pieces = new List<Piece>();
-
-        // Create MoveGenerator
-        moveGenerator = new MoveGeneration();
 
         // Create piece movement listeners
         pieceMoved = new UnityAction(OnPieceMoved);
@@ -100,7 +97,7 @@ public class Game : MonoBehaviour {
     /// </summary>
     private void OnPieceMoved() {
         movedPieceCount++;
-        moveGenerator.GenerateMoves(pieces);
+        MoveGeneration.GenerateMoves(pieces);
         NextTurn();
     }
     #endregion

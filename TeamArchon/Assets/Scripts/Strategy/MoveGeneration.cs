@@ -4,13 +4,13 @@ using UnityEngine;
 /// <summary>
 /// Contains the necessary methods to generate move objects for every piece on the board.
 /// </summary>
-public class MoveGeneration {
+public static class MoveGeneration {
     #region Methods
     /// <summary>
     /// Generates all of the possible moves in the current board position.
     /// Moves are stored in each piece.
     /// </summary>
-    public void GenerateMoves(List<Piece> pieces) {
+    public static void GenerateMoves(List<Piece> pieces) {
         // Iterate through the board
         for (int i = 0; i < pieces.Count; i++) {
             // Select piece, if null, go to next piece
@@ -42,7 +42,7 @@ public class MoveGeneration {
     /// </summary>
     /// <param name="piece"></param>
     /// <returns></returns>
-    public List<Move> GenerateMoves(Piece piece) {
+    public static List<Move> GenerateMoves(Piece piece) {
         // Set up variables for movement depth
         int steps = 0;
         int totalSteps = piece.Speed;
@@ -53,7 +53,23 @@ public class MoveGeneration {
         List<int> cells = new List<int>();
         List<int> nextCells = new List<int>();
         int cc = start;
-        cells.Add(cc);
+
+        // Next row
+        if (Board.TileExists(cc + Board.Size)) {
+            cells.Add(cc + Board.Size);
+        }
+        // Previous row
+        if (Board.TileExists(cc - Board.Size)) {
+            cells.Add(cc - Board.Size);
+        }
+        // Next column
+        if (Board.TileExists(cc + 1)) {
+            cells.Add(cc + 1);
+        }
+        // Previous column
+        if (Board.TileExists(cc - 1)) {
+            cells.Add(cc - 1);
+        }
 
         // Keep stepping until we have completed every option
         while (steps < totalSteps) {
@@ -62,15 +78,21 @@ public class MoveGeneration {
                 cc = cells[Random.Range(0, cells.Count)];
             }
             else cc = cells[0];
+
+            Debug.Log("HIT");
             
             // If the square contains a piece of the other color,
             // add the valid move, but do not move through it
             if (Piece.IsOtherColor(piece.pieceType, GameBoard.Instance[cc])) {
                 moves.Add(new Move(start, cc));
+                Debug.Log("Move:");
+                Debug.Log(moves[moves.Count-1]);
             }
             // Add this cell's neighbors to continue searching for possible moves
             else if (!GameBoard.Instance.PieceAt(cc) && cc != start) {
                 moves.Add(new Move(start, cc));
+                Debug.Log("Move:");
+                Debug.Log(moves[moves.Count-1]);
 
                 // Next row
                 if (Board.TileExists(cc + Board.Size)) {
@@ -96,8 +118,9 @@ public class MoveGeneration {
             // Go to the next list of cells, update steps and weight
             if (cells.Count == 0) {
                 // If there aren't any more cells, break out
-                if (nextCells.Count == 0)
+                if (nextCells.Count == 0) {
                     return moves;
+                }
                 steps++;
 
                 // Set new cells list and continue iterating

@@ -24,6 +24,8 @@ public class GameBoard : Singleton<GameBoard> {
 	#region Encapsulation Of Board Methods
 	public void PlacePiece(Piece piece) {
 		board.PlacePiece(piece);
+		StrategyGame.Instance.Pieces.Add(piece);
+		MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
 	}
 
 	public void MovePiece(Move move) {

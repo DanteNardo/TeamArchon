@@ -66,11 +66,11 @@ public class Piece : MonoBehaviour {
     /// <summary>
     /// Get components and set initial position
     /// </summary>
-    private void Start() {
+    private void Awake() {
         Moves = new List<Move>();
 		material = GetComponent<MeshRenderer>().material;
         X = Mathf.FloorToInt(transform.position.x);
-		Z = Mathf.FloorToInt(transform.position.y);
+		Z = Mathf.FloorToInt(transform.position.z);
 		pieceState = EPieceState.Unmoved;
 	}
 
@@ -80,7 +80,7 @@ public class Piece : MonoBehaviour {
     private void Update() {
 		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
-            if (Rules.Instance.ValidMove(pieceType, m)) {
+            if (Rules.Instance.ValidMove(pieceType, m) && HasMove(m)) {
                 GameBoard.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
@@ -163,7 +163,9 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data for comparison</param>
     /// <returns>True if contained, else false</returns>
     private bool HasMove(Move m) {
+        Debug.Log("Moves:");
         foreach (var move in Moves) {
+            Debug.Log(move);
             if (m.From == move.From && m.To == move.To) {
                 return true;
             }

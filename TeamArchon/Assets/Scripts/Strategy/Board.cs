@@ -35,9 +35,6 @@ public class Board : NetworkBehaviour {
     /// Instantiates all of the game board's pieces.
     /// </summary>
     private void Instantiate() {
-        Debug.Log(board);
-        Debug.Log(board.Count);
-        Debug.Break();
         for (int i = 0; i < Size*Size; i++) {
             board.Add((int)EPieceType.None);
         }

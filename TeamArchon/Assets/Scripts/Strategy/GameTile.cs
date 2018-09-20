@@ -11,8 +11,8 @@ public class GameTile : MonoBehaviour {
     /// Determines starting row and column.
     /// </summary>
     private void Start() {
-        Row = (int)transform.position.z;
-        Col = (int)transform.position.x;
+        Row = Mathf.FloorToInt(transform.position.z);
+		Col = Mathf.FloorToInt(transform.position.x);
     }
 
     /// <summary>
