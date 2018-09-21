@@ -16,7 +16,14 @@ public class SquadManager : NetworkBehaviour {
     /// Initializes important variables.
     /// </summary>
     private void Start() {
-        //CmdInstantiatePieces();
+        //Debug.Log(gameObject.name);
+        if (isLocalPlayer)
+        {
+            gameObject.name = "localController";
+            Debug.Log(transform.childCount);
+            CmdInstantiatePieces();
+        }
+       
     }
 
     /// <summary>
@@ -32,13 +39,30 @@ public class SquadManager : NetworkBehaviour {
             pieces[i] = piece;
             GameBoard.Instance.PlacePiece(piece);
             NetworkServer.Spawn(instance);
-            instance.transform.parent = transform;
+
+            RpcSetChild(this.gameObject, instance);
+            //instance.transform.parent = transform;
         }
     }
+
+    [ClientRpc]
+    public void RpcSetChild(GameObject parrent, GameObject child)
+    {
+        
+        if (child.transform.parent != parrent.transform)
+        {
+            child.transform.parent = parrent.transform;
+        }
+        
+    }
+
+    
 
     public bool checkLocalPlayer()
     {
         return isLocalPlayer;
     }
+
+    
     #endregion
 }

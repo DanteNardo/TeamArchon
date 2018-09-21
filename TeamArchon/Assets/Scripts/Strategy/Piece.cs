@@ -94,13 +94,17 @@ public class Piece : NetworkBehaviour {
     /// </summary>
     private void OnMouseDown() {
 
+
+
         if (!transform.parent.GetComponent<SquadManager>().checkLocalPlayer())
         {
             return;
         }
 
-		// Select the piece if it is possible
-		if (!selected && pieceState == EPieceState.Unmoved) {
+        
+
+        // Select the piece if it is possible
+        if (!selected && pieceState == EPieceState.Unmoved) {
             selected = true;
             material.color = selectedColor;
             InputManager.Instance.Selected = this;
