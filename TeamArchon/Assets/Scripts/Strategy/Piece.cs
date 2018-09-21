@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 #region Piece Enumerators
 public enum EPieceType {
@@ -37,7 +38,7 @@ public enum EDirection {
 /// <summary>
 /// A parent to every possible piece type. Implements generic piece abilities.
 /// </summary>
-public class Piece : MonoBehaviour {
+public class Piece : NetworkBehaviour {
 	#region Piece Members
 	public Material material;
 	public Color defaultColor;
@@ -92,6 +93,12 @@ public class Piece : MonoBehaviour {
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
     private void OnMouseDown() {
+
+        if (!transform.parent.GetComponent<SquadManager>().checkLocalPlayer())
+        {
+            return;
+        }
+
 		// Select the piece if it is possible
 		if (!selected && pieceState == EPieceState.Unmoved) {
             selected = true;
