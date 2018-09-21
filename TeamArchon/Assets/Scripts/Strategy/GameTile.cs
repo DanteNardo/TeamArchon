@@ -1,8 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameTile : MonoBehaviour {
+    #region Properties
+    public int Row { get; private set; }
+    public int Col { get; private set; }
+    #endregion
+
+    #region Methods
+    /// <summary>
+    /// Determines starting row and column.
+    /// </summary>
+    private void Start() {
+        Row = Mathf.FloorToInt(transform.position.z);
+		Col = Mathf.FloorToInt(transform.position.x);
+    }
 
     /// <summary>
     /// Generates an attempted move/place if the tile is clicked.
@@ -10,58 +21,13 @@ public class GameTile : MonoBehaviour {
     private void OnMouseDown() {
         // Create an attempted move if there is a selected piece
         if (InputManager.Instance.Selected != null) {
-
-            // Determine direction of move
-            EDirection direction = DetermineDirection();
-
             // Generate potential move and save it in InputManager
             Debug.Log("Selected: " + InputManager.Instance.Selected);
-            Debug.Log("Direction: " + direction);
-            var move = MoveGeneration.GenerateMove(InputManager.Instance.Selected, direction);
+            Debug.Log("Tile Row&Col: " + Row + " - " + Col);
+            Move move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col));
             Debug.Log("Invalid Move?: " + move.Invalid);
             InputManager.Instance.AttemptMove(move);
         }
     }
-
-    /// <summary>
-    /// Provides a direction based on tile position relative to InputManager.Instance.Selected.
-    /// </summary>
-    /// <returns>The direction to generate a potential move</returns>
-    private EDirection DetermineDirection() {
-        if (transform.position.x > InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z > InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.Northeast;
-        }
-        if (transform.position.x < InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z > InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.Northwest;
-        }
-        if (transform.position.x == InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z > InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.North;
-        }
-        if (transform.position.x > InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z < InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.Southeast;
-        }
-        if (transform.position.x < InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z < InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.Southwest;
-        }
-        if (transform.position.x == InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z < InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.South;
-        }
-        if (transform.position.x > InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z == InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.East;
-        }
-        if (transform.position.x < InputManager.Instance.Selected.transform.position.x &&
-            transform.position.z == InputManager.Instance.Selected.transform.position.z) {
-            return EDirection.West;
-        }
-
-        // Default return
-        return EDirection.None;
-    }
+    #endregion
 }

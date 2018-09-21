@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 #region Piece Enumerators
 public enum EPieceType {
-    Gladiator,
-    Minotaur,
-    Wall,
-    None
+    None,
+    LScout,
+    LShotgun,
+    LSniper,
+    LGrenade,
+    LMachineGun,
+    DScout,
+    DShotgun,
+    DSniper,
+    DGrenade,
+    DMachineGun
 };
 public enum EPieceState {
 	Unmoved,
 	Moved,
-    None
-};
-public enum EPieceColor {
-    White,
-    Black,
     None
 };
 public enum EDirection {
@@ -35,36 +38,40 @@ public enum EDirection {
 /// <summary>
 /// A parent to every possible piece type. Implements generic piece abilities.
 /// </summary>
-public class Piece : MonoBehaviour {
-
+public class Piece : NetworkBehaviour {
 	#region Piece Members
 	public Material material;
 	public Color defaultColor;
 	public Color selectedColor;
     public EPieceType pieceType;
 	public EPieceState pieceState;
-    public EPieceColor pieceColor;
 	public EDirection direction;
 	public bool selected;
+    public int speed = 3;
 	private bool moving;
 	#endregion
 
 	#region Piece Properties
 	public int X { get; private set; }
 	public int Z { get; private set; }
+    public int Index {
+        get {
+            return Board.IndexFromRowAndCol(X, Z);
+        }
+    }
+    public int Speed { get { return speed; } }
     public List<Move> Moves { get; private set; }
     #endregion
 
     #region Piece Methods
-
     /// <summary>
     /// Get components and set initial position
     /// </summary>
-    private void Start() {
+    private void Awake() {
         Moves = new List<Move>();
 		material = GetComponent<MeshRenderer>().material;
         X = Mathf.FloorToInt(transform.position.x);
-		Z = Mathf.FloorToInt(transform.position.y);
+		Z = Mathf.FloorToInt(transform.position.z);
 		pieceState = EPieceState.Unmoved;
 	}
 
@@ -74,8 +81,8 @@ public class Piece : MonoBehaviour {
     private void Update() {
 		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
-            if (Rules.Instance.ValidMove(pieceType, pieceColor, m)) {
-                BoardManager.Instance.gameBoard.MovePiece(m);
+            if (Rules.Instance.ValidMove(pieceType, m) && HasMove(m)) {
+                GameBoard.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
             InputManager.Instance.MoveAttemptMade();
@@ -86,6 +93,12 @@ public class Piece : MonoBehaviour {
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
     private void OnMouseDown() {
+
+        if (!transform.parent.GetComponent<SquadManager>().checkLocalPlayer())
+        {
+            return;
+        }
+
 		// Select the piece if it is possible
 		if (!selected && pieceState == EPieceState.Unmoved) {
             selected = true;
@@ -139,7 +152,7 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data</param>
     /// <returns>The world position</returns>
     private Vector3 FromPosition(Move m) {
-        return new Vector3(m.FX, transform.position.y, m.FZ);
+        return new Vector3(Board.Col(m.From), transform.position.y, Board.Row(m.From));
     }
 
     /// <summary>
@@ -148,7 +161,7 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data</param>
     /// <returns>The world position</returns>
     private Vector3 NextPosition(Move m) {
-        return new Vector3(m.TX, transform.position.y, m.TZ);
+        return new Vector3(Board.Col(m.To), transform.position.y, Board.Row(m.To));
 	}
 
     /// <summary>
@@ -157,15 +170,53 @@ public class Piece : MonoBehaviour {
     /// <param name="m">The move data for comparison</param>
     /// <returns>True if contained, else false</returns>
     private bool HasMove(Move m) {
+        Debug.Log("Moves:");
         foreach (var move in Moves) {
-            if (m.FX == move.FX && m.FZ == move.FZ && 
-                m.TX == move.TX && m.TZ == move.TZ) {
+            Debug.Log(move);
+            if (m.From == move.From && m.To == move.To) {
                 return true;
             }
         }
 
         // Default return
         return false;
+    }
+
+    /// <summary>
+    /// Determines if a piece is light from its type.
+    /// </summary>
+    /// <param name="type">The type of the piece</param>
+    /// <returns>True or false</returns>
+    public static bool IsLight(EPieceType type) {
+        return type == EPieceType.LSniper ||
+               type == EPieceType.LShotgun ||
+               type == EPieceType.LScout ||
+               type == EPieceType.LMachineGun ||
+               type == EPieceType.LGrenade;
+    }
+
+    /// <summary>
+    /// Determines if a piece is dark from its type.
+    /// </summary>
+    /// <param name="type">The type of the piece</param>
+    /// <returns>True or false</returns>
+    public static bool IsDark(EPieceType type) {
+        return type == EPieceType.DSniper ||
+               type == EPieceType.DShotgun ||
+               type == EPieceType.DScout ||
+               type == EPieceType.DMachineGun ||
+               type == EPieceType.DGrenade;
+    }
+
+    /// <summary>
+    /// Determines if two pieces are opposite colors.
+    /// </summary>
+    /// <param name="type1">The type of the first piece</param>
+    /// <param name="type2">The type of the second piece</param>
+    /// <returns>True or false</returns>
+    public static bool IsOtherColor(EPieceType type1, EPieceType type2) {
+        return (IsLight(type1) && IsDark(type2)) ||
+               (IsDark(type1) && IsLight(type2));
     }
 	#endregion
 }

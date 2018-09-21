@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 #region Game Enumerators
@@ -25,45 +26,41 @@ public enum ETurnState {
 /// <summary>
 /// A component that handles the game state over time.
 /// </summary>
-public class Game : MonoBehaviour {
-
+public class StrategyGame : Singleton<StrategyGame> {
     #region Members
-    public int playerCount = 1;
+    public int playerCount = 2;
     private int currentPlayer = 0;
-    private int movedWallCount = 0;
+    private int movedPieceCount = 0;
+    private List<Player> players;
+    private List<Piece> pieces;
 
-    public MoveGeneration moveGenerator;
-
-    private UnityAction wallMoved;
+    private UnityAction pieceMoved;
     #endregion
 
     #region Properties
     public EGameState GameState { get; private set; }
     public EGamePhase GamePhase { get; private set; }
     public ETurnState TurnState { get; private set; }
-    private bool WallsMoved { get; set; }
+    public List<Player> Players { get { return players; } }
+    public List<Piece> Pieces { get { return pieces; } }
     #endregion
 
     #region Methods
-
     /// <summary>
     /// Initializes the events.
     /// </summary>
     private void Start() {
-        // Create MoveGenerator
-        moveGenerator = new MoveGeneration();
+        // Create player list
+        players = new List<Player>(playerCount);
 
-        // Generate movement
-        moveGenerator.GenerateMoves();
+        // Create piece list
+        pieces = new List<Piece>();
 
         // Create piece movement listeners
-        wallMoved = new UnityAction(OnWallsMoved);
+        pieceMoved = new UnityAction(OnPieceMoved);
 
         // Start listening to piece movement listeners
-        EventManager.Instance.StartListening("WallMoved", wallMoved);
-
-        // Set inital bools to false
-        WallsMoved = false;
+        EventManager.Instance.StartListening("PieceMoved", pieceMoved);
     }
 
     /// <summary>
@@ -72,19 +69,9 @@ public class Game : MonoBehaviour {
     private void Update() {
         switch (GameState) {
             case EGameState.Play:
-                if (TurnOver()) {
-                    NextTurn();
-                }
+                
                 break;
         }
-    }
-
-    /// <summary>
-    /// Used to determine if the current turn is ended.
-    /// </summary>
-    /// <returns>True if turn is over, else false</returns>
-    private bool TurnOver() {
-        return WallsMoved;
     }
 
     /// <summary>
@@ -92,11 +79,7 @@ public class Game : MonoBehaviour {
     /// </summary>
     public void NextTurn() {
         // Reset movement booleans
-        movedWallCount = 0;
-        WallsMoved = false;
-
-        // Reset pieces' states
-        BoardManager.Instance.ResetPieceStates();
+        movedPieceCount = 0;
 
         // Iterate to next player's turn
         IteratePlayer();
@@ -110,14 +93,12 @@ public class Game : MonoBehaviour {
     }
 
     /// <summary>
-    /// Called on wall move events.
+    /// Called on piece move events.
     /// </summary>
-    private void OnWallsMoved() {
-        movedWallCount++;
-        if (movedWallCount == 2) {
-            WallsMoved = true;
-        }
-        moveGenerator.GenerateMoves();
+    private void OnPieceMoved() {
+        movedPieceCount++;
+        MoveGeneration.GenerateMoves(pieces);
+        NextTurn();
     }
     #endregion
 }

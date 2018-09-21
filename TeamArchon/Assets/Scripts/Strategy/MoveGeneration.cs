@@ -1,77 +1,137 @@
-﻿/// <summary>
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
 /// Contains the necessary methods to generate move objects for every piece on the board.
 /// </summary>
-public class MoveGeneration {
+public static class MoveGeneration {
     #region Methods
     /// <summary>
     /// Generates all of the possible moves in the current board position.
     /// Moves are stored in each piece.
     /// </summary>
-    public void GenerateMoves() {
+    public static void GenerateMoves(List<Piece> pieces) {
         // Iterate through the board
-        for (int x = 0; x < BoardManager.Instance.Size; x++) {
-            for (int z = 0; z < BoardManager.Instance.Size; z++) {
+        for (int i = 0; i < pieces.Count; i++) {
+            // Select piece, if null, go to next piece
+            Piece p = pieces[i];
+            if (p == null) continue;
 
-                // Select piece, if none, go to next square
-                Piece p = BoardManager.Instance.Board[x, z];
-                if (p == null) continue;
+            // Clear all the piece's current moves
+            p.Moves.Clear();
 
-                // If the piece is a minotaur and it is not their turn, do not generate moves
-                if (p.pieceType == EPieceType.Minotaur && !Rules.Instance.MinotaurTurn) continue;
+            // Generate a move list ignoring specific piece requirements
+            List<Move> potentialMoves = GenerateMoves(pieces[i]);
 
-                // Clear all the piece's current moves
-                p.Moves.Clear();
-
-                // Generate a move in each direction for this piece
-                Move north = GenerateMove(p, EDirection.North);
-                Move south = GenerateMove(p, EDirection.South);
-                Move east = GenerateMove(p, EDirection.East);
-                Move west = GenerateMove(p, EDirection.West);
-
-                // Add the moves to the piece's list of moves if it is valid
-                if (Rules.Instance.ValidMove(p.pieceType, p.pieceColor, north)) p.Moves.Add(north);
-                if (Rules.Instance.ValidMove(p.pieceType, p.pieceColor, south)) p.Moves.Add(south);
-                if (Rules.Instance.ValidMove(p.pieceType, p.pieceColor, east))  p.Moves.Add(east);
-                if (Rules.Instance.ValidMove(p.pieceType, p.pieceColor, west))  p.Moves.Add(west);
+            // Add only the valid moves to the piece's move list
+            foreach (var move in potentialMoves) {
+                if (Rules.Instance.ValidMove(pieces[i].pieceType, move)) {
+                    p.Moves.Add(move);
+                }
             }
         }
     }
 
     /// <summary>
-    /// Generates a move for a piece in a direction.
+    /// Generates a list of move structures.
+    /// Uses a prim-like graph solution to finding possible moves.
+    /// Cannot move through pieces.
+    /// Can land on enemy squares.
+    /// Cannot land on friendly squares.
+    /// TODO: Add in obstacle checking.
     /// </summary>
-    /// <param name="piece">The piece to generate a move for</param>
-    /// <param name="direction">The direction the move is in</param>
-    /// <returns>The generated move</returns>
-    public static Move GenerateMove(Piece piece, EDirection direction) {
-        switch (direction) {
-            case EDirection.North:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X, piece.Z + 1)) {
-                    return new Move(piece.X, piece.Z, piece.X, piece.Z + 1);
-                }
-                break;
+    /// <param name="piece"></param>
+    /// <returns></returns>
+    public static List<Move> GenerateMoves(Piece piece) {
+        // Set up variables for movement depth
+        int steps = 0;
+        int totalSteps = piece.Speed;
+        int start = Board.IndexFromRowAndCol(piece.Z, piece.X);
 
-            case EDirection.South:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X, piece.Z - 1)) {
-                    return new Move(piece.X, piece.Z, piece.X, piece.Z - 1);
-                }
-                break;
+        // Set up variables for recording all possible tiles to move to
+        List<Move> moves = new List<Move>();
+        List<int> cells = new List<int>();
+        List<int> nextCells = new List<int>();
+        int cc = start;
 
-            case EDirection.East:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X + 1, piece.Z)) {
-                    return new Move(piece.X, piece.Z, piece.X + 1, piece.Z);
-                }
-                break;
-
-            case EDirection.West:
-                if (BoardManager.Instance.gameBoard.SquareExists(piece.X - 1, piece.Z)) {
-                    return new Move(piece.X, piece.Z, piece.X - 1, piece.Z);
-                }
-                break;
+        // Next row
+        if (Board.TileExists(cc + Board.Size)) {
+            cells.Add(cc + Board.Size);
+        }
+        // Previous row
+        if (Board.TileExists(cc - Board.Size)) {
+            cells.Add(cc - Board.Size);
+        }
+        // Next column
+        if (Board.TileExists(cc + 1)) {
+            cells.Add(cc + 1);
+        }
+        // Previous column
+        if (Board.TileExists(cc - 1)) {
+            cells.Add(cc - 1);
         }
 
-        // Generates an invalid move
-        return new Move(-1, -1, -1, -1);
+        // Keep stepping until we have completed every option
+        while (steps < totalSteps) {
+            // Select a random current cell
+            if (cells.Count > 1) {
+                cc = cells[Random.Range(0, cells.Count)];
+            }
+            else cc = cells[0];
+
+            Debug.Log("HIT");
+            
+            // If the square contains a piece of the other color,
+            // add the valid move, but do not move through it
+            if (Piece.IsOtherColor(piece.pieceType, GameBoard.Instance[cc])) {
+                moves.Add(new Move(start, cc));
+                Debug.Log("Move:");
+                Debug.Log(moves[moves.Count-1]);
+            }
+            // Add this cell's neighbors to continue searching for possible moves
+            else if (!GameBoard.Instance.PieceAt(cc) && cc != start) {
+                moves.Add(new Move(start, cc));
+                Debug.Log("Move:");
+                Debug.Log(moves[moves.Count-1]);
+
+                // Next row
+                if (Board.TileExists(cc + Board.Size)) {
+                    nextCells.Add(cc + Board.Size);
+                }
+                // Previous row
+                if (Board.TileExists(cc - Board.Size)) {
+                    nextCells.Add(cc - Board.Size);
+                }
+                // Next column
+                if (Board.TileExists(cc + 1)) {
+                    nextCells.Add(cc + 1);
+                }
+                // Previous column
+                if (Board.TileExists(cc - 1)) {
+                    nextCells.Add(cc - 1);
+                }
+            }
+
+            // Remove current cell
+            cells.Remove(cc);
+
+            // Go to the next list of cells, update steps and weight
+            if (cells.Count == 0) {
+                // If there aren't any more cells, break out
+                if (nextCells.Count == 0) {
+                    return moves;
+                }
+                steps++;
+
+                // Set new cells list and continue iterating
+                foreach (var cell in nextCells)
+                    cells.Add(cell);
+                nextCells.Clear();
+            }
+        }
+
+        // Default return
+        return moves;
     }
     #endregion
 }
