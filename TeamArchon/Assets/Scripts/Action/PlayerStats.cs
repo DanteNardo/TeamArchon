@@ -6,7 +6,7 @@ namespace actionPhase
 {
     public class PlayerStats : NetworkBehaviour
     {
-        public GameObject deathCamera;
+      
         private float health;
         // Use this for initialization
         void Start()
@@ -21,9 +21,7 @@ namespace actionPhase
             {
                 if (health <= 0)
                 {
-
-                    Destroy(gameObject);
-                    Instantiate(deathCamera);
+                    gameObject.SetActive(false);
                 }
             }
         }

@@ -19,7 +19,7 @@ public class ShooterMovement : MonoBehaviour {
 
         
 
-        gameObject.transform.position += Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed;
+        gameObject.transform.position += Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed*Time.deltaTime;
 
         if (Input.GetButtonDown("Fire1"))
         {

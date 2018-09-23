@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212079628856302260}
   - component: {fileID: 114098830926425424}
   - component: {fileID: 114412524961525574}
+  - component: {fileID: 58457905494334546}
   m_Layer: 0
   m_Name: Player2D
-  m_TagString: Untagged
+  m_TagString: RedPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,12 +37,27 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1848609272865620}
   m_LocalRotation: {x: -0, y: -0, z: -0.65087485, w: 0.75918514}
-  m_LocalPosition: {x: 0.5082873, y: 3.329679, z: 0}
+  m_LocalPosition: {x: 0.15, y: -0.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58457905494334546
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848609272865620}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.2800003
 --- !u!114 &114098830926425424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9590c0cc51623645bbae33de93ee1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 6
 --- !u!114 &114412524961525574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,7 +81,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392e6f1c001ba7c4f82f126987cbfcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
+  bulletPrefab: {fileID: 1197588382398326, guid: ec752244e67a8d34db70b766c2a803ff,
+    type: 2}
+  fireRate: 2
 --- !u!212 &212079628856302260
 SpriteRenderer:
   m_ObjectHideFlags: 1
