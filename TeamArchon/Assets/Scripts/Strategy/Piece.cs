@@ -49,10 +49,14 @@ public class Piece : NetworkBehaviour {
 	public bool selected;
     public int speed = 3;
 	private bool moving;
-	#endregion
+    public bool localPiece;
+    //Synced across the server for each client
+    [SyncVar]
+    public NetworkInstanceId parentNetId;
+    #endregion
 
-	#region Piece Properties
-	public int X { get; private set; }
+    #region Piece Properties
+    public int X { get; private set; }
 	public int Z { get; private set; }
     public int Index {
         get {
@@ -62,6 +66,10 @@ public class Piece : NetworkBehaviour {
     public int Speed { get { return speed; } }
     public List<Move> Moves { get; private set; }
     #endregion
+
+
+   
+   
 
     #region Piece Methods
     /// <summary>
@@ -73,7 +81,19 @@ public class Piece : NetworkBehaviour {
         X = Mathf.FloorToInt(transform.position.x);
 		Z = Mathf.FloorToInt(transform.position.z);
 		pieceState = EPieceState.Unmoved;
-	}
+        
+
+    }
+    /// <summary>
+    /// Runs localy whenever a client connects to the server for each piece in the game. Connects each piece to each player.
+    /// </summary>
+    public override void OnStartClient()
+    {
+        GameObject parrent = ClientScene.FindLocalObject(parentNetId);
+        transform.SetParent(parrent.transform);
+        //set if the piece is local
+        localPiece = transform.parent.GetComponent<SquadManager>().checkLocalPlayer();
+    }
 
     /// <summary>
     /// Moves pieces when they are selected and the player tries to move them
@@ -95,13 +115,14 @@ public class Piece : NetworkBehaviour {
     private void OnMouseDown() {
 
 
-
-        if (!transform.parent.GetComponent<SquadManager>().checkLocalPlayer())
+        
+        if (!localPiece)
         {
+            
             return;
         }
 
-        
+        Debug.Log("test");
 
         // Select the piece if it is possible
         if (!selected && pieceState == EPieceState.Unmoved) {
