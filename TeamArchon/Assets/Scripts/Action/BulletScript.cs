@@ -6,9 +6,10 @@ public class BulletScript : MonoBehaviour {
     public float speed;
     public float lifespan;
     private float activeTimer = 0.00f;
+    private Rigidbody2D rigid2D;
 	// Use this for initialization
 	void Start () {
-		
+        rigid2D = gameObject.GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
@@ -17,8 +18,8 @@ public class BulletScript : MonoBehaviour {
 
         Vector3 velocity = Vector3.Normalize(gameObject.transform.right) * speed*Time.deltaTime;
 
-        position += velocity;
-        gameObject.transform.position = position;
+        rigid2D.MovePosition(position + velocity);
+       
 
         activeTimer += Time.deltaTime;
         if(activeTimer> lifespan)
