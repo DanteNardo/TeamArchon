@@ -82,17 +82,13 @@ public static class MoveGeneration {
             Debug.Log("HIT");
             
             // If the square contains a piece of the other color,
-            // add the valid move, but do not move through it
+            // add the valid move, but do not move through it, and set capture to true
             if (Piece.IsOtherColor(piece.pieceType, GameBoard.Instance[cc])) {
-                moves.Add(new Move(start, cc));
-                Debug.Log("Move:");
-                Debug.Log(moves[moves.Count-1]);
+                moves.Add(new Move(start, cc, true));
             }
             // Add this cell's neighbors to continue searching for possible moves
             else if (!GameBoard.Instance.PieceAt(cc) && cc != start) {
                 moves.Add(new Move(start, cc));
-                Debug.Log("Move:");
-                Debug.Log(moves[moves.Count-1]);
 
                 // Next row
                 if (Board.TileExists(cc + Board.Size)) {
