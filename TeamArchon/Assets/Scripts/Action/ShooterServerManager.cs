@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -44,6 +44,15 @@ public class ShooterServerManager : NetworkBehaviour
 
         NetworkConnection localConnection;
 
+        if(NetworkServer.connections.Count %2 == 0)
+        {
+            newPlayer.tag = "Team2";
+
+        }
+        else
+        {
+            newPlayer.tag = "Team1";
+        }
         localConnection = NetworkServer.connections[0];
 
         Destroy(localConnection.playerControllers[0].gameObject);
