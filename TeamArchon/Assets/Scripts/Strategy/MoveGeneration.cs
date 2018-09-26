@@ -40,8 +40,8 @@ public static class MoveGeneration {
     /// Cannot land on friendly squares.
     /// TODO: Add in obstacle checking.
     /// </summary>
-    /// <param name="piece"></param>
-    /// <returns></returns>
+    /// <param name="piece">The piece to generate valid moves for</param>
+    /// <returns>A list of all this piece's possible moves</returns>
     public static List<Move> GenerateMoves(Piece piece) {
         // Set up variables for movement depth
         int steps = 0;
@@ -78,21 +78,17 @@ public static class MoveGeneration {
                 cc = cells[Random.Range(0, cells.Count)];
             }
             else cc = cells[0];
-
-            Debug.Log("HIT");
             
             // If the square contains a piece of the other color,
             // add the valid move, but do not move through it
             if (Piece.IsOtherColor(piece.pieceType, GameBoard.Instance[cc])) {
                 moves.Add(new Move(start, cc));
-                Debug.Log("Move:");
-                Debug.Log(moves[moves.Count-1]);
+                Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
             }
             // Add this cell's neighbors to continue searching for possible moves
             else if (!GameBoard.Instance.PieceAt(cc) && cc != start) {
                 moves.Add(new Move(start, cc));
-                Debug.Log("Move:");
-                Debug.Log(moves[moves.Count-1]);
+                Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
 
                 // Next row
                 if (Board.TileExists(cc + Board.Size)) {

@@ -32,7 +32,6 @@ public class StrategyGame : Singleton<StrategyGame> {
     private int currentPlayer = 0;
     private int movedPieceCount = 0;
     private List<Player> players;
-    private List<Piece> pieces;
 
     private UnityAction pieceMoved;
     #endregion
@@ -42,7 +41,7 @@ public class StrategyGame : Singleton<StrategyGame> {
     public EGamePhase GamePhase { get; private set; }
     public ETurnState TurnState { get; private set; }
     public List<Player> Players { get { return players; } }
-    public List<Piece> Pieces { get { return pieces; } }
+    public List<Piece> Pieces { get; private set; }
     #endregion
 
     #region Methods
@@ -54,7 +53,7 @@ public class StrategyGame : Singleton<StrategyGame> {
         players = new List<Player>(playerCount);
 
         // Create piece list
-        pieces = new List<Piece>();
+        Pieces = new List<Piece>();
 
         // Create piece movement listeners
         pieceMoved = new UnityAction(OnPieceMoved);
@@ -97,7 +96,7 @@ public class StrategyGame : Singleton<StrategyGame> {
     /// </summary>
     private void OnPieceMoved() {
         movedPieceCount++;
-        MoveGeneration.GenerateMoves(pieces);
+        //MoveGeneration.GenerateMoves(Pieces);
         NextTurn();
     }
     #endregion

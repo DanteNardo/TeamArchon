@@ -19,22 +19,17 @@ public class SquadManager : NetworkBehaviour {
     /// Initializes important variables.
     /// </summary>
     private void Start() {
-        
-        if (isLocalPlayer)
-        {
+        if (isLocalPlayer) {
             gameObject.name = "localController";
             CmdInstantiatePieces();
         }
-       
     }
     
-
     /// <summary>
     /// Creates all of the pieces from prefabs and saves their data.
     /// </summary>
     [Command]
     private void CmdInstantiatePieces() {
-        
         pieceObjects = new GameObject[prefabs.Length];
         pieces = new Piece[prefabs.Length];
         for (int i = 0; i < prefabs.Length; i++) {
@@ -42,26 +37,18 @@ public class SquadManager : NetworkBehaviour {
             Piece piece = instance.GetComponent<Piece>();
             pieces[i] = piece;
 
-            //sets the new objects parrent ID to this controllers unique network ID
-            instance.GetComponent<Wall>().parentNetId = this.netId;
+            // Sets the new objects parrent ID to this controllers unique network ID
+            piece.parentNetId = netId;
 
-            //Set the parrent on this client
-            instance.transform.parent = this.gameObject.transform;
+            // Set the parrent on this client
+            instance.transform.parent = gameObject.transform;
             GameBoard.Instance.PlacePiece(piece);
             NetworkServer.Spawn(instance);
-           
         }
     }
 
-  
-
-    
-
-    public bool checkLocalPlayer()
-    {
+    public bool checkLocalPlayer() {
         return isLocalPlayer;
-    }
-
-    
+    } 
     #endregion
 }

@@ -17,11 +17,6 @@ public enum EPieceType {
     DGrenade,
     DMachineGun
 };
-public enum EPieceState {
-	Unmoved,
-	Moved,
-    None
-};
 public enum EDirection {
 	North,
 	South,
@@ -44,7 +39,6 @@ public class Piece : NetworkBehaviour {
 	public Color defaultColor;
 	public Color selectedColor;
     public EPieceType pieceType;
-	public EPieceState pieceState;
 	public EDirection direction;
 	public bool selected;
     public int speed = 3;
@@ -56,8 +50,8 @@ public class Piece : NetworkBehaviour {
     #endregion
 
     #region Piece Properties
-    public int X { get; private set; }
-	public int Z { get; private set; }
+    public int X { get; set; }
+	public int Z { get; set; }
     public int Index {
         get {
             return Board.IndexFromRowAndCol(X, Z);
@@ -66,10 +60,6 @@ public class Piece : NetworkBehaviour {
     public int Speed { get { return speed; } }
     public List<Move> Moves { get; private set; }
     #endregion
-
-
-   
-   
 
     #region Piece Methods
     /// <summary>
@@ -80,10 +70,8 @@ public class Piece : NetworkBehaviour {
 		material = GetComponent<MeshRenderer>().material;
         X = Mathf.FloorToInt(transform.position.x);
 		Z = Mathf.FloorToInt(transform.position.z);
-		pieceState = EPieceState.Unmoved;
-        
-
     }
+
     /// <summary>
     /// Runs localy whenever a client connects to the server for each piece in the game. Connects each piece to each player.
     /// </summary>
@@ -99,9 +87,16 @@ public class Piece : NetworkBehaviour {
     /// Moves pieces when they are selected and the player tries to move them
     /// </summary>
     private void Update() {
-		if (selected && pieceState == EPieceState.Unmoved && InputManager.Instance.MoveAttempt) {
+        // Check if a player is attempting to move this piece
+		if (selected && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
+
+            // Move the piece if the move is valid
             if (Rules.Instance.ValidMove(pieceType, m) && HasMove(m)) {
+                Debug.Log("Valid Move");
+                Moves.Clear();
+                X = Board.Row(m.To);
+                Z = Board.Col(m.To);
                 GameBoard.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
@@ -113,26 +108,19 @@ public class Piece : NetworkBehaviour {
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
     private void OnMouseDown() {
-
-
-        
-        if (!localPiece)
-        {
-            
+        // Only the player that owns this piece can select it
+        if (!localPiece) {
             return;
         }
 
-        Debug.Log("test");
-
         // Select the piece if it is possible
-        if (!selected && pieceState == EPieceState.Unmoved) {
+        if (!selected) {
             selected = true;
             material.color = selectedColor;
             InputManager.Instance.Selected = this;
         }
-
         // Deselect the piece if it is selected
-		else if (pieceState == EPieceState.Unmoved) {
+		else {
             selected = false;
             material.color = defaultColor;
             InputManager.Instance.Selected = null;
@@ -160,10 +148,8 @@ public class Piece : NetworkBehaviour {
 			if (transform.position == to) {
 
                 // Clear our moves, set our new position, and change our state
-                Moves.Clear();
                 X = (int)transform.position.x;
                 Z = (int)transform.position.z;
-				pieceState = EPieceState.Moved;
 				moving = false;
 				yield break;
 			}
@@ -195,9 +181,10 @@ public class Piece : NetworkBehaviour {
     /// <param name="m">The move data for comparison</param>
     /// <returns>True if contained, else false</returns>
     private bool HasMove(Move m) {
+        Debug.Log("MOVE CHECK: " + m.From + " - " + m.To);
         Debug.Log("Moves:");
         foreach (var move in Moves) {
-            Debug.Log(move);
+            Debug.Log("Move: " + move.From + " - " + move.To);
             if (m.From == move.From && m.To == move.To) {
                 return true;
             }
