@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 
 public class Board : NetworkBehaviour {
     #region Members
@@ -104,6 +103,14 @@ public class Board : NetworkBehaviour {
     /// <param name="piece">A reference to the piece to move</param>
     public void PlacePiece(Piece piece) {
         board[IndexFromRowAndCol(piece.X, piece.Z)] = PTAsInt(piece.pieceType);
+    }
+
+    /// <summary>
+    /// Removes a piece on the board.
+    /// </summary>
+    /// <param name="index">The index to remove a piece from on the board</param>
+    public void RemovePiece(int index) {
+        board[index] = PTAsInt(EPieceType.None);
     }
 
     /// <summary>

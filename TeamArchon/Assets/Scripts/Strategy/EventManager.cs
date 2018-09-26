@@ -26,7 +26,6 @@ public class EventManager : Singleton<EventManager> {
     /// <param name="name">The name of the event</param>
     /// <param name="listener">The action to listen for</param>
     public void StartListening(string name, UnityAction listener) {
-
         // Add a listener to the event if it exists
         UnityEvent e = null;
         if (EventDictionary.TryGetValue(name, out e)) {
@@ -46,7 +45,6 @@ public class EventManager : Singleton<EventManager> {
     /// <param name="name">The name of the event</param>
     /// <param name="listener">The action to listen for</param>
     public void StopListening(string name, UnityAction listener) {
-        
         // Remove a listener from the event if it exists
         UnityEvent e = null;
         if (EventDictionary.TryGetValue(name, out e)) {
@@ -59,7 +57,6 @@ public class EventManager : Singleton<EventManager> {
     /// </summary>
     /// <param name="name">The name of the event</param>
     public void TriggerEvent(string name) {
-
         // Invoke the event if it exists
         UnityEvent e = null;
         if (EventDictionary.TryGetValue(name, out e)) {

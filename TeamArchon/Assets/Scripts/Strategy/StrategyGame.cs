@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
 #region Game Enumerators
@@ -8,17 +7,6 @@ public enum EGameState {
     Play,
     Pause,
     GameOver,
-    None
-}
-public enum EGamePhase {
-    BuildingPhase,
-    EscapingPhase,
-    None
-}
-public enum ETurnState {
-    WallTurn,
-    GladiatorTurn,
-    MinotaurTurn,
     None
 }
 #endregion
@@ -37,9 +25,8 @@ public class StrategyGame : Singleton<StrategyGame> {
     #endregion
 
     #region Properties
+    public ETeam TurnState { get; private set; }
     public EGameState GameState { get; private set; }
-    public EGamePhase GamePhase { get; private set; }
-    public ETurnState TurnState { get; private set; }
     public List<Player> Players { get { return players; } }
     public List<Piece> Pieces { get; private set; }
     #endregion

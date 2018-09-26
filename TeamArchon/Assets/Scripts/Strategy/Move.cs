@@ -10,16 +10,23 @@ public class Move {
     #endregion
 
     #region Move Methods
-    public Move(int from, int to) {
-        From = from;
-        To = to;
-        Capture = false;
-    }
-
-    public Move(int from, int to, bool capture) {
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="from">The index to move from</param>
+    /// <param name="to">The index to move to</param>
+    /// <param name="capture">Whether or not this is a capture move</param>
+    public Move(int from, int to, bool capture = false) {
         From = from;
         To = to;
         Capture = capture;
+    }
+
+    /// <summary>
+    /// Used to reset the capture flag after a piece has been removed.
+    /// </summary>
+    public void ResetCaptureFlag() {
+        Capture = false;
     }
     #endregion
 }

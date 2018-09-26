@@ -4,9 +4,8 @@
 /// The purpose of this class is to effectively act as
 /// a Singleton wrapper around the Board component with 
 /// the same indexer properties.
-/// 
 /// </summary>
-/// <typeparam name="GameBoard"></typeparam>
+/// <typeparam name="GameBoard">Creates a singleton from a generic</typeparam>
 public class GameBoard : Singleton<GameBoard> {
 	#region Members
 	private Board board;
@@ -31,13 +30,24 @@ public class GameBoard : Singleton<GameBoard> {
 	}
 
 	public void MovePiece(Move move) {
-		board.MovePiece(move);
-        MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
-        Debug.Log("================== Moves Generated ==================");
-        Debug.Log("Moves:");
-        foreach (var m in StrategyGame.Instance.Pieces[0].Moves) {
-            Debug.Log("Move: " + m.From + " - " + m.To);
+        // Check if this is going to trigger a capture
+        if (move.Capture) {
+            // A capture event occurs and we switch over to the Action phase
+            MasterGame.Instance.CaptureAttempted.Invoke(move);
         }
+        else {
+            board.MovePiece(move);
+            MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
+            Debug.Log("================== Moves Generated ==================");
+            Debug.Log("Moves:");
+            foreach (var m in StrategyGame.Instance.Pieces[0].Moves) {
+                Debug.Log("Move: " + m.From + " - " + m.To);
+            }
+        }
+    }
+
+    public void RemovePiece(int index) {
+        board.RemovePiece(index);
     }
 
     public bool PieceAt(int index) {
