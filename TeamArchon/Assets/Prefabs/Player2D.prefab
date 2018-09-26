@@ -23,6 +23,9 @@ GameObject:
   - component: {fileID: 114098830926425424}
   - component: {fileID: 114412524961525574}
   - component: {fileID: 58457905494334546}
+  - component: {fileID: 50636829504029538}
+  - component: {fileID: 114195366193818436}
+  - component: {fileID: 114559092470617304}
   m_Layer: 0
   m_Name: Player2D
   m_TagString: RedPlayer
@@ -43,6 +46,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50636829504029538
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848609272865620}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58457905494334546
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -70,6 +93,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+--- !u!114 &114195366193818436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848609272865620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114412524961525574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,9 +125,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392e6f1c001ba7c4f82f126987cbfcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1197588382398326, guid: ec752244e67a8d34db70b766c2a803ff,
+  pistolBulletPrefab: {fileID: 1197588382398326, guid: ec752244e67a8d34db70b766c2a803ff,
     type: 2}
-  fireRate: 2
+  machineGunBulletPrefab: {fileID: 1964775684640440, guid: c6823a0a21484334fa0177f762f66ded,
+    type: 2}
+  weaponType: 0
+--- !u!114 &114559092470617304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848609272865620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 91
+    i1: 172
+    i2: 87
+    i3: 212
+    i4: 57
+    i5: 247
+    i6: 222
+    i7: 20
+    i8: 105
+    i9: 213
+    i10: 141
+    i11: 20
+    i12: 26
+    i13: 55
+    i14: 228
+    i15: 8
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!212 &212079628856302260
 SpriteRenderer:
   m_ObjectHideFlags: 1

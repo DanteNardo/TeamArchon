@@ -1,16 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TwoDimensionWeapon : MonoBehaviour {
-    public GameObject bulletPrefab;
-    public float fireRate;
+public class TwoDimensionWeapon : NetworkBehaviour{
+    public GameObject pistolBulletPrefab;
+    public GameObject machineGunBulletPrefab;
+    public enum Weapon { Pistol, MachineGun };
+    public Weapon weaponType;
+    private GameObject finalPrefab;
+    private float fireRate;
     private List<GameObject> bulletPool;
     private float fireTimer;
 	// Use this for initialization
 	void Start () {
         fireTimer = 0.0f;
         bulletPool = new List<GameObject>();	
+        if(weaponType == Weapon.Pistol)
+        {
+            fireRate = 2.0f;
+            finalPrefab = pistolBulletPrefab;
+        }
+        if(weaponType == Weapon.MachineGun)
+        {
+            fireRate = 6.0f;
+            finalPrefab = machineGunBulletPrefab;
+        }
 	}
 	
 	// Update is called once per frame
@@ -19,7 +34,18 @@ public class TwoDimensionWeapon : MonoBehaviour {
         fireTimer += Time.deltaTime;
 	}
 
-    public void Fire()
+    [ClientRpc]
+    public void RpcEnable(GameObject bullet, GameObject targetObj)
+    {
+        bullet.transform.position = targetObj.transform.position + Vector3.Normalize(targetObj.transform.up) * targetObj.GetComponent<SpriteRenderer>().size.x * 0.75f;
+        bullet.transform.rotation = targetObj.transform.rotation;
+        bullet.transform.Rotate(new Vector3(0, 0, 90));
+        bullet.SetActive(true);
+        
+    }
+
+    [Command]
+    public void CmdFire()
     {
         //firerate check
         if (fireTimer >= 1.0f / fireRate)
@@ -32,10 +58,7 @@ public class TwoDimensionWeapon : MonoBehaviour {
                 //if there is an inactive bullet, grab it, and activate it
                 if (bullet.activeInHierarchy == false)
                 {
-                    bullet.transform.position = gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f;
-                    bullet.transform.rotation = gameObject.transform.rotation;
-                    bullet.transform.Rotate(new Vector3(0, 0, 90));
-                    bullet.SetActive(true);
+                    RpcEnable(bullet, gameObject);
                     createNew = false;
                     //exit for loop so we don't reactivate all inactive bullets
                     break;
@@ -45,7 +68,7 @@ public class TwoDimensionWeapon : MonoBehaviour {
             //if all bullets are active make a new one
             if (createNew)
             {
-                GameObject tempBullet = Instantiate(bulletPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
+                GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
                 tempBullet.transform.Rotate(new Vector3(0, 0, 90));
 
                 if (gameObject.tag == "RedPlayer")
@@ -58,6 +81,7 @@ public class TwoDimensionWeapon : MonoBehaviour {
                     tempBullet.tag = "BlueBullet";
                 }
                 bulletPool.Add(tempBullet);
+                NetworkServer.Spawn(tempBullet);
             }
             fireTimer = 0.0f;
         }

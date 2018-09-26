@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour {
     public float speed;
     public float lifespan;
+    public float damage;
     private float activeTimer = 0.00f;
     private Rigidbody2D rigid2D;
 	// Use this for initialization

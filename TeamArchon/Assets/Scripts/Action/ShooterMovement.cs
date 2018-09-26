@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ShooterMovement : MonoBehaviour {
+public class ShooterMovement : NetworkBehaviour{
     public float speed;
     private Rigidbody2D rigid2D;
 	// Use this for initialization
@@ -12,7 +13,10 @@ public class ShooterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(!isLocalPlayer)
+        {
+            return;
+        }
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - pos;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -22,9 +26,10 @@ public class ShooterMovement : MonoBehaviour {
 
         rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed*Time.deltaTime);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
-            gameObject.GetComponent<TwoDimensionWeapon>().Fire();
+            Debug.Log("Fired");
+            gameObject.GetComponent<TwoDimensionWeapon>().CmdFire();
         }
 
         
