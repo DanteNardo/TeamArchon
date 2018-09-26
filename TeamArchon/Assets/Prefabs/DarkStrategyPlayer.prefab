@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114797915840412398}
   - component: {fileID: 114205663259145946}
   m_Layer: 0
-  m_Name: StrategyPlayer
+  m_Name: DarkStrategyPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,4 +85,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
+  - {fileID: 1343552552093904, guid: 66990f44e8b1f2b428663460b2ec31d7, type: 2}
   - {fileID: 1343552552093904, guid: 66990f44e8b1f2b428663460b2ec31d7, type: 2}
