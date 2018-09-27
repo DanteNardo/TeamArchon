@@ -32,7 +32,7 @@ public class BulletScript : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (gameObject.tag == "RedBullet" && collision.gameObject.tag == "BluePlayer")
+        /*if (gameObject.tag == "RedBullet" && collision.gameObject.tag == "BluePlayer")
         {
 
         }
@@ -40,6 +40,7 @@ public class BulletScript : MonoBehaviour {
         {
 
         }
+        */
         gameObject.SetActive(false);
     }
 }

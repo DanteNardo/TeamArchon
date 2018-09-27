@@ -39,7 +39,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1848609272865620}
-  m_LocalRotation: {x: -0, y: -0, z: -0.65087485, w: 0.75918514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.15, y: -0.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -127,9 +127,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pistolBulletPrefab: {fileID: 1197588382398326, guid: ec752244e67a8d34db70b766c2a803ff,
     type: 2}
-  machineGunBulletPrefab: {fileID: 1964775684640440, guid: c6823a0a21484334fa0177f762f66ded,
+  machineGunBulletPrefab: {fileID: 1436321446370704, guid: 8189d769b93ebe74f9f26c90772f151c,
     type: 2}
-  weaponType: 0
+  weaponType: 1
 --- !u!114 &114559092470617304
 MonoBehaviour:
   m_ObjectHideFlags: 1

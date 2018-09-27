@@ -71,7 +71,7 @@ public class TwoDimensionWeapon : NetworkBehaviour{
                 GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
                 tempBullet.transform.Rotate(new Vector3(0, 0, 90));
 
-                if (gameObject.tag == "RedPlayer")
+                /*if (gameObject.tag == "RedPlayer")
                 {
                     tempBullet.tag = "RedBullet";
 
@@ -79,7 +79,7 @@ public class TwoDimensionWeapon : NetworkBehaviour{
                 else
                 {
                     tempBullet.tag = "BlueBullet";
-                }
+                }*/
                 bulletPool.Add(tempBullet);
                 NetworkServer.Spawn(tempBullet);
             }
