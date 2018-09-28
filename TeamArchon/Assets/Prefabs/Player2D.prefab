@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pistolBulletPrefab: {fileID: 1197588382398326, guid: ec752244e67a8d34db70b766c2a803ff,
     type: 2}
-  machineGunBulletPrefab: {fileID: 1436321446370704, guid: 8189d769b93ebe74f9f26c90772f151c,
+  machineGunBulletPrefab: {fileID: 1528649902235898, guid: 1af54d71696583c4da92dc7bf46c080b,
     type: 2}
   weaponType: 1
 --- !u!114 &114559092470617304
