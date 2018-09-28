@@ -151,7 +151,7 @@ MonoBehaviour:
     i14: 49
     i15: 215
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114799697797992598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +168,6 @@ MonoBehaviour:
   selectedColor: {r: 0.4339623, g: 0.10234961, b: 0.10234961, a: 0}
   pieceType: 2
   pieceState: 0
-  pieceColor: 1
   direction: 8
   selected: 0
+  speed: 3

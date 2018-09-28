@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Handles all input on the client side.
 /// </summary>
 public class InputManager : Singleton<InputManager> {

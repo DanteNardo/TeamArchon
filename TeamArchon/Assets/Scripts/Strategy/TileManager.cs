@@ -1,44 +1,28 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// A Singleton that stores the pieces on the board and handles the board manipulation.
+/// A Singleton that generates the board's tiles.
 /// </summary>
-public class BoardManager : Singleton<BoardManager> {
-    #region Board Members
+public class TileManager : Singleton<TileManager> {
+    #region TileManager Members
     public int pieceCount = 2;
-    public GameBoard gameBoard;
     public GameObject lightTilePrefab;
     public GameObject darkTilePrefab;
     public GameObject[,] boardTiles;
     #endregion
 
-    #region Board Properties
-    public int Size { get { return gameBoard.size; } }
-    public Piece[,] Board { get { return gameBoard.board; } }
-    #endregion
-
     #region Board Methods
     /// <summary>
-    /// Initializes the Board data.
+    /// Initializes the Tile data.
     /// </summary>
     private void Awake() {
-        gameBoard = GetComponent<GameBoard>();
-        // Generate the gameobject board
-        boardTiles = new GameObject[gameBoard.size, gameBoard.size];
+        // Call base Singleton awake functionality.
+        base.Awake();
+
+        // Generate the tile gameobjects for the board
+        boardTiles = new GameObject[Board.Size, Board.Size];
         GenerateBoard();
 	}
-
-    /// <summary>
-    /// Called to reset all piece states.
-    /// </summary>
-    public void ResetPieceStates() {
-        // Iterate through board
-        for (int i = 0; i < gameBoard.size; i++) {
-            for (int j = 0; j < gameBoard.size; j++) {
-                gameBoard.board[i, j].pieceState = EPieceState.Unmoved;
-            }
-        }
-    }
 
     /// <summary>
     /// Generates all of the Tile GameObjects.
@@ -51,12 +35,12 @@ public class BoardManager : Singleton<BoardManager> {
 
         // Iterate through the entire board
         bool light = true;
-        for (int i = 0; i < gameBoard.size; i++) {
+        for (int i = 0; i < Board.Size; i++) {
 
             // Switch between light and dark tiles to offset each row from the previous
             light = !light;
 
-            for (int j = 0; j < gameBoard.size; j++) {
+            for (int j = 0; j < Board.Size; j++) {
 
                 // Generate world space coordinate position
                 Vector3 position = new Vector3(i, -0.55f, j);

@@ -1,178 +1,66 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
-public class GameBoard : NetworkBehaviour {
-    #region Members
-    public int size = 8;
-    public Piece[,] board;
-    #endregion
+/// <summary>
+/// The purpose of this class is to effectively act as
+/// a Singleton wrapper around the Board component with 
+/// the same indexer properties.
+/// </summary>
+/// <typeparam name="GameBoard">Creates a singleton from a generic</typeparam>
+public class GameBoard : Singleton<GameBoard> {
+	#region Members
+	private Board board;
 
-    // Use this for initialization
-    void Awake () {
-        Instantiate();
+	/// <summary>
+	/// This is an indexer that allows you to access the
+	/// board component's indexer from a higher level.
+	/// </summary>
+	public EPieceType this[int i] => board[i];
+	#endregion
+
+	#region Methods
+	public void Start() {
+		board = GetComponent<Board>();
 	}
 
-    /// <summary>
-    /// Instantiates all of the game board's pieces.
-    /// </summary>
-    private void Instantiate() {
-        board = new Piece[size, size];
-    }
+	#region Encapsulation Of Board Methods
+	public void PlacePiece(Piece piece) {
+		board.PlacePiece(piece);
+		StrategyGame.Instance.Pieces.Add(piece);
+		MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
+	}
 
-    /// <summary>
-    /// Places a piece on the board.
-    /// (unsafe and not used for moving just initial placement)
-    /// </summary>
-    /// <param name="piece">A reference to the piece to move</param>
-    public void Place(Piece piece) {
-        board[piece.X, piece.Z] = piece;
-    }
-
-    /// <summary>
-    /// Moves a piece using move object as data.
-    /// </summary>
-    /// <param name="m">The data necessary for movement</param>
-    public void MovePiece(Move m) {
-        board[m.TX, m.TZ] = board[m.FX, m.FZ];
-        board[m.FX, m.FZ] = null;
-
-        // Call piece movement events
-        switch (board[m.TX, m.TZ].pieceType) {
-            case EPieceType.Wall:
-                EventManager.Instance.TriggerEvent("WallMoved");
-                break;
+	public void MovePiece(Move move) {
+        // Check if this is going to trigger a capture
+        if (move.Capture) {
+            // A capture event occurs and we switch over to the Action phase
+            MasterGame.Instance.CaptureAttempted.Invoke(move);
+        }
+        else {
+            board.MovePiece(move);
+            MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
+            Debug.Log("================== Moves Generated ==================");
+            Debug.Log("Moves:");
+            foreach (var m in StrategyGame.Instance.Pieces[0].Moves) {
+                Debug.Log("Move: " + m.From + " - " + m.To);
+            }
         }
     }
 
-    /// <summary>
-    /// Returns whether or not a piece is at the location specified.
-    /// General purpose implementation.
-    /// </summary>
-    /// <param name="x">Index X</param>
-    /// <param name="z">Index Z</param>
-    /// <returns>True if there is a piece there, else false</returns>
-    public bool PieceAt(int x, int z) {
-        return board[x, z] != null ? true : false;
+    public void RemovePiece(int index) {
+        board.RemovePiece(index);
     }
 
-    /// <summary>
-    /// Returns whether or not a piece is at the location specified.
-    /// Checks a square in a direction relative to indeces provided.
-    /// </summary>
-    /// <param name="x">Index X</param>
-    /// <param name="z">Index Z</param>
-    /// <param name="direction">The direction we are looking in</param>
-    /// <returns>True if there is a piece in the specified direction, else false</returns>
-    public bool PieceAt(int x, int z, EDirection direction) {
-        switch (direction) {
-            case EDirection.Northeast:
-                if (!SquareExists(x + 1, z + 1)) return false;
-                return board[x + 1, z + 1] != null;
-
-            case EDirection.Northwest:
-                if (!SquareExists(x - 1, z + 1)) return false;
-                return board[x - 1, z + 1] != null;
-
-            case EDirection.North:
-                if (!SquareExists(x, z + 1)) return false;
-                return board[x, z + 1] != null;
-
-            case EDirection.Southeast:
-                if (!SquareExists(x + 1, z - 1)) return false;
-                return board[x + 1, z - 1] != null;
-
-            case EDirection.Southwest:
-                if (!SquareExists(x - 1, z - 1)) return false;
-                return board[x - 1, z - 1] != null;
-
-            case EDirection.South:
-                if (!SquareExists(x, z - 1)) return false;
-                return board[x, z - 1] != null;
-
-            case EDirection.East:
-                if (!SquareExists(x + 1, z)) return false;
-                return board[x + 1, z] != null;
-
-            case EDirection.West:
-                if (!SquareExists(x - 1, z)) return false;
-                return board[x - 1, z] != null;
-        }
-
-        return false;
+    public bool PieceAt(int index) {
+        return board.PieceAt(index);
     }
 
-    /// <summary>
-    /// Returns whether or not a piece is at the location specified.
-    /// Checks a square in a direction relative to indeces provided.
-    /// Only returns true if the pieceType and pieceColor match.
-    /// </summary>
-    /// <param name="x">Index X</param>
-    /// <param name="z">Index Z</param>
-    /// <param name="pieceType">The type of the piece we are checking for</param>
-    /// <param name="pieceColor">The color of the piece we are checking for</param>
-    /// <param name="direction">The direction we are looking in</param>
-    /// <returns>True if there is a specific piece in the specified direction, else false</returns>
-    public bool PieceAt(int x, int z, EPieceType pieceType, EPieceColor pieceColor, EDirection direction) {
-        switch (direction) {
-            case EDirection.Northeast:
-                if (!SquareExists(x + 1, z + 1)) return false;
-                return board[x + 1, z + 1] != null &&
-                       board[x + 1, z + 1].pieceType == pieceType &&
-                       board[x + 1, z + 1].pieceColor == pieceColor;
-
-            case EDirection.Northwest:
-                if (!SquareExists(x - 1, z + 1)) return false;
-                return board[x - 1, z + 1] != null &&
-                       board[x - 1, z + 1].pieceType == pieceType &&
-                       board[x - 1, z + 1].pieceColor == pieceColor;
-
-            case EDirection.North:
-                if (!SquareExists(x, z + 1)) return false;
-                return board[x, z + 1] != null &&
-                       board[x, z + 1].pieceType == pieceType &&
-                       board[x, z + 1].pieceColor == pieceColor;
-
-            case EDirection.Southeast:
-                if (!SquareExists(x + 1, z - 1)) return false;
-                return board[x + 1, z - 1] != null &&
-                       board[x + 1, z - 1].pieceType == pieceType &&
-                       board[x + 1, z - 1].pieceColor == pieceColor;
-
-            case EDirection.Southwest:
-                if (!SquareExists(x - 1, z - 1)) return false;
-                return board[x - 1, z - 1] != null &&
-                       board[x - 1, z - 1].pieceType == pieceType &&
-                       board[x - 1, z - 1].pieceColor == pieceColor;
-
-            case EDirection.South:
-                if (!SquareExists(x, z - 1)) return false;
-                return board[x, z - 1] != null &&
-                       board[x, z - 1].pieceType == pieceType &&
-                       board[x, z - 1].pieceColor == pieceColor;
-
-            case EDirection.East:
-                if (!SquareExists(x + 1, z)) return false;
-                return board[x + 1, z] != null &&
-                       board[x + 1, z].pieceType == pieceType &&
-                       board[x + 1, z].pieceColor == pieceColor;
-
-            case EDirection.West:
-                if (!SquareExists(x - 1, z)) return false;
-                return board[x - 1, z] != null &&
-                       board[x - 1, z].pieceType == pieceType &&
-                       board[x - 1, z].pieceColor == pieceColor;
-        }
-
-        return false;
+    public bool PieceAt(int index, EDirection direction) {
+        return board.PieceAt(index, direction);
     }
 
-    /// <summary>
-    /// Determines whether or not the x and y index exists to prevent out of bounds exceptions
-    /// </summary>
-    /// <param name="x">X index</param>
-    /// <param name="z">Z Index</param>
-    /// <returns>Whether the indeces exist</returns>
-    public bool SquareExists(int x, int z) {
-        return x >= 0 && x < size && z >= 0 && z < size;
+    public bool PieceAt(int index, EPieceType pieceType, EDirection direction) {
+        return board.PieceAt(index, pieceType, direction);
     }
+    #endregion
+    #endregion
 }
