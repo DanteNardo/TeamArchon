@@ -29,6 +29,9 @@ public class GameBoard : Singleton<GameBoard> {
 		MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
 	}
 
+
+
+
 	public void MovePiece(Move move) {
         // Check if this is going to trigger a capture
         if (move.Capture) {

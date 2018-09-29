@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 #region Master Game Enumerators
 public enum ETeam {
     Light,
@@ -14,6 +15,7 @@ public enum ETeam {
 /// </summary>
 public class MasterGame : Singleton<MasterGame> {
     #region Properties
+    
     public CaptureEvent CaptureAttempted { get; private set; }
     public CaptureData Capture { get; private set; }
 
@@ -26,6 +28,10 @@ public class MasterGame : Singleton<MasterGame> {
     /// Initializes the capture and round events and listeners.
     /// </summary>
     private void Start() {
+        
+    
+
+
         // Create capture attempt listeners
         CaptureAttempted = new CaptureEvent();
 
@@ -39,12 +45,20 @@ public class MasterGame : Singleton<MasterGame> {
         RoundEnded.AddListener(OnRoundEnded);
     }
 
+    //temp func to test scene change
+    public void captureEvent()
+    {
+        SwitchToAction();
+    }
+
     /// <summary>
     /// Invoked whenever a capture is attempted during the Strategy phase.
     /// Creates the Capture data and switches to the Action portion of the game.
     /// </summary>
     /// <param name="move">The move that generated this capture attempt</param>
     private void OnCaptureAttempted(Move move) {
+
+        
         EPieceType light = EPieceType.None;
         EPieceType dark = EPieceType.None;
 
@@ -77,16 +91,21 @@ public class MasterGame : Singleton<MasterGame> {
         Round = new RoundData(rr.WinningTeam);
 
         // Begin switch to Strategy portion
+
+        
         SwitchToStrategy();
     }
 
     private void SwitchToAction() {
         // TODO: Switch to action scene
+        NetworkManager.singleton.ServerChangeScene("2dShooter");
+
     }
+
 
     private void SwitchToStrategy() {
         // TODO: Switch to strategy scene
-
+        NetworkManager.singleton.ServerChangeScene("Strategy");
         // TODO: Remove the piece from StrategyGame list
 
         // Light won, light turn, delete To and move
