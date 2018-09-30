@@ -927,7 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e53341d023d1294798863f158f73e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1848609272865620, guid: 5bac57d439f7de1469d58d141a37e408, type: 2}
+  pistol: {fileID: 1848609272865620, guid: 5bac57d439f7de1469d58d141a37e408, type: 2}
+  machineGun: {fileID: 1033320838204664, guid: a2a60c5349de2844da51055d0904bacd, type: 2}
 --- !u!114 &483764713
 MonoBehaviour:
   m_ObjectHideFlags: 0
