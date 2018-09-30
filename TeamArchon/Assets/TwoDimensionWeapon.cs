@@ -71,15 +71,8 @@ public class TwoDimensionWeapon : NetworkBehaviour{
                 GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
                 tempBullet.transform.Rotate(new Vector3(0, 0, 90));
 
-                /*if (gameObject.tag == "RedPlayer")
-                {
-                    tempBullet.tag = "RedBullet";
-
-                }
-                else
-                {
-                    tempBullet.tag = "BlueBullet";
-                }*/
+                //making the bullet be on it's players "team"
+                tempBullet.tag = gameObject.tag;
                 bulletPool.Add(tempBullet);
                 NetworkServer.Spawn(tempBullet);
             }

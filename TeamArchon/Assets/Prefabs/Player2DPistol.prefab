@@ -26,9 +26,10 @@ GameObject:
   - component: {fileID: 50636829504029538}
   - component: {fileID: 114195366193818436}
   - component: {fileID: 114559092470617304}
+  - component: {fileID: 114420808452219528}
   m_Layer: 0
-  m_Name: Player2D
-  m_TagString: RedPlayer
+  m_Name: Player2DPistol
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +130,18 @@ MonoBehaviour:
     type: 2}
   machineGunBulletPrefab: {fileID: 1528649902235898, guid: 1af54d71696583c4da92dc7bf46c080b,
     type: 2}
-  weaponType: 1
+  weaponType: 0
+--- !u!114 &114420808452219528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848609272865620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114559092470617304
 MonoBehaviour:
   m_ObjectHideFlags: 1

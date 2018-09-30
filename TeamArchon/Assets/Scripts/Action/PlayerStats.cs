@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 namespace actionPhase
 {
+    
     public class PlayerStats : NetworkBehaviour
     {
       
@@ -22,6 +23,7 @@ namespace actionPhase
                 if (health <= 0)
                 {
                     gameObject.SetActive(false);
+                    ShooterManager.instance.countDeath(gameObject.tag);
                 }
             }
         }
