@@ -27,6 +27,12 @@ public class ShooterManager : NetworkBehaviour
         killCount2 = 0;
         killCountRequired = 0;
 
+
+        if (isServer)
+        {
+            SpawnPlayer(pistol);
+        }
+        /*
         if (!isLocalPlayer)
         {
             GameObject newPlayer = Instantiate<GameObject>(pistol, Vector3.zero, Quaternion.identity);
@@ -38,7 +44,7 @@ public class ShooterManager : NetworkBehaviour
 
             //Spawn Player for the future
             //SpawnPlayer("Team1", pistol);
-        }
+        }*/
 
     }
 
@@ -59,18 +65,21 @@ public class ShooterManager : NetworkBehaviour
 
         }
     }
-
-    void SpawnPlayer(string team, GameObject playerType)
+    [Server]
+    void SpawnPlayer( GameObject playerType)
     {
-         GameObject newPlayer = Instantiate<GameObject>(playerType, Vector3.zero, Quaternion.identity);
-        newPlayer.tag = team;
-         NetworkConnection localConnection = NetworkServer.connections[0];
+        for (int i = 0; i < NetworkServer.connections.Count; i++)
+        {
+            GameObject newPlayer = Instantiate<GameObject>(playerType, Vector3.zero, Quaternion.identity);
+            //newPlayer.tag = team;
+            NetworkConnection localConnection = NetworkServer.connections[i];
 
-         Destroy(localConnection.playerControllers[0].gameObject);
+            //Destroy(localConnection.playerControllers[0].gameObject);
 
-         NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, localConnection.playerControllers[0].playerControllerId);
-        killCountRequired++;
-        
+            NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, localConnection.playerControllers[0].playerControllerId);
+            NetworkServer.Spawn(newPlayer);
+            killCountRequired++;
+        }
     }
 
     public void countDeath(string team)
