@@ -15,17 +15,8 @@ public class TwoDimensionWeapon : NetworkBehaviour{
 	// Use this for initialization
 	void Start () {
         fireTimer = 0.0f;
-        bulletPool = new List<GameObject>();	
-        if(weaponType == Weapon.Pistol)
-        {
-            fireRate = 2.0f;
-            finalPrefab = pistolBulletPrefab;
-        }
-        if(weaponType == Weapon.MachineGun)
-        {
-            fireRate = 6.0f;
-            finalPrefab = machineGunBulletPrefab;
-        }
+        bulletPool = new List<GameObject>();
+        ChangeWeapon(weaponType);
 	}
 	
 	// Update is called once per frame
@@ -79,5 +70,18 @@ public class TwoDimensionWeapon : NetworkBehaviour{
             fireTimer = 0.0f;
         }
        //tempBullet.SetActive(false, 5.0f);
+    }
+    public void ChangeWeapon(Weapon weaponType)
+    {
+        this.weaponType = weaponType;
+        if(this.weaponType == Weapon.Pistol)
+        {
+            fireRate = 2.0f;
+            finalPrefab = pistolBulletPrefab;
+        }else if(weaponType == Weapon.MachineGun)
+        {
+            fireRate = 6.0f;
+            finalPrefab = machineGunBulletPrefab;
+        }
     }
 }
