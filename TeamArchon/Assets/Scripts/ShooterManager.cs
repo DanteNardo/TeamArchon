@@ -61,12 +61,12 @@ namespace actionPhase {
         {
             if (killCount0 >= killCountRequired / 2)
             {
-                //End round with team 1 winning
+                roundEnd(0);
                 ResetScene();
             }
             else if (killCount1 >= killCountRequired / 2)
             {
-                //end round with team 2 winning
+                roundEnd(1);
                 ResetScene();
             }
         }
@@ -136,6 +136,11 @@ namespace actionPhase {
 
                 killCountRequired++;
             }
+        }
+
+        void roundEnd(int winningTeam)
+        {
+
         }
 
 
