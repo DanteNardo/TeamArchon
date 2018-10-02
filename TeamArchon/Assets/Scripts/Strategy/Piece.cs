@@ -6,15 +6,9 @@ using UnityEngine.Networking;
 #region Piece Enumerators
 public enum EPieceType {
     None,
-    LScout,
-    LShotgun,
-    LSniper,
-    LGrenade,
+    LPistol,
     LMachineGun,
-    DScout,
-    DShotgun,
-    DSniper,
-    DGrenade,
+    DPistol,
     DMachineGun
 };
 public enum EDirection {

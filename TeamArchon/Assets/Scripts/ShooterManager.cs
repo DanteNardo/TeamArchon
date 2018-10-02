@@ -3,90 +3,141 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-public class ShooterManager : NetworkBehaviour
-{
-
-    public GameObject pistol;
-    public static ShooterManager instance;
-    public GameObject machineGun;
-    //using to send who wins after a certain kill count
-    int killCount1;
-    int killCount2;
-    int killCountRequired;
-
-
-    private void Awake()
+using actionPhase;
+namespace actionPhase {
+    public class ShooterManager : NetworkBehaviour
     {
-        instance = this;
-    }
 
-    // Use this for initialization
-    void Start()
-    {
-        killCount1 = 0;
-        killCount2 = 0;
-        killCountRequired = 0;
+        public GameObject pistol;
+        public static ShooterManager instance;
+        public GameObject machineGun;
+        public List<GameObject> players;
+        public List<GameObject> spawnPoints0;
+        public List<GameObject> spawnPoints1;
+        //using to send who wins after a certain kill count
+        int killCount0;
+        int killCount1;
+        int killCountRequired;
+        int spawnCount0;
+        int spawnCount1;
 
 
-        if (isServer)
+        private void Awake()
         {
-            SpawnPlayer(pistol);
+            instance = this;
         }
-        /*
-        if (!isLocalPlayer)
+
+        // Use this for initialization
+        void Start()
         {
-            GameObject newPlayer = Instantiate<GameObject>(pistol, Vector3.zero, Quaternion.identity);
-            NetworkConnection localConnection = NetworkServer.connections[0];
+            ResetScene();
 
-            Destroy(localConnection.playerControllers[0].gameObject);
+            if (isServer)
+            {
+                //SpawnPlayer(pistol);
+            }
+            /*
+            if (!isLocalPlayer)
+            {
+                GameObject newPlayer = Instantiate<GameObject>(pistol, Vector3.zero, Quaternion.identity);
+                NetworkConnection localConnection = NetworkServer.connections[0];
 
-            NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, localConnection.playerControllers[0].playerControllerId);
+                Destroy(localConnection.playerControllers[0].gameObject);
 
-            //Spawn Player for the future
-            //SpawnPlayer("Team1", pistol);
-        }*/
+                NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, localConnection.playerControllers[0].playerControllerId);
 
-    }
-
-   
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (killCount1 >= killCountRequired / 2)
-        {
-            //End round with team 1 winning
-        }
-        else if(killCount2>= killCountRequired/2)
-        {
-            //end round with team 2 winning
+                //Spawn Player for the future
+                //SpawnPlayer("Team1", pistol);
+            }*/
 
         }
-    }
-    [Server]
-    void SpawnPlayer( GameObject playerType)
-    {
-        for (int i = 0; i < NetworkServer.connections.Count; i++)
+
+
+
+
+
+        // Update is called once per frame
+        void Update()
         {
-            GameObject newPlayer = Instantiate<GameObject>(playerType, Vector3.zero, Quaternion.identity);
-            //newPlayer.tag = team;
-            NetworkConnection localConnection = NetworkServer.connections[i];
-
-            //Destroy(localConnection.playerControllers[0].gameObject);
-
-            NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, localConnection.playerControllers[0].playerControllerId);
-            NetworkServer.Spawn(newPlayer);
-            killCountRequired++;
+            if (killCount0 >= killCountRequired / 2)
+            {
+                //End round with team 1 winning
+                ResetScene();
+            }
+            else if (killCount1 >= killCountRequired / 2)
+            {
+                //end round with team 2 winning
+                ResetScene();
+            }
         }
+        [Server]
+        void ResetPlayer(GameObject player, TwoDimensionWeapon.Weapon weaponType)
+        {
+            player.GetComponent<TwoDimensionWeapon>().ChangeWeapon(weaponType);
+            player.GetComponent<PlayerStats>().Health = 100;
+            if(player.GetComponentInParent<SquadManager>().team == 0)
+            {
+                player.transform.position = spawnPoints0[spawnCount0].transform.position;
+                spawnCount0++;
+            }
+            else
+            {
+                player.transform.position = spawnPoints1[spawnCount1].transform.position;
+                spawnCount1++;
+            }
+        }
+
+        public void countDeath(GameObject player)
+        {
+            if (player.GetComponentInParent<SquadManager>().team == 0) { 
+                killCount0++;
+            }
+            else
+            {
+                killCount1++;
+            }
+            
+        }
+
+        private void ResetScene()
+        {
+            spawnCount0 = 0;
+            spawnCount1 = 0;
+            killCount0 = 0;
+            killCount1 = 0;
+            killCountRequired = 0;
+
+            foreach (GameObject player in players)
+            {
+                TwoDimensionWeapon.Weapon weaponType;
+                if (player.GetComponentInParent<SquadManager>().team == 0)
+                {
+                    if (MasterGame.Instance.Capture.LightPiece == EPieceType.LMachineGun)
+                    {
+                        weaponType = TwoDimensionWeapon.Weapon.MachineGun;
+                    }
+                    else
+                    {
+                        weaponType = TwoDimensionWeapon.Weapon.Pistol;
+                    }
+                }
+                else
+                {
+                    if (MasterGame.Instance.Capture.LightPiece == EPieceType.DMachineGun)
+                    {
+                        weaponType = TwoDimensionWeapon.Weapon.MachineGun;
+                    }
+                    else
+                    {
+                        weaponType = TwoDimensionWeapon.Weapon.Pistol;
+                    }
+                }
+                ResetPlayer(player, weaponType);
+
+                killCountRequired++;
+            }
+        }
+
+
     }
-
-    public void countDeath(string team)
-    {
-        if (team == "Team1") killCount1++;
-        if (team == "Team2") killCount2++;
-    }
-
-
 }
