@@ -11,6 +11,8 @@ public class SquadManager : NetworkBehaviour {
     private Piece[] pieces;
 
     public GameObject shooterPrefab;
+    public GameObject shooterManager;
+    public GameObject masterGameManager;
 
     [SyncVar]
     public int team;
@@ -22,6 +24,8 @@ public class SquadManager : NetworkBehaviour {
     /// </summary>
     private void Start() {
         if (isLocalPlayer) {
+            //Bad Imp
+            masterGameManager = GameObject.Find("MasterGameManager");
             gameObject.name = "LocalPlayerController";
             CmdInstantiatePieces();
             StrategyGame.Instance.playerCount++;
@@ -90,7 +94,7 @@ public class SquadManager : NetworkBehaviour {
         
     }
 
-    
+ 
 
     public bool CheckLocalPlayer() {
         return isLocalPlayer;

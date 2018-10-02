@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 #region Master Game Enumerators
 public enum ETeam {
     Light,
@@ -21,6 +22,11 @@ public class MasterGame : Singleton<MasterGame> {
 
     public RoundEvent RoundEnded { get; private set; }
     public RoundData Round { get; private set; }
+
+    public Camera strategyCamera;
+    public Camera shooterCamera;
+
+    public List<GameObject> playerList;
     #endregion
 
     #region Methods
@@ -50,7 +56,7 @@ public class MasterGame : Singleton<MasterGame> {
     {
         SwitchToAction();
     }
-
+    
     /// <summary>
     /// Invoked whenever a capture is attempted during the Strategy phase.
     /// Creates the Capture data and switches to the Action portion of the game.
@@ -98,7 +104,17 @@ public class MasterGame : Singleton<MasterGame> {
 
     private void SwitchToAction() {
         // TODO: Switch to action scene
-        NetworkManager.singleton.ServerChangeScene("2dShooter");
+        //NetworkManager.singleton.ServerChangeScene("2dShooter");
+        //strategyCamera.enabled = false;
+       // shooterCamera.enabled = true;
+
+        for(int i = 0; i < NetworkServer.connections.Count; i++)
+        {
+            Debug.Log(NetworkServer.connections[i].playerControllers[0].gameObject);
+            NetworkServer.connections[i].playerControllers[0].gameObject.transform.Find("Player2DPistol(Clone)").GetComponent<actionPhase.ShooterMovement>().disableInput = false;
+
+        }
+
     }
 
 

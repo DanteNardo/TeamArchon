@@ -13,7 +13,7 @@ namespace actionPhase
         public float speed;
         private Rigidbody2D rigid2D;
         bool localPiece;
-        bool disableInput;
+        public bool disableInput;
         public override void OnStartClient()
         {
             GameObject parent = ClientScene.FindLocalObject(parentNetId);
@@ -35,8 +35,9 @@ namespace actionPhase
         // Update is called once per frame
         void FixedUpdate()
         {
+            Debug.Log(!localPiece || disableInput);
             
-            if (!localPiece & !disableInput)
+            if (!localPiece || disableInput)
             {
                 return;
             }
