@@ -83,16 +83,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd8161389d80cb54abf51132b505fdc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD:TeamArchon/Assets/Prefabs/StrategyPlayer.prefab
+  m_EditorClassIdentifier:
   prefabs: []
-=======
-  prefabs:
-  - {fileID: 1343552552093904, guid: 66990f44e8b1f2b428663460b2ec31d7, type: 2}
-  - {fileID: 1343552552093904, guid: 66990f44e8b1f2b428663460b2ec31d7, type: 2}
-  - {fileID: 1343552552093904, guid: 66990f44e8b1f2b428663460b2ec31d7, type: 2}
-  - {fileID: 1343552552093904, guid: 66990f44e8b1f2b428663460b2ec31d7, type: 2}
-  shooterPrefab: {fileID: 1848609272865620, guid: 5bac57d439f7de1469d58d141a37e408,
-    type: 2}
->>>>>>> 328efbb4ec3d5ed6fbdbabd5c34505feb4e013d2:TeamArchon/Assets/Prefabs/DarkStrategyPlayer.prefab
+  shooterPrefab: {fileID: 1848609272865620, guid: 5bac57d439f7de1469d58d141a37e408, type: 2}
   team: 0
