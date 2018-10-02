@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.Networking;
+
 #region Master Game Enumerators
 public enum ETeam {
-    Light,
-    Dark,
-    None
+    Light = 0,
+    Dark = 1,
+    None = 2
 }
 #endregion
 

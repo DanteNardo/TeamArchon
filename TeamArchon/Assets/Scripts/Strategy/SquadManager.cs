@@ -19,24 +19,32 @@ public class SquadManager : NetworkBehaviour {
     /// Initializes squad pieces for local player.
     /// </summary>
     private void Start() {
+        StrategyGame.Instance.NewPlayer(this);
         if (isLocalPlayer) {
             gameObject.name = "LocalPlayerController";
+            Debug.Log("Begin instantiating pieces...");
             CmdInstantiatePieces();
-            StrategyGame.Instance.playerCount++;
+            Debug.Log("... End instantiating pieces");
         }
     }
-    
+
     /// <summary>
     /// Creates all of the pieces from prefabs and saves their data.
     /// </summary>
     [Command]
     private void CmdInstantiatePieces() {
+        Debug.Log("...Instantiating pieces");
         // Store piece objects and piece prefabs
         pieceObjects = new GameObject[prefabs.Length];
         pieces = new Piece[prefabs.Length];
 
+        if (prefabs.Length == 0) {
+            Debug.Log("This bitch empty!");
+        }
+
         // Generate pieces for this player
         for (int i = 0; i < prefabs.Length; i++) {
+            Debug.Log("...Instantiating pieces in for loop");
             // Determine the placement for this piece based on amount of players
             // TODO: Make this not assume there will always be four pieces
             int row = 0, col = 0;
@@ -53,10 +61,10 @@ public class SquadManager : NetworkBehaviour {
             // Dark team is in rows 6-7
             else {
                 switch (i) {
-                    case 0: row = 7; col = 7 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 1: row = 6; col = 7 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 2: row = 7; col = 6 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 3: row = 6; col = 6 + 2 * StrategyGame.Instance.playerCount; break;
+                    case 0: row = 7; col = 0 + 2 * StrategyGame.Instance.playerCount; break;
+                    case 1: row = 6; col = 0 + 2 * StrategyGame.Instance.playerCount; break;
+                    case 2: row = 7; col = 1 + 2 * StrategyGame.Instance.playerCount; break;
+                    case 3: row = 6; col = 1 + 2 * StrategyGame.Instance.playerCount; break;
                 }
             }
 
@@ -76,8 +84,15 @@ public class SquadManager : NetworkBehaviour {
             GameBoard.Instance.PlacePiece(piece);
             NetworkServer.Spawn(instance);
         }
+
+        // Finish instantiating player pieces and increase player count
+        StrategyGame.Instance.IncreasePlayerCount();
     }
 
+    /// <summary>
+    /// Checks if this is a local player
+    /// </summary>
+    /// <returns>True if this is a local player, else false</returns>
     public bool CheckLocalPlayer() {
         return isLocalPlayer;
     } 

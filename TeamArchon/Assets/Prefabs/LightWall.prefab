@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65123299881738374}
   - component: {fileID: 114209224183041492}
   - component: {fileID: 114484311169276398}
+  - component: {fileID: 114821590339421532}
   m_Layer: 0
   m_Name: LightWall
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1298819292450234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -114,6 +115,8 @@ MonoBehaviour:
   selectedColor: {r: 0.9339623, g: 0.6872553, b: 0.22027415, a: 0}
   pieceType: 2
   direction: 8
+  X: 0
+  Z: 0
   selected: 0
   speed: 3
   localPiece: 0
@@ -148,4 +151,25 @@ MonoBehaviour:
     i14: 80
     i15: 214
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114821590339421532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298819292450234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
