@@ -33,7 +33,7 @@ namespace actionPhase
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             
             if (!localPiece & !disableInput)
@@ -48,7 +48,7 @@ namespace actionPhase
 
 
 
-            rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed * Time.deltaTime);
+            rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed);
 
             if (Input.GetButton("Fire1"))
             {

@@ -16,10 +16,10 @@ namespace actionPhase
         }
 
         // Update is called once per frame
-        void Update() {
+        void FixedUpdate() {
             Vector3 position = gameObject.transform.position;
 
-            Vector3 velocity = Vector3.Normalize(gameObject.transform.right) * speed * Time.deltaTime;
+            Vector3 velocity = Vector3.Normalize(gameObject.transform.right) * speed;
 
             rigid2D.MovePosition(position + velocity);
 

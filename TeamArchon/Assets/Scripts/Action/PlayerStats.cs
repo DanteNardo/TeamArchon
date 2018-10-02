@@ -23,7 +23,7 @@ namespace actionPhase
                 if (health <= 0)
                 {
                     gameObject.SetActive(false);
-                    ShooterManager.instance.countDeath(gameObject.tag);
+                    ShooterManager.instance.countDeath(gameObject);
                 }
             }
         }
