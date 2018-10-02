@@ -10,6 +10,8 @@ public class SquadManager : NetworkBehaviour {
     private GameObject[] pieceObjects;
     private Piece[] pieces;
 
+    public GameObject shooterPrefab;
+
     [SyncVar]
     public int team;
     #endregion
@@ -74,9 +76,21 @@ public class SquadManager : NetworkBehaviour {
             // Set the parent on this client
             instance.transform.parent = gameObject.transform;
             GameBoard.Instance.PlacePiece(piece);
+            
             NetworkServer.Spawn(instance);
+            
+
         }
+
+        
+        GameObject shooterPiece = Instantiate(shooterPrefab, Vector3.zero, Quaternion.identity);
+        shooterPiece.GetComponent<actionPhase.ShooterMovement>().parentNetId = netId;
+        
+        NetworkServer.Spawn(shooterPiece);
+        
     }
+
+    
 
     public bool CheckLocalPlayer() {
         return isLocalPlayer;
