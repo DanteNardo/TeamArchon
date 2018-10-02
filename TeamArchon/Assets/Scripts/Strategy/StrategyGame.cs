@@ -1,44 +1,47 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
-
-#region Game Enumerators
-public enum EGameState {
-    MainMenu,
-    Play,
-    Pause,
-    GameOver,
-    None
-}
-#endregion
+using UnityEngine.Networking;
 
 /// <summary>
 /// A component that handles the game state over time.
 /// </summary>
-public class StrategyGame : Singleton<StrategyGame> {
+public class StrategyGame : NetworkBehaviour {
     #region Members
+    [SyncVar]
     public int playerCount = 0;
     private int currentPlayer = 0;
     private int movedPieceCount = 0;
-    private List<Player> players;
+
+    // Squad Loadouts
+    public GameObject[] lightPrefabs;
+    public GameObject[] darkPrefabs;
 
     private UnityAction pieceMoved;
     #endregion
 
     #region Properties
+    public static StrategyGame Instance { get; private set; }
     public ETeam TurnState { get; private set; }
-    public EGameState GameState { get; private set; }
-    public List<Player> Players { get { return players; } }
     public List<Piece> Pieces { get; private set; }
     #endregion
 
     #region Methods
     /// <summary>
+    /// Creates a Singleton.
+    /// </summary>
+    private void Awake() {
+        if (Instance != null) {
+            Destroy(Instance);
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    /// <summary>
     /// Initializes the events.
     /// </summary>
     private void Start() {
-        // Create player list
-        players = new List<Player>(playerCount);
-
         // Create piece list
         Pieces = new List<Piece>();
 
@@ -47,17 +50,6 @@ public class StrategyGame : Singleton<StrategyGame> {
 
         // Start listening to piece movement listeners
         EventManager.Instance.StartListening("PieceMoved", pieceMoved);
-    }
-
-    /// <summary>
-    /// Updates game state and calls appropriate functions accordingly.
-    /// </summary>
-    private void Update() {
-        switch (GameState) {
-            case EGameState.Play:
-                
-                break;
-        }
     }
 
     /// <summary>
@@ -84,6 +76,35 @@ public class StrategyGame : Singleton<StrategyGame> {
     private void OnPieceMoved() {
         movedPieceCount++;
         NextTurn();
+    }
+
+    /// <summary>
+    /// Determines the team for the new StrategyPlayer and
+    /// gives it a list of prefabs that determine its squad.
+    /// </summary>
+    /// <param name="squad">The new strategy player's squadmanager</param>
+    public void NewPlayer(SquadManager squad) {
+        Debug.Log("================== NEW PLAYER! ==================");
+        Debug.Log("Player Count: " + playerCount);
+
+        // Determine which type of player to add (light or dark)
+        squad.team = playerCount % 2;
+
+        Debug.Log("Team: " + playerCount % 2);
+        Debug.Log("Team: " + (ETeam)squad.team);
+
+        // Set list of prefabs for squad based on team
+        squad.prefabs = ((ETeam)squad.team == ETeam.Light) ? lightPrefabs : darkPrefabs;
+
+        Debug.Log("Prefabs Length: " + squad.prefabs.Length);
+    }
+
+    /// <summary>
+    /// Increases the playercount on the server.
+    /// </summary>
+    public void IncreasePlayerCount() {
+        Debug.Log("Player Count: " + playerCount);
+        playerCount++;
     }
     #endregion
 }
