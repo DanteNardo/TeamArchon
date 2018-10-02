@@ -40,21 +40,22 @@ public class Piece : NetworkBehaviour {
 	public Color selectedColor;
     public EPieceType pieceType;
 	public EDirection direction;
+    public int X; // Column
+    public int Z; // Row
 	public bool selected;
     public int speed = 3;
 	private bool moving;
     public bool localPiece;
-    //Synced across the server for each client
+
+    // Synced across the server for each client
     [SyncVar]
     public NetworkInstanceId parentNetId;
     #endregion
 
     #region Piece Properties
-    public int X { get; set; }
-	public int Z { get; set; }
-    public int Index {
+    public int Index {         // Row & Column as a single integer
         get {
-            return Board.IndexFromRowAndCol(X, Z);
+            return Board.IndexFromRowAndCol(Z, X);
         }
     }
     public int Speed { get { return speed; } }
@@ -75,12 +76,12 @@ public class Piece : NetworkBehaviour {
     /// <summary>
     /// Runs localy whenever a client connects to the server for each piece in the game. Connects each piece to each player.
     /// </summary>
-    public override void OnStartClient()
-    {
-        GameObject parrent = ClientScene.FindLocalObject(parentNetId);
-        transform.SetParent(parrent.transform);
-        //set if the piece is local
-        localPiece = transform.parent.GetComponent<SquadManager>().checkLocalPlayer();
+    public override void OnStartClient() {
+        GameObject parent = ClientScene.FindLocalObject(parentNetId);
+        transform.SetParent(parent.transform);
+
+        // Set if the piece is local
+        localPiece = transform.parent.GetComponent<SquadManager>().CheckLocalPlayer();
     }
 
     /// <summary>
@@ -95,8 +96,8 @@ public class Piece : NetworkBehaviour {
             if (Rules.Instance.ValidMove(pieceType, m) && HasMove(m)) {
                 Debug.Log("Valid Move");
                 Moves.Clear();
-                X = Board.Row(m.To);
-                Z = Board.Col(m.To);
+                X = Board.Col(m.To);
+                Z = Board.Row(m.To);
                 GameBoard.Instance.MovePiece(m);
 				StartCoroutine(Moving(m));
 			}
@@ -117,6 +118,12 @@ public class Piece : NetworkBehaviour {
         if (!selected) {
             selected = true;
             material.color = selectedColor;
+
+            // Deselect old piece and select this piece
+            if (InputManager.Instance.Selected != null) {
+                Debug.Log("Deselected");
+                InputManager.Instance.Selected.selected = false;
+            }
             InputManager.Instance.Selected = this;
         }
         // Deselect the piece if it is selected
@@ -146,11 +153,10 @@ public class Piece : NetworkBehaviour {
 
 			// Animation complete
 			if (transform.position == to) {
-
                 // Clear our moves, set our new position, and change our state
-                X = (int)transform.position.x;
-                Z = (int)transform.position.z;
-				moving = false;
+                X = Mathf.FloorToInt(transform.position.x);
+                Z = Mathf.FloorToInt(transform.position.z);
+                moving = false;
 				yield break;
 			}
 			else yield return null;
@@ -181,10 +187,12 @@ public class Piece : NetworkBehaviour {
     /// <param name="m">The move data for comparison</param>
     /// <returns>True if contained, else false</returns>
     private bool HasMove(Move m) {
-        Debug.Log("MOVE CHECK: " + m.From + " - " + m.To);
+        Debug.Log("Piece Row&Col: " + Z + " - " + X);
+        Debug.Log("Current Index: " + Index);
+        Debug.Log("Move Row&Col: " + m.From + " - " + m.To);
         Debug.Log("Moves:");
         foreach (var move in Moves) {
-            Debug.Log("Move: " + move.From + " - " + move.To);
+            Debug.Log("Move From: " + move.From + " Move To: " + move.To);
             if (m.From == move.From && m.To == move.To) {
                 return true;
             }

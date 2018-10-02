@@ -29,9 +29,6 @@ public class GameBoard : Singleton<GameBoard> {
 		MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
 	}
 
-
-
-
 	public void MovePiece(Move move) {
         // Check if this is going to trigger a capture
         if (move.Capture) {
@@ -43,7 +40,7 @@ public class GameBoard : Singleton<GameBoard> {
             MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
             Debug.Log("================== Moves Generated ==================");
             Debug.Log("Moves:");
-            foreach (var m in StrategyGame.Instance.Pieces[0].Moves) {
+            foreach (var m in StrategyGame.Instance.Pieces[2].Moves) {
                 Debug.Log("Move: " + m.From + " - " + m.To);
             }
         }

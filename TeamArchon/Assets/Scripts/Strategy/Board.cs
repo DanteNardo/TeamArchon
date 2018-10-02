@@ -35,7 +35,7 @@ public class Board : NetworkBehaviour {
     /// </summary>
     private void Instantiate() {
         for (int i = 0; i < Size*Size; i++) {
-            board.Add((int)EPieceType.None);
+            board.Add(PTAsInt(EPieceType.None));
         }
     }
 
@@ -102,7 +102,7 @@ public class Board : NetworkBehaviour {
     /// </summary>
     /// <param name="piece">A reference to the piece to move</param>
     public void PlacePiece(Piece piece) {
-        board[IndexFromRowAndCol(piece.X, piece.Z)] = PTAsInt(piece.pieceType);
+        board[IndexFromRowAndCol(piece.Z, piece.X)] = PTAsInt(piece.pieceType);
     }
 
     /// <summary>

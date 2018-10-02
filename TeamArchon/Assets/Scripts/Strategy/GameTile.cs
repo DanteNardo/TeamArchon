@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 public class GameTile : MonoBehaviour {
-    #region Properties
-    public int Row { get; private set; }
-    public int Col { get; private set; }
+    #region Methods
+    public int Row;
+    public int Col;
     #endregion
 
     #region Methods
@@ -23,8 +23,11 @@ public class GameTile : MonoBehaviour {
         if (InputManager.Instance.Selected != null) {
             // Generate potential move and save it in InputManager
             Debug.Log("Selected: " + InputManager.Instance.Selected);
+            Debug.Log("Piece Row&Col: " + InputManager.Instance.Selected.Z + " - " + InputManager.Instance.Selected.X);
+            Debug.Log("Piece Index: " + InputManager.Instance.Selected.Index);
             Debug.Log("Tile Row&Col: " + Row + " - " + Col);
             Move move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col));
+            Debug.Log("New Move: " + move.From + " - " + move.To);
             Debug.Log("Invalid Move?: " + move.Invalid);
             InputManager.Instance.AttemptMove(move);
         }

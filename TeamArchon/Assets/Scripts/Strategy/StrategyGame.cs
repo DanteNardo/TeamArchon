@@ -16,7 +16,7 @@ public enum EGameState {
 /// </summary>
 public class StrategyGame : Singleton<StrategyGame> {
     #region Members
-    public int playerCount = 2;
+    public int playerCount = 0;
     private int currentPlayer = 0;
     private int movedPieceCount = 0;
     private List<Player> players;
@@ -83,7 +83,6 @@ public class StrategyGame : Singleton<StrategyGame> {
     /// </summary>
     private void OnPieceMoved() {
         movedPieceCount++;
-        //MoveGeneration.GenerateMoves(Pieces);
         NextTurn();
     }
     #endregion

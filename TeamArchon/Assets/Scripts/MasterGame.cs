@@ -99,7 +99,6 @@ public class MasterGame : Singleton<MasterGame> {
     private void SwitchToAction() {
         // TODO: Switch to action scene
         NetworkManager.singleton.ServerChangeScene("2dShooter");
-
     }
 
 

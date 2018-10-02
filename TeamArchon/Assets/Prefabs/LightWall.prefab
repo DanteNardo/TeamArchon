@@ -106,17 +106,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1298819292450234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9e0a0bea2524b84ab1d2509b6545736, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bbd3d635a1ff014d892007350caa51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 6a511fcd47668e54ab2a13e7bb60c294, type: 2}
   defaultColor: {r: 0.7058824, g: 0.59607846, b: 0.3882353, a: 0}
   selectedColor: {r: 0.9339623, g: 0.6872553, b: 0.22027415, a: 0}
   pieceType: 2
-  pieceState: 0
-  pieceColor: 0
   direction: 8
   selected: 0
+  speed: 3
+  localPiece: 0
 --- !u!114 &114484311169276398
 MonoBehaviour:
   m_ObjectHideFlags: 1

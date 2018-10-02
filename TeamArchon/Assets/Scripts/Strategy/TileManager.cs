@@ -36,12 +36,10 @@ public class TileManager : Singleton<TileManager> {
         // Iterate through the entire board
         bool light = true;
         for (int i = 0; i < Board.Size; i++) {
-
             // Switch between light and dark tiles to offset each row from the previous
             light = !light;
 
             for (int j = 0; j < Board.Size; j++) {
-
                 // Generate world space coordinate position
                 Vector3 position = new Vector3(i, -0.55f, j);
 

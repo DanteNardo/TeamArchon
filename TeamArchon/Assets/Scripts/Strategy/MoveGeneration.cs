@@ -46,13 +46,20 @@ public static class MoveGeneration {
         // Set up variables for movement depth
         int steps = 0;
         int totalSteps = piece.Speed;
-        int start = Board.IndexFromRowAndCol(piece.Z, piece.X);
+        int start = piece.Index;
 
         // Set up variables for recording all possible tiles to move to
         List<Move> moves = new List<Move>();
         List<int> cells = new List<int>();
         List<int> nextCells = new List<int>();
         int cc = start;
+
+        // TEST
+        if (start == 25) {
+            Debug.Log("WHY THE FUCK IS THE ORIGIN 25!!!!!");
+            Debug.Log("Piece Row&Col: " + piece.Z + " - " + piece.X);
+            Debug.Log("Current Index: " + piece.Index);
+        }
 
         // Next row
         if (Board.TileExists(cc + Board.Size)) {
@@ -82,8 +89,8 @@ public static class MoveGeneration {
             // If the square contains a piece of the other color,
             // add the valid move, but do not move through it, and set capture to true
             if (Piece.IsOtherColor(piece.pieceType, GameBoard.Instance[cc])) {
-                Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
                 moves.Add(new Move(start, cc, true));
+                Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
             }
             // Add this cell's neighbors to continue searching for possible moves
             else if (!GameBoard.Instance.PieceAt(cc) && cc != start) {
