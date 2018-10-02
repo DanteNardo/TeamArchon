@@ -6,15 +6,9 @@ using UnityEngine.Networking;
 #region Piece Enumerators
 public enum EPieceType {
     None,
-    LScout,
-    LShotgun,
-    LSniper,
-    LGrenade,
+    LPistol,
     LMachineGun,
-    DScout,
-    DShotgun,
-    DSniper,
-    DGrenade,
+    DPistol,
     DMachineGun
 };
 public enum EDirection {
@@ -208,11 +202,8 @@ public class Piece : NetworkBehaviour {
     /// <param name="type">The type of the piece</param>
     /// <returns>True or false</returns>
     public static bool IsLight(EPieceType type) {
-        return type == EPieceType.LSniper ||
-               type == EPieceType.LShotgun ||
-               type == EPieceType.LScout ||
-               type == EPieceType.LMachineGun ||
-               type == EPieceType.LGrenade;
+        return type == EPieceType.LPistol ||
+               type == EPieceType.LMachineGun;
     }
 
     /// <summary>
@@ -221,11 +212,8 @@ public class Piece : NetworkBehaviour {
     /// <param name="type">The type of the piece</param>
     /// <returns>True or false</returns>
     public static bool IsDark(EPieceType type) {
-        return type == EPieceType.DSniper ||
-               type == EPieceType.DShotgun ||
-               type == EPieceType.DScout ||
-               type == EPieceType.DMachineGun ||
-               type == EPieceType.DGrenade;
+        return type == EPieceType.DPistol ||
+               type == EPieceType.DMachineGun;
     }
 
     /// <summary>
