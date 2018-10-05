@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-
+using System.Collections;
 /// <summary>
 /// Manages a specific set of pieces based on given input.
 /// </summary>
@@ -21,13 +21,22 @@ public class SquadManager : NetworkBehaviour {
     /// Initializes squad pieces for local player.
     /// </summary>
     private void Start() {
+        StartCoroutine(waitForStart());
+    }
+
+    public IEnumerator waitForStart()
+    {
+        
+        yield return new WaitForSeconds(.5f);
         StrategyGame.Instance.NewPlayer(this);
-        if (isLocalPlayer) {
+        if (isLocalPlayer)
+        {
             gameObject.name = "LocalPlayerController";
             Debug.Log("Begin instantiating pieces...");
             CmdInstantiatePieces();
             Debug.Log("... End instantiating pieces");
         }
+
     }
 
     /// <summary>
@@ -83,6 +92,7 @@ public class SquadManager : NetworkBehaviour {
 
             // Set the parent on this client
             instance.transform.parent = gameObject.transform;
+
             GameBoard.Instance.PlacePiece(piece);
             
             NetworkServer.Spawn(instance);
