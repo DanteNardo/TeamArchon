@@ -19,11 +19,13 @@ public class GameBoard : Singleton<GameBoard> {
 
 	#region Methods
 	public void Start() {
+        
 		board = GetComponent<Board>();
 	}
 
 	#region Encapsulation Of Board Methods
 	public void PlacePiece(Piece piece) {
+        Debug.Log(board);
 		board.PlacePiece(piece);
 		StrategyGame.Instance.Pieces.Add(piece);
 		MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
