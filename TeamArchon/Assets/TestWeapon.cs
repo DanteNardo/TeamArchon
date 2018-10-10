@@ -27,7 +27,7 @@ public class TestWeapon : MonoBehaviour {
         fireTimer += Time.deltaTime;
     }
 
-    
+
     public void bulletEnable(GameObject bullet, GameObject targetObj, int spread)
     {
         bullet.transform.position = targetObj.transform.position + Vector3.Normalize(targetObj.transform.up) * targetObj.GetComponent<SpriteRenderer>().size.x * 0.75f;
@@ -37,7 +37,7 @@ public class TestWeapon : MonoBehaviour {
 
     }
 
-    
+
     public void CmdFire()
     {
         if (weaponType != Weapon.ShotGun)
@@ -67,52 +67,58 @@ public class TestWeapon : MonoBehaviour {
                     tempBullet.transform.Rotate(new Vector3(0, 0, 90));
 
                     //making the bullet be on it's players "team"
-                    tempBullet.tag = gameObject.tag;
+                 
                     bulletPool.Add(tempBullet);
-                    
+
                 }
                 fireTimer = 0.0f;
             }
-            else if (weaponType == Weapon.ShotGun)
+        }
+        else if (weaponType == Weapon.ShotGun)
+        {
+            
+            if (fireTimer >= 1.0f / fireRate)
             {
-                if (fireTimer >= 1.0f / fireRate)
+                //bool for whether to create a new bullet or use a preexisting one
+                int newBullets = 3;
+                int angleSpread = 15;
+
+                foreach (GameObject bullet in bulletPool)
                 {
-                    //bool for whether to create a new bullet or use a preexisting one
-                    int newBullets = 3;
-                    int angleSpread = 15;
-
-                    foreach (GameObject bullet in bulletPool)
+                    //if there is an inactive bullet, grab it, and activate it
+                    if (bullet.activeInHierarchy == false)
                     {
-                        //if there is an inactive bullet, grab it, and activate it
-                        if (bullet.activeInHierarchy == false)
+                        bulletEnable(bullet, gameObject, ((-angleSpread * 2) + (angleSpread * newBullets)));
+                        newBullets--;
+                        //exit for loop so we don't reactivate all inactive bullets
+                        if (newBullets <= 0)
                         {
-                            bulletEnable(bullet, gameObject, ((-angleSpread * 2) + (angleSpread * newBullets)));
-                            newBullets--;
-                            //exit for loop so we don't reactivate all inactive bullets
-                            if (newBullets <= 0)
-                            {
-                                break;
-                            }
+                            break;
                         }
-
                     }
-                    //if all bullets are active make a new one
-                    while (newBullets >= 0)
-                    {
-                        GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
-                        tempBullet.transform.Rotate(new Vector3(0, 0, 90 + ((-angleSpread * 2) + (angleSpread * newBullets))));
 
-                        //making the bullet be on it's players "team"
-                        tempBullet.tag = gameObject.tag;
-                        bulletPool.Add(tempBullet);
-                        
-                    }
-                    fireTimer = 0.0f;
                 }
+
+                //if all bullets are active make a new one
+                while (newBullets > 0)
+                {
+                    Debug.Log(newBullets);
+                    GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
+                    tempBullet.transform.Rotate(new Vector3(0, 0, 90 + ((-angleSpread * 2) + (angleSpread * newBullets))));
+
+                    //making the bullet be on it's players "team"
+                    bulletPool.Add(tempBullet);
+                    newBullets--;
+
+                }
+                fireTimer = 0.0f;
             }
         }
-        //tempBullet.SetActive(false, 5.0f);
+
+    
     }
+ //tempBullet.SetActive(false, 5.0f);
+    
     public void ChangeWeapon(Weapon weaponType)
     {
         this.weaponType = weaponType;
@@ -133,3 +139,4 @@ public class TestWeapon : MonoBehaviour {
         }
     }
 }
+

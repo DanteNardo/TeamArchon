@@ -19,12 +19,12 @@ namespace actionPhase
         void FixedUpdate() {
             Vector3 position = gameObject.transform.position;
 
-            Vector3 velocity = Vector3.Normalize(gameObject.transform.right) * speed;
+            Vector3 velocity = Vector3.Normalize(gameObject.transform.right) * speed*Time.fixedDeltaTime;
 
             rigid2D.MovePosition(position + velocity);
 
-
-            activeTimer += Time.deltaTime;
+            Debug.Log(activeTimer);
+            activeTimer += Time.fixedDeltaTime;
             if (activeTimer > lifespan)
             {
                 activeTimer = 0.00f;
@@ -34,6 +34,7 @@ namespace actionPhase
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            Debug.Log(collision.gameObject);
             if ((gameObject.tag == "Team1" && collision.gameObject.tag == "Team2") || (gameObject.tag == "Team2" && collision.gameObject.tag == "Team1"))
             {
                 PlayerStats hitStats = collision.gameObject.GetComponent<PlayerStats>();
@@ -42,8 +43,10 @@ namespace actionPhase
                     hitStats.Health -= damage;
                 }
         }
-
-            gameObject.SetActive(false);
+            if (collision.gameObject.tag != "Bullet")
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

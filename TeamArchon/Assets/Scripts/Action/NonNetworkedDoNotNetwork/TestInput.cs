@@ -19,14 +19,14 @@ public class TestInput : MonoBehaviour {
         Vector3 dir = Input.mousePosition - pos;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        //Debug.Log("");
+        
 
 
-        rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed*Time.deltaTime);
-        Debug.Log(Input.GetButton("Fire1"));
+        rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0)) * speed*Time.fixedDeltaTime);
+      
         if (Input.GetButton("Fire1"))
         {
-            Debug.Log("fired");
+            
             gameObject.GetComponent<TestWeapon>().CmdFire();
             
         }
