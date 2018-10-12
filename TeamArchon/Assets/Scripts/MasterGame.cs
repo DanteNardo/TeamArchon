@@ -10,6 +10,18 @@ public enum ETeam {
 }
 #endregion
 
+public struct basicPlayer
+{
+    public int team;
+    public int teamPos;
+
+    public basicPlayer(int setTeam, int setPos)
+    {
+        team = setTeam;
+        teamPos = setPos;
+    }
+}
+
 /// <summary>
 /// Master Game Manager that exists between Strategy and Action portion.
 /// This handles switching between the two phases of the game.
@@ -26,7 +38,11 @@ public class MasterGame : Singleton<MasterGame> {
     public Camera strategyCamera;
     public Camera shooterCamera;
 
+    public List<basicPlayer> baseList;
+
     public List<GameObject> playerList;
+
+    public GameObject playerPrefab;
     #endregion
 
     #region Methods
@@ -35,10 +51,7 @@ public class MasterGame : Singleton<MasterGame> {
     /// </summary>
     private void Start() {
         
-    
-
-
-        // Create capture attempt listeners
+           // Create capture attempt listeners
         CaptureAttempted = new CaptureEvent();
 
         // Start listening to capture attempts
@@ -50,6 +63,20 @@ public class MasterGame : Singleton<MasterGame> {
         // Start listening to round ends
         RoundEnded.AddListener(OnRoundEnded);
     }
+
+
+
+    public void startGame()
+    {
+        for(int i =0; i<baseList.Count; i++)
+        {
+            GameObject tempObj = Instantiate(playerPrefab);
+            tempObj.GetComponent<Player>().setPlayer((ETeam)baseList[i].team, baseList[i].teamPos);
+        }
+    }
+
+
+
 
     //temp func to test scene change
     public void captureEvent()
