@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Networking;
 
 /// <summary>
 /// A component that handles the game state over time.
 /// </summary>
-public class StrategyGame : NetworkBehaviour {
+public class StrategyGame : Singleton<StrategyGame> {
     #region Members
-    [SyncVar]
     public int playerCount = 0;
     private int currentPlayer = 0;
     private int movedPieceCount = 0;
@@ -21,30 +19,15 @@ public class StrategyGame : NetworkBehaviour {
     #endregion
 
     #region Properties
-    public static StrategyGame Instance { get; private set; }
     public ETeam TurnState { get; private set; }
-    public List<Piece> Pieces { get; private set; }
+    public List<Piece> Pieces { get; private set; } = new List<Piece>();
     #endregion
 
     #region Methods
     /// <summary>
-    /// Creates a Singleton.
-    /// </summary>
-    private void Awake() {
-        if (Instance != null) {
-            Destroy(Instance);
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    /// <summary>
     /// Initializes the events.
     /// </summary>
     private void Start() {
-        // Create piece list
-        Pieces = new List<Piece>();
-
         // Create piece movement listeners
         pieceMoved = new UnityAction(OnPieceMoved);
 

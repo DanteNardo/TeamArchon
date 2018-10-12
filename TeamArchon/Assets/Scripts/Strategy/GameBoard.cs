@@ -18,8 +18,8 @@ public class GameBoard : Singleton<GameBoard> {
 	#endregion
 
 	#region Methods
-	public void Start() {
-        
+	private new void Awake() {
+        base.Awake();
 		board = GetComponent<Board>();
 	}
 

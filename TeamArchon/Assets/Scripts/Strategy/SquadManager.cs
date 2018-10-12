@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
+
 /// <summary>
 /// Manages a specific set of pieces based on given input.
 /// </summary>
-public class SquadManager : NetworkBehaviour {
+public class SquadManager : MonoBehaviour {
     #region Members
     public GameObject[] prefabs;
     private GameObject[] pieceObjects;
     private Piece[] pieces;
 
     public GameObject shooterPrefab;
-
-    [SyncVar]
     public int team;
     #endregion
 
@@ -21,29 +19,14 @@ public class SquadManager : NetworkBehaviour {
     /// Initializes squad pieces for local player.
     /// </summary>
     private void Start() {
-        StartCoroutine(waitForStart());
-    }
-
-    public IEnumerator waitForStart()
-    {
-        
-        yield return new WaitForSeconds(.5f);
         StrategyGame.Instance.NewPlayer(this);
-        if (isLocalPlayer)
-        {
-            gameObject.name = "LocalPlayerController";
-            Debug.Log("Begin instantiating pieces...");
-            CmdInstantiatePieces();
-            Debug.Log("... End instantiating pieces");
-        }
-
+        InstantiatePieces();
     }
 
     /// <summary>
     /// Creates all of the pieces from prefabs and saves their data.
     /// </summary>
-    [Command]
-    private void CmdInstantiatePieces() {
+    private void InstantiatePieces() {
         Debug.Log("...Instantiating pieces");
         // Store piece objects and piece prefabs
         pieceObjects = new GameObject[prefabs.Length];
@@ -87,24 +70,13 @@ public class SquadManager : NetworkBehaviour {
             Piece piece = instance.GetComponent<Piece>();
             pieces[i] = piece;
 
-            // Sets the new objects parent ID to this controllers unique network ID
-            piece.parentNetId = netId;
-
             // Set the parent on this client
             instance.transform.parent = gameObject.transform;
 
             GameBoard.Instance.PlacePiece(piece);
-            
-            NetworkServer.Spawn(instance);
-            
-
         }
         // Finish instantiating player pieces and increase player count
         StrategyGame.Instance.IncreasePlayerCount();
-        GameObject shooterPiece = Instantiate(shooterPrefab, Vector3.zero, Quaternion.identity);
-        shooterPiece.GetComponent<actionPhase.ShooterMovement>().parentNetId = netId;
-
-        NetworkServer.Spawn(shooterPiece);
     }
 
     /// <summary>
@@ -112,7 +84,7 @@ public class SquadManager : NetworkBehaviour {
     /// </summary>
     /// <returns>True if this is a local player, else false</returns>
     public bool CheckLocalPlayer() {
-        return isLocalPlayer;
+        return true;
     } 
     #endregion
 }

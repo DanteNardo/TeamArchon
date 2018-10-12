@@ -27,7 +27,7 @@ public enum EDirection {
 /// <summary>
 /// A parent to every possible piece type. Implements generic piece abilities.
 /// </summary>
-public class Piece : NetworkBehaviour {
+public class Piece : GamepadBehavior {
 	#region Piece Members
 	public Material material;
 	public Color defaultColor;
@@ -39,11 +39,6 @@ public class Piece : NetworkBehaviour {
 	public bool selected;
     public int speed = 3;
 	private bool moving;
-    public bool localPiece;
-
-    // Synced across the server for each client
-    [SyncVar]
-    public NetworkInstanceId parentNetId;
     #endregion
 
     #region Piece Properties
@@ -65,17 +60,6 @@ public class Piece : NetworkBehaviour {
 		material = GetComponent<MeshRenderer>().material;
         X = Mathf.FloorToInt(transform.position.x);
 		Z = Mathf.FloorToInt(transform.position.z);
-    }
-
-    /// <summary>
-    /// Runs localy whenever a client connects to the server for each piece in the game. Connects each piece to each player.
-    /// </summary>
-    public override void OnStartClient() {
-        GameObject parent = ClientScene.FindLocalObject(parentNetId);
-        transform.SetParent(parent.transform);
-
-        // Set if the piece is local
-        localPiece = transform.parent.GetComponent<SquadManager>().CheckLocalPlayer();
     }
 
     /// <summary>
@@ -102,12 +86,7 @@ public class Piece : NetworkBehaviour {
     /// <summary>
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
-    private void OnMouseDown() {
-        // Only the player that owns this piece can select it
-        if (!localPiece) {
-            return;
-        }
-
+    public override void OnClick(GamepadCursor cursor) {
         // Select the piece if it is possible
         if (!selected) {
             selected = true;
