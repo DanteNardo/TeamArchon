@@ -6,7 +6,8 @@ public class TestWeapon : MonoBehaviour {
 
     public GameObject pistolBulletPrefab;
     public GameObject machineGunBulletPrefab;
-    public enum Weapon { Pistol, MachineGun, ShotGun };
+    public GameObject sniperBulletPrefab;
+    public enum Weapon { Pistol, MachineGun, ShotGun, SniperRifle };
     public Weapon weaponType;
     private GameObject finalPrefab;
     private float fireRate;
@@ -15,7 +16,7 @@ public class TestWeapon : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        fireTimer = 0.0f;
+        fireTimer = 20.0f;
         bulletPool = new List<GameObject>();
         ChangeWeapon(weaponType);
     }
@@ -136,6 +137,10 @@ public class TestWeapon : MonoBehaviour {
         {
             fireRate = 1.0f;
             finalPrefab = pistolBulletPrefab;
+        }else if(weaponType == Weapon.SniperRifle)
+        {
+            fireRate = 0.5f;
+            finalPrefab = sniperBulletPrefab;
         }
     }
 }
