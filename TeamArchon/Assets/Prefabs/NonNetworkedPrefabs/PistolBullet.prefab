@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 58175599316286944}
   - component: {fileID: 50467952572463580}
   - component: {fileID: 114624010812164150}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PistolBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322635618062060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

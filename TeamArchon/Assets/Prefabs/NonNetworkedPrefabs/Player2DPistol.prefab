@@ -106,7 +106,9 @@ MonoBehaviour:
     type: 2}
   machineGunBulletPrefab: {fileID: 1744372799733402, guid: 2d0ddcdb863f0ec46a9bbeef6bf7454c,
     type: 2}
-  weaponType: 2
+  sniperBulletPrefab: {fileID: 1298126733732816, guid: 035c43a307b639e4db3aee1b8cbbb34a,
+    type: 2}
+  weaponType: 3
 --- !u!212 &212472888989426404
 SpriteRenderer:
   m_ObjectHideFlags: 1
