@@ -2,9 +2,8 @@
 
 public class GamepadCursor : MonoBehaviour {
     #region Members
+    public float sensitivity;
     public int player;
-    public Color pressedColor;
-    public SpriteRenderer cursorImage;
     #endregion
 
     #region Properties
@@ -16,7 +15,7 @@ public class GamepadCursor : MonoBehaviour {
     /// Initializes variables and gets components.
     /// </summary>
     private void Start() {
-        cursorImage = GetComponentInChildren<SpriteRenderer>();
+
     }
 
     /// <summary>
@@ -78,9 +77,9 @@ public class GamepadCursor : MonoBehaviour {
 
         // Set the new position of the cursor
         transform.position = new Vector3(
-            transform.position.x + xInput,
+            transform.position.x + xInput * sensitivity,
             transform.position.y,
-            transform.position.z - yInput);
+            transform.position.z - yInput * sensitivity);
     }
 
     /// <summary>
@@ -89,14 +88,14 @@ public class GamepadCursor : MonoBehaviour {
     /// <returns>True if click input, else false</returns>
     private bool Click() {
         switch (player) {
-            case 0: return hInput.GetButton("Player1A");
-            case 1: return hInput.GetButton("Player2A");
-            case 2: return hInput.GetButton("Player3A");
-            case 3: return hInput.GetButton("Player4A");
-            case 4: return hInput.GetButton("Player5A");
-            case 5: return hInput.GetButton("Player6A");
-            case 6: return hInput.GetButton("Player7A");
-            case 7: return hInput.GetButton("Player8A");
+            case 0: return hInput.GetButtonDown("Player1A");
+            case 1: return hInput.GetButtonDown("Player2A");
+            case 2: return hInput.GetButtonDown("Player3A");
+            case 3: return hInput.GetButtonDown("Player4A");
+            case 4: return hInput.GetButtonDown("Player5A");
+            case 5: return hInput.GetButtonDown("Player6A");
+            case 6: return hInput.GetButtonDown("Player7A");
+            case 7: return hInput.GetButtonDown("Player8A");
             default: return false;
         }
     }
@@ -116,17 +115,13 @@ public class GamepadCursor : MonoBehaviour {
             ClickedObject = hit.collider.gameObject;
             behavior.OnClick(this);
         }
-
-        // Change the cursor's color to show that the player clicked
-        cursorImage.color = pressedColor;
     }
 
     /// <summary>
     /// Resets the cursor to the default state.
     /// </summary>
     private void Reset() {
-        // Reset the color of the cusor
-        cursorImage.color = Color.white;
+
     }
     #endregion
 }

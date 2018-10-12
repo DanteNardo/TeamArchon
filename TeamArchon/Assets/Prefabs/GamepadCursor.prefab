@@ -81,9 +81,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3952efaf2e716ae41824a1f224b08d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensitivity: 0.25
   player: 0
-  pressedColor: {r: 0.66253996, g: 0, b: 1, a: 0}
-  cursorImage: {fileID: 212176870249007788}
+  pressedColor: {r: 1, g: 0.20334117, b: 0, a: 0}
+  cursorImage: {fileID: 0}
 --- !u!212 &212176870249007788
 SpriteRenderer:
   m_ObjectHideFlags: 1
