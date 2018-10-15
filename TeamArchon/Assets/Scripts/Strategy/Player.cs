@@ -1,27 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
-
+    #region Members
     ETeam team;
     int teamPos;
+    SquadManager squadManager;
+    #endregion
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    #region Methods
+    /// <summary>
+    /// Get componenets
+    /// </summary>
+    void Start () {
+        squadManager = GetComponent<SquadManager>();
+    }
 	
-    public void setPlayer(ETeam color, int pos)
-    {
+    /// <summary>
+    /// Sets and saves player data.
+    /// </summary>
+    /// <param name="color">The player's team</param>
+    /// <param name="pos">The player's position</param>
+    public void SetPlayer(ETeam color, int pos) {
         team = color;
         teamPos = pos;
-
-        gameObject.GetComponent<SquadManager>().InstantiatePieces((int)team, teamPos);
+        
+        StrategyGame.Instance.NewPlayer(squadManager);
+        squadManager.InstantiatePieces((int)team, teamPos);
     }
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    #endregion
 }

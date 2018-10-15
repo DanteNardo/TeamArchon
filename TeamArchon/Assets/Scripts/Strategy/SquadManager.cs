@@ -19,14 +19,12 @@ public class SquadManager : MonoBehaviour {
     /// Initializes squad pieces for local player.
     /// </summary>
     private void Start() {
-        StrategyGame.Instance.NewPlayer(this);
-        InstantiatePieces();
     }
 
     /// <summary>
     /// Creates all of the pieces from prefabs and saves their data.
     /// </summary>
-    private void InstantiatePieces() {
+    public void InstantiatePieces(int setTeam, int pos) {
         Debug.Log("...Instantiating pieces");
         // Store piece objects and piece prefabs
         pieceObjects = new GameObject[prefabs.Length];

@@ -71,7 +71,7 @@ public class MasterGame : Singleton<MasterGame> {
         for(int i =0; i<baseList.Count; i++)
         {
             GameObject tempObj = Instantiate(playerPrefab);
-            tempObj.GetComponent<Player>().setPlayer((ETeam)baseList[i].team, baseList[i].teamPos);
+            tempObj.GetComponent<Player>().SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos);
         }
     }
 
