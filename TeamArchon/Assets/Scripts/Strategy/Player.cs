@@ -19,12 +19,12 @@ public class Player : MonoBehaviour {
     /// Sets and saves player data.
     /// </summary>
     /// <param name="color">The player's team</param>
-    /// <param name="pos">The player's position</param>
-    public void SetPlayer(ETeam color, int pos) {
+    /// <param name="position">The player's position on their team</param>
+    public void SetPlayer(ETeam color, int position) {
         team = color;
-        teamPosition = pos;
+        teamPosition = position;
         
-        StrategyGame.Instance.NewPlayer(squadManager);
+        StrategyGame.Instance.NewPlayer(squadManager, teamPosition);
         squadManager.InstantiatePieces((int)team, teamPosition);
     }
     #endregion
