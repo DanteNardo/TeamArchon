@@ -1,6 +1,7 @@
-﻿using UnityEngine.Networking;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class Board : NetworkBehaviour {
+public class Board : MonoBehaviour {
     #region Members
     /// <summary>
     /// This single variable is a list of ints with a length equal to
@@ -10,7 +11,7 @@ public class Board : NetworkBehaviour {
     /// from an index in the list. Every variable in the list is an
     /// enumerator that has been cast to an integer.
     /// </summary>
-    SyncListInt board = new SyncListInt();
+    List<int> board = new List<int>();
 
     /// <summary>
     /// This is an indexer that allows people to use brackets on this
@@ -26,7 +27,7 @@ public class Board : NetworkBehaviour {
     /// <summary>
     /// Creates important information for initialization.
     /// </summary>
-    void Start () {
+    void Awake () {
         Instantiate();
 	}
 
@@ -34,6 +35,7 @@ public class Board : NetworkBehaviour {
     /// Instantiates all of the game board's pieces.
     /// </summary>
     private void Instantiate() {
+        board = new List<int>();
         for (int i = 0; i < Size*Size; i++) {
             board.Add(PTAsInt(EPieceType.None));
         }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GameTile : MonoBehaviour {
+public class GameTile : GamepadBehavior {
     #region Methods
     public int Row;
     public int Col;
@@ -18,7 +18,7 @@ public class GameTile : MonoBehaviour {
     /// <summary>
     /// Generates an attempted move/place if the tile is clicked.
     /// </summary>
-    private void OnMouseDown() {
+    public override void OnClick(GamepadCursor cursor) {
         // Create an attempted move if there is a selected piece
         if (InputManager.Instance.Selected != null) {
             // Generate potential move and save it in InputManager
