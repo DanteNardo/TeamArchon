@@ -66,12 +66,13 @@ public class StrategyGame : Singleton<StrategyGame> {
     /// gives it a list of prefabs that determine its squad.
     /// </summary>
     /// <param name="squad">The new strategy player's squadmanager</param>
-    public void NewPlayer(SquadManager squad) {
+    public void NewPlayer(SquadManager squad, int color) {
         Debug.Log("================== NEW PLAYER! ==================");
         Debug.Log("Player Count: " + playerCount);
 
+
         // Determine which type of player to add (light or dark)
-        squad.team = playerCount % 2;
+        squad.team = color;
 
         Debug.Log("Team: " + playerCount % 2);
         Debug.Log("Team: " + (ETeam)squad.team);
