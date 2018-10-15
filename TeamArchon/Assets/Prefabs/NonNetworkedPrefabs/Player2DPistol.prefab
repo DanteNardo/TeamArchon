@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 50889992399153754}
   - component: {fileID: 114076888937913976}
   - component: {fileID: 114684493659004208}
+  - component: {fileID: 114389366735561158}
+  - component: {fileID: 114807874045700256}
   m_Layer: 0
   m_Name: Player2DPistol
   m_TagString: Untagged
@@ -91,6 +93,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+--- !u!114 &114389366735561158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636384648889862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 240
+    i1: 204
+    i2: 201
+    i3: 230
+    i4: 20
+    i5: 121
+    i6: 233
+    i7: 132
+    i8: 232
+    i9: 72
+    i10: 51
+    i11: 228
+    i12: 217
+    i13: 165
+    i14: 216
+    i15: 110
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114684493659004208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,6 +143,17 @@ MonoBehaviour:
   sniperBulletPrefab: {fileID: 1298126733732816, guid: 035c43a307b639e4db3aee1b8cbbb34a,
     type: 2}
   weaponType: 3
+--- !u!114 &114807874045700256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636384648889862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae7433e3008c084c9ee1266523c1c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212472888989426404
 SpriteRenderer:
   m_ObjectHideFlags: 1
