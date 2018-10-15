@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 namespace actionPhase
 {
     
-    public class PlayerStats : NetworkBehaviour
+    public class PlayerStats : MonoBehaviour
     {
       
         private float health;
@@ -18,14 +18,13 @@ namespace actionPhase
         // Update is called once per frame
         void Update()
         {
-            if (isLocalPlayer)
-            {
-                if (health <= 0)
-                {
-                    gameObject.SetActive(false);
-                    ShooterManager.instance.countDeath(gameObject);
-                }
-            }
+            
+             if (health <= 0)
+             {
+                 gameObject.SetActive(false);
+                 ShooterManager.instance.countDeath(gameObject);
+             }
+            
         }
 
         public float Health
