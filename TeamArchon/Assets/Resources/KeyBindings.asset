@@ -44,7 +44,7 @@ MonoBehaviour:
     UniqueName: 
     Type: 0
     Positive:
-      Primary: 330
+      Primary: 350
       Secondary: 97
     Negative:
       Primary: 0
