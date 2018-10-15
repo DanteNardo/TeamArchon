@@ -11,8 +11,9 @@ public class Player : MonoBehaviour {
     /// <summary>
     /// Get componenets
     /// </summary>
-    void Start () {
-        squadManager = GetComponent<SquadManager>();
+    private void Start () {
+        squadManager = gameObject.GetComponent<SquadManager>();
+        Debug.Log(gameObject);
     }
 	
     /// <summary>
@@ -21,10 +22,11 @@ public class Player : MonoBehaviour {
     /// <param name="color">The player's team</param>
     /// <param name="pos">The player's position</param>
     public void SetPlayer(ETeam color, int pos) {
+        //Debug.Log(color + "   " + pos);
         team = color;
         teamPos = pos;
-        
-        StrategyGame.Instance.NewPlayer(squadManager);
+        Debug.Log(squadManager);
+        StrategyGame.Instance.NewPlayer(squadManager, (int) color);
         squadManager.InstantiatePieces((int)team, teamPos);
     }
     #endregion

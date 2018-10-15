@@ -20,6 +20,11 @@ public struct basicPlayer
         team = setTeam;
         teamPos = setPos;
     }
+
+    public void print()
+    {
+        Debug.Log("Team " + (ETeam)team + " Pos " + teamPos);
+    }
 }
 
 /// <summary>
@@ -62,6 +67,16 @@ public class MasterGame : Singleton<MasterGame> {
 
         // Start listening to round ends
         RoundEnded.AddListener(OnRoundEnded);
+
+
+        baseList = new List<basicPlayer>();
+        for(int i = 0; i < 8; i++)
+        {
+
+            baseList.Add(new basicPlayer(i % 2, (int)i / 2));
+            //baseList[i].print();
+        }
+        startGame();
     }
 
 
