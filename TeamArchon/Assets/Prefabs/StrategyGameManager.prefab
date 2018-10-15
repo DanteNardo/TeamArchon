@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4822712050918130}
-  - component: {fileID: 114724004554047856}
   - component: {fileID: 114882908707909694}
   m_Layer: 0
   m_Name: StrategyGameManager
@@ -41,38 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114724004554047856
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1644738583734288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 248
-    i1: 104
-    i2: 215
-    i3: 9
-    i4: 204
-    i5: 194
-    i6: 160
-    i7: 100
-    i8: 232
-    i9: 19
-    i10: 116
-    i11: 91
-    i12: 190
-    i13: 229
-    i14: 221
-    i15: 192
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114882908707909694
 MonoBehaviour:
   m_ObjectHideFlags: 1

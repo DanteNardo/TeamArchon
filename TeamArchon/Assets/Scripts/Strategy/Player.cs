@@ -2,16 +2,16 @@
 
 public class Player : MonoBehaviour {
     #region Members
-    ETeam team;
-    int teamPos;
-    SquadManager squadManager;
+    private ETeam team;
+    private int teamPosition;
+    private SquadManager squadManager;
     #endregion
 
     #region Methods
     /// <summary>
     /// Get componenets
     /// </summary>
-    void Start () {
+    private void Start () {
         squadManager = GetComponent<SquadManager>();
     }
 	
@@ -22,10 +22,10 @@ public class Player : MonoBehaviour {
     /// <param name="pos">The player's position</param>
     public void SetPlayer(ETeam color, int pos) {
         team = color;
-        teamPos = pos;
+        teamPosition = pos;
         
         StrategyGame.Instance.NewPlayer(squadManager);
-        squadManager.InstantiatePieces((int)team, teamPos);
+        squadManager.InstantiatePieces((int)team, teamPosition);
     }
     #endregion
 }
