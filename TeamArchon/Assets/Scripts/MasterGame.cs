@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+
 using UnityEngine.UI;
+
 #region Master Game Enumerators
 public enum ETeam {
     Light,
@@ -72,6 +74,7 @@ public class MasterGame : Singleton<MasterGame> {
         // Start listening to round ends
         RoundEnded.AddListener(OnRoundEnded);
 
+
         //set the scenemanager to call on gamestart when a scene is loaded
         SceneManager.sceneLoaded += OnGameStart;
 
@@ -108,11 +111,17 @@ public class MasterGame : Singleton<MasterGame> {
         {
             GameObject tempObj = Instantiate(playerPrefab);
             tempObj.GetComponent<Player>().SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos);
+
+
         }
-        //Unload the scene
         SceneManager.sceneLoaded -= OnGameStart;
+
     }
 
+   
+    /// <summary>
+    /// Loops through all user positions on the lobby scene and adds them to the list of basic players
+    /// </summary>
     void setTeamAndPos()
     {
         int lightTeamPos = 0;
@@ -124,12 +133,12 @@ public class MasterGame : Singleton<MasterGame> {
            //if the dropdown = 0 add a new light player otherwise add a new dark player
             if(playerTeamSelector.transform.GetChild(i).GetComponent<Dropdown>().value == 0)
             {
-                baseList.Add(new basicPlayer(0, lightTeamPos));
+                baseList.Add(new BasicPlayer(0, lightTeamPos));
                 lightTeamPos++;
             }
             else
             {
-                baseList.Add(new basicPlayer(1, darkTeamPos));
+                baseList.Add(new BasicPlayer(1, darkTeamPos));
                 darkTeamPos++;
             }
         }

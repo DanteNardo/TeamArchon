@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
     /// </summary>
     private void Awake () {
         squadManager = gameObject.GetComponent<SquadManager>();
-        //Debug.Log(gameObject);
+        
     }
 	
     /// <summary>
