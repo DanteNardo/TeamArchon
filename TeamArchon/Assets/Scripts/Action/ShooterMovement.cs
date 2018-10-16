@@ -20,8 +20,6 @@ namespace actionPhase
             
             transform.SetParent(parent.transform);
 
-            localPiece = transform.parent.GetComponent<SquadManager>().CheckLocalPlayer();
-
             disableInput = true;
             
         }

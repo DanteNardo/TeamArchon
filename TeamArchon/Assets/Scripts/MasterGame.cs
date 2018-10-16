@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -11,12 +10,15 @@ public enum ETeam {
 }
 #endregion
 
-public struct basicPlayer
+/// <summary>
+/// Stores player information across scenes.
+/// </summary>
+public struct BasicPlayer
 {
     public int team;
     public int teamPos;
 
-    public basicPlayer(int setTeam, int setPos)
+    public BasicPlayer(int setTeam, int setPos)
     {
         team = setTeam;
         teamPos = setPos;
@@ -44,7 +46,7 @@ public class MasterGame : Singleton<MasterGame> {
     public Camera strategyCamera;
     public Camera shooterCamera;
 
-    public List<basicPlayer> baseList;
+    public List<BasicPlayer> baseList;
 
     public List<GameObject> playerList;
 
@@ -58,8 +60,7 @@ public class MasterGame : Singleton<MasterGame> {
     /// Initializes the capture and round events and listeners.
     /// </summary>
     private void Start() {
-        
-           // Create capture attempt listeners
+        // Create capture attempt listeners
         CaptureAttempted = new CaptureEvent();
 
         // Start listening to capture attempts
@@ -74,7 +75,7 @@ public class MasterGame : Singleton<MasterGame> {
         //set the scenemanager to call on gamestart when a scene is loaded
         SceneManager.sceneLoaded += OnGameStart;
 
-        baseList = new List<basicPlayer>();
+        baseList = new List<BasicPlayer>();
         
     }
 
@@ -134,15 +135,6 @@ public class MasterGame : Singleton<MasterGame> {
         }
 
     }
-
-
-
-
-    //temp func to test scene change
-    public void captureEvent()
-    {
-        SwitchToAction();
-    }
     
     /// <summary>
     /// Invoked whenever a capture is attempted during the Strategy phase.
@@ -150,8 +142,7 @@ public class MasterGame : Singleton<MasterGame> {
     /// </summary>
     /// <param name="move">The move that generated this capture attempt</param>
     private void OnCaptureAttempted(Move move) {
-
-        
+        // Initialize variables
         EPieceType light = EPieceType.None;
         EPieceType dark = EPieceType.None;
 
@@ -184,36 +175,30 @@ public class MasterGame : Singleton<MasterGame> {
         Round = new RoundData(rr.WinningTeam);
 
         // Begin switch to Strategy portion
-
-        
         SwitchToStrategy();
     }
 
     private void SwitchToAction() {
-        // TODO: Switch to action scene
-        //NetworkManager.singleton.ServerChangeScene("2dShooter");
-        //strategyCamera.enabled = false;
-       // shooterCamera.enabled = true;
+        // TODO: Prepare for switching
 
-        for(int i = 0; i < NetworkServer.connections.Count; i++)
-        {
-            Debug.Log(NetworkServer.connections[i].playerControllers[0].gameObject);
-            NetworkServer.connections[i].playerControllers[0].gameObject.transform.Find("Player2DPistol(Clone)").GetComponent<actionPhase.ShooterMovement>().disableInput = false;
-
-        }
-
+        // Switch to action scene
+        SceneManager.LoadScene("ActionScene");
     }
-
-
+    
+    /// <summary>
+    /// Handles deleting the correct piece after a capture event ended.
+    /// In addition, reperforms the move if the moving piece was unable
+    /// to move due to a capture event occuring.
+    /// </summary>
     private void SwitchToStrategy() {
-        // TODO: Switch to strategy scene
-        NetworkManager.singleton.ServerChangeScene("Strategy");
-        // TODO: Remove the piece from StrategyGame list
+        // Used to determine deletion later
+        int pieceIndex = 0;
 
         // Light won, light turn, delete To and move
         if ((ETeam)Round.WinningTeam == ETeam.Light &&
             StrategyGame.Instance.TurnState == ETeam.Light) {
             // Remove capture flag and remove piece
+            pieceIndex = Capture.CaptureMove.To;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.To);
             GameBoard.Instance.MovePiece(Capture.CaptureMove);
@@ -221,6 +206,7 @@ public class MasterGame : Singleton<MasterGame> {
         // Light won, dark turn, delete From, do not move
         else if ((ETeam)Round.WinningTeam == ETeam.Light) {
             // Remove capture flag and remove piece
+            pieceIndex = Capture.CaptureMove.From;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
         }
@@ -228,16 +214,29 @@ public class MasterGame : Singleton<MasterGame> {
         else if ((ETeam)Round.WinningTeam == ETeam.Dark &&
                  StrategyGame.Instance.TurnState == ETeam.Light) {
             // Remove capture flag and remove piece
+            pieceIndex = Capture.CaptureMove.From;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
         }
         // Dark won, dark turn, delete To and move
         else if ((ETeam)Round.WinningTeam == ETeam.Light) {
             // Remove capture flag and remove piece
+            pieceIndex = Capture.CaptureMove.To;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.To);
             GameBoard.Instance.MovePiece(Capture.CaptureMove);
         }
+
+        // Remove the piece from StrategyGame list of pieces
+        foreach (var piece in StrategyGame.Instance.Pieces) {
+            if (Board.IndexFromRowAndCol(piece.Z, piece.X) == pieceIndex) {
+                StrategyGame.Instance.Pieces.Remove(piece);
+                continue;
+            }
+        }
+
+        // Switch to strategy scene
+        SceneManager.LoadScene("StrategyScene");
     }
     #endregion
 }
