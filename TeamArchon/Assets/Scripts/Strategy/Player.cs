@@ -11,9 +11,9 @@ public class Player : MonoBehaviour {
     /// <summary>
     /// Get componenets
     /// </summary>
-    private void Start () {
+    private void Awake () {
         squadManager = gameObject.GetComponent<SquadManager>();
-        Debug.Log(gameObject);
+        //Debug.Log(gameObject);
     }
 	
     /// <summary>
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
         //Debug.Log(color + "   " + pos);
         team = color;
         teamPos = pos;
-        Debug.Log(squadManager);
+        Debug.Log(StrategyGame.Instance);
         StrategyGame.Instance.NewPlayer(squadManager, (int) color);
         squadManager.InstantiatePieces((int)team, teamPos);
     }

@@ -44,19 +44,19 @@ public class SquadManager : MonoBehaviour {
             // Light team is in rows 0-1
             if ((ETeam)team == ETeam.Light) {
                 switch (i) {
-                    case 0: row = 0; col = 0 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 1: row = 1; col = 0 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 2: row = 0; col = 1 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 3: row = 1; col = 1 + 2 * StrategyGame.Instance.playerCount; break;
+                    case 0: row = 0; col = 0 + 2 * pos; break;
+                    case 1: row = 1; col = 0 + 2 * pos; break;
+                    case 2: row = 0; col = 1 + 2 * pos; break;
+                    case 3: row = 1; col = 1 + 2 * pos; break;
                 }
             }
             // Dark team is in rows 6-7
             else {
                 switch (i) {
-                    case 0: row = 7; col = 0 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 1: row = 6; col = 0 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 2: row = 7; col = 1 + 2 * StrategyGame.Instance.playerCount; break;
-                    case 3: row = 6; col = 1 + 2 * StrategyGame.Instance.playerCount; break;
+                    case 0: row = 7; col = 0 + 2 * pos; break;
+                    case 1: row = 6; col = 0 + 2 * pos; break;
+                    case 2: row = 7; col = 1 + 2 * pos; break;
+                    case 3: row = 6; col = 1 + 2 * pos; break;
                 }
             }
 

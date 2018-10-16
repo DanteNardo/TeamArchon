@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.UI;
 #region Master Game Enumerators
 public enum ETeam {
     Light,
@@ -48,6 +49,8 @@ public class MasterGame : Singleton<MasterGame> {
     public List<GameObject> playerList;
 
     public GameObject playerPrefab;
+
+    public GameObject playerTeamSelector;
     #endregion
 
     #region Methods
@@ -68,26 +71,68 @@ public class MasterGame : Singleton<MasterGame> {
         // Start listening to round ends
         RoundEnded.AddListener(OnRoundEnded);
 
+        //set the scenemanager to call on gamestart when a scene is loaded
+        SceneManager.sceneLoaded += OnGameStart;
 
         baseList = new List<basicPlayer>();
-        for(int i = 0; i < 8; i++)
-        {
-
-            baseList.Add(new basicPlayer(i % 2, (int)i / 2));
-            //baseList[i].print();
-        }
-        startGame();
+        
     }
 
 
-
+    /// <summary>
+    /// Called when the game is started for the first time. Initilizes players in the world
+    /// </summary>
     public void startGame()
     {
-        for(int i =0; i<baseList.Count; i++)
+        
+
+        setTeamAndPos();
+        //Load the scene
+       SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
+
+        
+        
+    }
+
+
+    /// <summary>
+    /// Initilizes all params set in the first scene. Sets each players team and postiion in the team
+    /// </summary>
+    /// <param name="scene">The scene that was loaded</param>
+    /// <param name="loadMoad">Additive or Single</param>
+    void OnGameStart(Scene scene, LoadSceneMode loadMoad)
+    {
+        //Intanscieate each player in the scene
+        for (int i = 0; i < baseList.Count; i++)
         {
             GameObject tempObj = Instantiate(playerPrefab);
             tempObj.GetComponent<Player>().SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos);
         }
+        //Unload the scene
+        SceneManager.sceneLoaded -= OnGameStart;
+    }
+
+    void setTeamAndPos()
+    {
+        int lightTeamPos = 0;
+        int darkTeamPos = 0;
+        //Debug.Log(playerTeamSelector.transform.childCount);
+        for(int i = 0; i < playerTeamSelector.transform.childCount; i++)
+        {
+           
+           //if the dropdown = 0 add a new light player otherwise add a new dark player
+            if(playerTeamSelector.transform.GetChild(i).GetComponent<Dropdown>().value == 0)
+            {
+                baseList.Add(new basicPlayer(0, lightTeamPos));
+                lightTeamPos++;
+            }
+            else
+            {
+                baseList.Add(new basicPlayer(1, darkTeamPos));
+                darkTeamPos++;
+            }
+        }
+
     }
 
 
