@@ -55,6 +55,10 @@ public class MasterGame : Singleton<MasterGame> {
     public GameObject playerPrefab;
 
     public GameObject playerTeamSelector;
+
+    public GameObject[] playOrder;
+
+    public int playIndex;
     #endregion
 
     #region Methods
@@ -79,6 +83,8 @@ public class MasterGame : Singleton<MasterGame> {
         SceneManager.sceneLoaded += OnGameStart;
 
         baseList = new List<BasicPlayer>();
+
+        playOrder = new GameObject[8];
         
     }
 
@@ -106,14 +112,24 @@ public class MasterGame : Singleton<MasterGame> {
     /// <param name="loadMoad">Additive or Single</param>
     void OnGameStart(Scene scene, LoadSceneMode loadMoad)
     {
+        playIndex = 0;
         //Intanscieate each player in the scene
         for (int i = 0; i < baseList.Count; i++)
         {
-            GameObject tempObj = Instantiate(playerPrefab);
-            tempObj.GetComponent<Player>().SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos);
 
+            int playPos = (1 + baseList[i].teamPos) * 2 + baseList[i].team - 2;
+
+            GameObject tempObj = Instantiate(playerPrefab);
+            tempObj.name = "Player" + playPos.ToString();
+            tempObj.GetComponent<Player>().SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i);
+
+           
+
+            playOrder[playPos] = tempObj;
 
         }
+
+       
         SceneManager.sceneLoaded -= OnGameStart;
 
     }
