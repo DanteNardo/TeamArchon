@@ -49,15 +49,11 @@ public class MasterGame : Singleton<MasterGame> {
     public Camera shooterCamera;
 
     public List<BasicPlayer> baseList;
-
     public List<GameObject> playerList;
-
     public GameObject playerPrefab;
-
     public GameObject playerTeamSelector;
-
-    public GameObject[] playOrder;
-
+    public Player[] playOrder;
+    public GamepadCursor[] gamepads;
     public int playIndex;
     #endregion
 
@@ -79,29 +75,21 @@ public class MasterGame : Singleton<MasterGame> {
         RoundEnded.AddListener(OnRoundEnded);
 
 
-        //set the scenemanager to call on gamestart when a scene is loaded
+        // Set the scenemanager to call on gamestart when a scene is loaded
         SceneManager.sceneLoaded += OnGameStart;
-
         baseList = new List<BasicPlayer>();
-
-        playOrder = new GameObject[8];
-        
+        playOrder = new Player[8];
     }
 
 
     /// <summary>
     /// Called when the game is started for the first time. Initilizes players in the world
     /// </summary>
-    public void startGame()
+    public void StartGame()
     {
-        
-
-        setTeamAndPos();
-        //Load the scene
+       //Load the scene
+       setTeamAndPos();
        SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
-
-        
-        
     }
 
 
@@ -112,26 +100,68 @@ public class MasterGame : Singleton<MasterGame> {
     /// <param name="loadMoad">Additive or Single</param>
     void OnGameStart(Scene scene, LoadSceneMode loadMoad)
     {
-        playIndex = 0;
-        //Intanscieate each player in the scene
-        for (int i = 0; i < baseList.Count; i++)
-        {
-
-            int playPos = (1 + baseList[i].teamPos) * 2 + baseList[i].team - 2;
-
-            GameObject tempObj = Instantiate(playerPrefab);
-            tempObj.name = "Player" + playPos.ToString();
-            tempObj.GetComponent<Player>().SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i);
-
-           
-
-            playOrder[playPos] = tempObj;
-
+        // Get references to all of the gamepad cursors
+        GameObject[] gamepadObjects = GameObject.FindGameObjectsWithTag("Gamepad");
+        gamepads = new GamepadCursor[gamepadObjects.Length];
+        for (int i = 0; i < gamepadObjects.Length; i++) {
+            gamepads[i] = gamepadObjects[i].GetComponent<GamepadCursor>();
         }
 
-       
-        SceneManager.sceneLoaded -= OnGameStart;
+        // Instantiate variables for player creation
+        playIndex = 0;
 
+        // Instantiate each player in the scene
+        for (int i = 0; i < baseList.Count; i++) {
+
+            int playPos = (1 + baseList[i].teamPos) * 2 + baseList[i].team - 2;
+            int playerNum = baseList[i].teamPos + (4 * baseList[i].team);
+
+            GameObject tempObj = Instantiate(playerPrefab);
+            var playerComp = tempObj.GetComponent<Player>();
+            tempObj.name = "Player" + playerNum.ToString();
+            playerComp.SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i);
+
+            // Save the Player script
+            playOrder[playPos] = playerComp;
+
+            // Save the correct gamepad to the player
+            foreach (var gamepad in gamepads) {
+                if (gamepad.name == "Player1Cursor" && playerNum == 0) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player2Cursor" && playerNum == 1) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player3Cursor" && playerNum == 2) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player4Cursor" && playerNum == 3) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player5Cursor" && playerNum == 4) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player6Cursor" && playerNum == 5) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player7Cursor" && playerNum == 6) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+                else if (gamepad.name == "Player8Cursor" && playerNum == 7) {
+                    gamepad.player = playerComp;
+                    continue;
+                }
+            }
+        }
+
+        SceneManager.sceneLoaded -= OnGameStart;
     }
 
    
@@ -145,8 +175,7 @@ public class MasterGame : Singleton<MasterGame> {
         //Debug.Log(playerTeamSelector.transform.childCount);
         for(int i = 0; i < playerTeamSelector.transform.childCount; i++)
         {
-           
-           //if the dropdown = 0 add a new light player otherwise add a new dark player
+            // If the dropdown = 0 add a new light player otherwise add a new dark player
             if(playerTeamSelector.transform.GetChild(i).GetComponent<Dropdown>().value == 0)
             {
                 baseList.Add(new BasicPlayer(0, lightTeamPos));

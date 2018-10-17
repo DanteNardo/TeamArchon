@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Team1
   - Team2
+  - Gamepad
   layers:
   - Default
   - TransparentFX

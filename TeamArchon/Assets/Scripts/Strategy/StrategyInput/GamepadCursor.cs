@@ -15,7 +15,6 @@ public class GamepadCursor : MonoBehaviour {
     /// Initializes variables and gets components.
     /// </summary>
     private void Start() {
-
     }
 
     /// <summary>
@@ -40,38 +39,38 @@ public class GamepadCursor : MonoBehaviour {
         float xInput = 0, yInput = 0;
 
         // Get input based on player axis
-        switch (player.PlayerNum) {
+        switch (player.JoystickValue) {
             case 0:
-                xInput = hInput.GetAxis("Joy1RightXAxis");
-                yInput = hInput.GetAxis("Joy1RightYAxis");
+                xInput = hInput.GetAxis("Joy1LeftXAxis");
+                yInput = hInput.GetAxis("Joy1LeftYAxis");
                 break;
             case 1:
-                xInput = hInput.GetAxis("Joy2RightXAxis");
-                yInput = hInput.GetAxis("Joy2RightYAxis");
+                xInput = hInput.GetAxis("Joy2LeftXAxis");
+                yInput = hInput.GetAxis("Joy2LeftYAxis");
                 break;
             case 2:
-                xInput = hInput.GetAxis("Joy3RightXAxis");
-                yInput = hInput.GetAxis("Joy3RightYAxis");
+                xInput = hInput.GetAxis("Joy3LeftXAxis");
+                yInput = hInput.GetAxis("Joy3LeftYAxis");
                 break;
             case 3:
-                xInput = hInput.GetAxis("Joy4RightXAxis");
-                yInput = hInput.GetAxis("Joy4RightYAxis");
+                xInput = hInput.GetAxis("Joy4LeftXAxis");
+                yInput = hInput.GetAxis("Joy4LeftYAxis");
                 break;
             case 4:
-                xInput = hInput.GetAxis("Joy5RightXAxis");
-                yInput = hInput.GetAxis("Joy5RightYAxis");
+                xInput = hInput.GetAxis("Joy5LeftXAxis");
+                yInput = hInput.GetAxis("Joy5LeftYAxis");
                 break;
             case 5:
-                xInput = hInput.GetAxis("Joy6RightXAxis");
-                yInput = hInput.GetAxis("Joy6RightYAxis");
+                xInput = hInput.GetAxis("Joy6LeftXAxis");
+                yInput = hInput.GetAxis("Joy6LeftYAxis");
                 break;
             case 6:
-                xInput = hInput.GetAxis("Joy7RightXAxis");
-                yInput = hInput.GetAxis("Joy7RightYAxis");
+                xInput = hInput.GetAxis("Joy7LeftXAxis");
+                yInput = hInput.GetAxis("Joy7LeftYAxis");
                 break;
             case 7:
-                xInput = hInput.GetAxis("Joy8RightXAxis");
-                yInput = hInput.GetAxis("Joy8RightYAxis");
+                xInput = hInput.GetAxis("Joy8LeftXAxis");
+                yInput = hInput.GetAxis("Joy8LeftYAxis");
                 break;
         }
 
@@ -87,7 +86,7 @@ public class GamepadCursor : MonoBehaviour {
     /// </summary>
     /// <returns>True if click input, else false</returns>
     private bool Click() {
-        switch (player) {
+        switch (player.JoystickValue) {
             case 0: return hInput.GetButtonDown("Joy1A");
             case 1: return hInput.GetButtonDown("Joy2A");
             case 2: return hInput.GetButtonDown("Joy3A");

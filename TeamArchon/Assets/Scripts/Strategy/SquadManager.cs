@@ -9,8 +9,6 @@ public class SquadManager : MonoBehaviour {
     public GameObject[] prefabs;
     private GameObject[] pieceObjects;
     private Piece[] pieces;
-
-    public GameObject shooterPrefab;
     public int team;
     #endregion
 
