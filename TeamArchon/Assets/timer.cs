@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosive : MonoBehaviour {
-
+public class timer : MonoBehaviour {
+    public float timer
 	// Use this for initialization
 	void Start () {
-		
+        Destroy(gameObject, 5.0f);
 	}
 	
 	// Update is called once per frame
