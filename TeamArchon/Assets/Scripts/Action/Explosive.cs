@@ -39,7 +39,13 @@ namespace actionPhase {
 
         void explode()
         {
-            Instantiate(explosion, gameObject.transform.position, new Quaternion());
+            GameObject explosionSpawned = Instantiate(explosion, gameObject.transform.position, new Quaternion());
+            Bounds bounds = explosionSpawned.GetComponent<SpriteRenderer>().sprite.bounds;
+            float xSize = bounds.size.x;
+            float ySize = bounds.size.y;
+            explosionSpawned.transform.localScale = new Vector3(2 / xSize, 2/ySize,0);
+
+
 
             foreach (GameObject player in players)
             {

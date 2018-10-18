@@ -820,7 +820,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 4
-    joyNum: 5
+    joyNum: 0
   - serializedVersion: 3
     m_Name: Controller Axis-Joystick1-Axis6
     descriptiveName: 
@@ -836,7 +836,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 5
-    joyNum: 6
+    joyNum: 0
   - serializedVersion: 3
     m_Name: Controller Axis-Joystick1-Axis7
     descriptiveName: 

@@ -37,7 +37,7 @@ MonoBehaviour:
       Secondary: 0
     targetController: 1
     Axis: 1
-    Invert: 0
+    Invert: 1
     Sensitivity: 1
     val: 0
   - Name: Joy1RightXAxis
@@ -65,7 +65,7 @@ MonoBehaviour:
       Secondary: 0
     targetController: 1
     Axis: 4
-    Invert: 0
+    Invert: 1
     Sensitivity: 1
     val: 0
   - Name: Joy1A
@@ -73,7 +73,21 @@ MonoBehaviour:
     Type: 0
     Positive:
       Primary: 350
-      Secondary: 97
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 1
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy1RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 355
+      Secondary: 0
     Negative:
       Primary: 0
       Secondary: 0
@@ -185,7 +199,21 @@ MonoBehaviour:
     Type: 0
     Positive:
       Primary: 370
-      Secondary: 97
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 1
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy2RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 375
+      Secondary: 0
     Negative:
       Primary: 0
       Secondary: 0
