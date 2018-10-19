@@ -92,6 +92,7 @@ public class MasterGame : Singleton<MasterGame> {
        //Load the scene
        setTeamAndPos();
        SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
+       
     }
 
     /// <summary>
