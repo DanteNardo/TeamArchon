@@ -7,8 +7,13 @@ public enum EPieceType {
     None,
     LPistol,
     LMachineGun,
+    LSniper,
+    LShotgun,
     DPistol,
-    DMachineGun
+    DMachineGun,
+    DSniper,
+    DShotgun
+    
 };
 public enum EDirection {
 	North,

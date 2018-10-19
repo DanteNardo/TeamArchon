@@ -3,7 +3,7 @@
 public class Player : MonoBehaviour
 {
     #region Members
-    private ETeam team;
+    public ETeam team { get; private set; }
     private int teamPosition;
     private SquadManager squadManager;
     #endregion

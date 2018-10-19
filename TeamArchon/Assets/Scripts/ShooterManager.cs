@@ -8,9 +8,9 @@ namespace actionPhase {
     public class ShooterManager : MonoBehaviour
     {
 
-        public GameObject pistol;
+        public GameObject playerPrefab;
         public static ShooterManager instance;
-        public GameObject machineGun;
+        public int playerCount;
         public List<GameObject> players;
         public List<GameObject> spawnPoints0;
         public List<GameObject> spawnPoints1;
@@ -30,6 +30,16 @@ namespace actionPhase {
         // Use this for initialization
         void Start()
         {
+            for(int i = 0; i< MasterGame.Instance.playOrder.Length; i++){
+                players.Add(Instantiate(playerPrefab));
+                players[i].GetComponent<PlayerStats>().Team = (int)MasterGame.Instance.playOrder[i].team;
+                players[i].GetComponent<TestInput>().player = MasterGame.Instance.playOrder[i];
+                if(players[i].GetComponent<PlayerStats>().Team == 0)
+                {
+                    players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                }
+            }
+
             ResetScene();
 
 
@@ -54,12 +64,12 @@ namespace actionPhase {
             }
         }
        
-        void ResetPlayer(GameObject player, TwoDimensionWeapon.Weapon weaponType)
+        void ResetPlayer(GameObject player, TestWeapon.Weapon weaponType)
         {
 
-            player.GetComponent<TwoDimensionWeapon>().ChangeWeapon(weaponType);
+            player.GetComponent<TestWeapon>().ChangeWeapon(weaponType);
             player.GetComponent<PlayerStats>().Health = 100;
-            if(player.GetComponentInParent<SquadManager>().team == 0)
+            if(player.GetComponent<PlayerStats>().Team == 0)
             {
                 player.transform.position = spawnPoints0[spawnCount0].transform.position;
                 spawnCount0++;
@@ -73,7 +83,7 @@ namespace actionPhase {
 
         public void countDeath(GameObject player)
         {
-            if (player.GetComponentInParent<SquadManager>().team == 0) { 
+            if (player.GetComponent<PlayerStats>().Team == 0) { 
                 killCount0++;
             }
             else
@@ -85,6 +95,14 @@ namespace actionPhase {
 
         private void ResetScene()
         {
+            if(players.Count != playerCount)
+            {
+                for(int i = 0; i<playerCount; i++)
+                {
+                    players.Add(Instantiate(playerPrefab));
+                }
+            }
+
             spawnCount0 = 0;
             spawnCount1 = 0;
             killCount0 = 0;
@@ -93,27 +111,41 @@ namespace actionPhase {
 
             foreach (GameObject player in players)
             {
-                TwoDimensionWeapon.Weapon weaponType;
+                TestWeapon.Weapon weaponType;
                 if (player.GetComponent<PlayerStats>().Team == 0)
                 {
                     if (MasterGame.Instance.Capture.LightPiece == EPieceType.LMachineGun)
                     {
-                        weaponType = TwoDimensionWeapon.Weapon.MachineGun;
+                        weaponType = TestWeapon.Weapon.MachineGun;
+                    }
+                    else if(MasterGame.Instance.Capture.LightPiece == EPieceType.LPistol)
+                    {
+                        weaponType = TestWeapon.Weapon.Pistol;
+                    }else if(MasterGame.Instance.Capture.LightPiece == EPieceType.LShotgun)
+                    {
+                        weaponType = TestWeapon.Weapon.ShotGun;
                     }
                     else
                     {
-                        weaponType = TwoDimensionWeapon.Weapon.Pistol;
+                        weaponType = TestWeapon.Weapon.SniperRifle;
                     }
                 }
                 else
                 {
-                    if (MasterGame.Instance.Capture.LightPiece == EPieceType.DMachineGun)
+                    if (MasterGame.Instance.Capture.DarkPiece == EPieceType.DMachineGun)
                     {
-                        weaponType = TwoDimensionWeapon.Weapon.MachineGun;
+                        weaponType = TestWeapon.Weapon.MachineGun;
+                    }
+                    else if(MasterGame.Instance.Capture.DarkPiece == EPieceType.DPistol)
+                    {
+                        weaponType = TestWeapon.Weapon.Pistol;
+                    }else if(MasterGame.Instance.Capture.DarkPiece == EPieceType.DShotgun)
+                    {
+                        weaponType = TestWeapon.Weapon.ShotGun;
                     }
                     else
                     {
-                        weaponType = TwoDimensionWeapon.Weapon.Pistol;
+                        weaponType = TestWeapon.Weapon.SniperRifle;
                     }
                 }
                 ResetPlayer(player, weaponType);
