@@ -37,14 +37,7 @@ public struct BasicPlayer
 /// This handles switching between the two phases of the game.
 /// </summary>
 public class MasterGame : Singleton<MasterGame> {
-    #region Properties
-    
-    public CaptureEvent CaptureAttempted { get; private set; }
-    public CaptureData Capture { get; private set; }
-
-    public RoundEvent RoundEnded { get; private set; }
-    public RoundData Round { get; private set; }
-
+    #region Members
     public Camera strategyCamera;
     public Camera shooterCamera;
 
@@ -55,6 +48,16 @@ public class MasterGame : Singleton<MasterGame> {
     public Player[] playOrder;
     public GamepadCursor[] gamepads;
     public int playIndex;
+    #endregion
+
+    #region Properties
+    public CaptureEvent CaptureAttempted { get; private set; }
+    public CaptureData Capture { get; private set; }
+
+    public RoundEvent RoundEnded { get; private set; }
+    public RoundData Round { get; private set; }
+
+    public Player CurrentPlayer { get { return playOrder[playIndex]; } }
     #endregion
 
     #region Methods
@@ -81,7 +84,6 @@ public class MasterGame : Singleton<MasterGame> {
         playOrder = new Player[8];
     }
 
-
     /// <summary>
     /// Called when the game is started for the first time. Initilizes players in the world
     /// </summary>
@@ -91,7 +93,6 @@ public class MasterGame : Singleton<MasterGame> {
        setTeamAndPos();
        SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
     }
-
 
     /// <summary>
     /// Initilizes all params set in the first scene. Sets each players team and postiion in the team
@@ -163,7 +164,6 @@ public class MasterGame : Singleton<MasterGame> {
 
         SceneManager.sceneLoaded -= OnGameStart;
     }
-
    
     /// <summary>
     /// Loops through all user positions on the lobby scene and adds them to the list of basic players
@@ -291,6 +291,13 @@ public class MasterGame : Singleton<MasterGame> {
 
         // Switch to strategy scene
         SceneManager.LoadScene("StrategyScene");
+    }
+
+    /// <summary>
+    /// Iterates to the next player's turn.
+    /// </summary>
+    public void NextPlayersTurn() {
+        playIndex = playIndex + 1 < playOrder.Length ? playIndex + 1 : 0;
     }
     #endregion
 }

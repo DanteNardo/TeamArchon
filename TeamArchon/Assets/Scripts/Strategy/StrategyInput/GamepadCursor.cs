@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Acts as a virtual mouse cursor, but is controlled with a gamepad.
+/// </summary>
 public class GamepadCursor : MonoBehaviour {
     #region Members
     public float sensitivity;
@@ -22,13 +25,16 @@ public class GamepadCursor : MonoBehaviour {
     /// the strategy portion of the game.
     /// </summary>
     private void Update() {
-        UpdateMovement();
+        // Only update the cursor if it is this player's turn
+        if (MasterGame.Instance.CurrentPlayer == player) {
+            UpdateMovement();
 
-        if (Click()) {
-            OnClick();
-        }
-        else {
-            Reset();
+            if (Click()) {
+                OnClick();
+            }
+            else {
+                Reset();
+            }
         }
     }
 
@@ -78,7 +84,7 @@ public class GamepadCursor : MonoBehaviour {
         transform.position = new Vector3(
             transform.position.x + xInput * sensitivity,
             transform.position.y,
-            transform.position.z - yInput * sensitivity);
+            transform.position.z + yInput * sensitivity);
     }
 
     /// <summary>

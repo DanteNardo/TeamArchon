@@ -39,6 +39,7 @@ public class GameBoard : Singleton<GameBoard> {
         }
         else {
             board.MovePiece(move);
+            MasterGame.Instance.NextPlayersTurn();
             MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
             Debug.Log("================== Moves Generated ==================");
             Debug.Log("Moves:");
