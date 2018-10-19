@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
 /// <summary>
 /// Manages a specific set of pieces based on given input.
@@ -10,13 +9,15 @@ public class SquadManager : MonoBehaviour {
     private GameObject[] pieceObjects;
     private Piece[] pieces;
     public int team;
+    private Player player;
     #endregion
 
     #region Methods
     /// <summary>
     /// Initializes squad pieces for local player.
     /// </summary>
-    private void Start() {
+    private void Awake() {
+        player = GetComponent<Player>();
     }
 
     /// <summary>
@@ -67,6 +68,7 @@ public class SquadManager : MonoBehaviour {
             var instance = Instantiate(prefabs[i], position, Quaternion.identity);
             Piece piece = instance.GetComponent<Piece>();
             pieces[i] = piece;
+            piece.player = player;
 
             // Set the parent for this child object and place the piece
             instance.transform.parent = gameObject.transform;

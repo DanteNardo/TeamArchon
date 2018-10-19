@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 #region Piece Enumerators
 public enum EPieceType {
@@ -49,6 +48,7 @@ public class Piece : GamepadBehavior {
     }
     public int Speed { get { return speed; } }
     public List<Move> Moves { get; private set; }
+    public Player player { get; set; }
     #endregion
 
     #region Piece Methods
@@ -87,25 +87,41 @@ public class Piece : GamepadBehavior {
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
     public override void OnClick(GamepadCursor cursor) {
-        // Select the piece if it is possible
-        if (!selected) {
-            selected = true;
-            material.color = selectedColor;
-
-            // Deselect old piece and select this piece
-            if (InputManager.Instance.Selected != null) {
-                Debug.Log("Deselected");
-                InputManager.Instance.Selected.selected = false;
+        // Only the correct player can click on this piece
+        if (cursor.player == player) {
+            // Select the piece if it is possible
+            if (!selected) {
+                // Deselect old piece and select this piece
+                if (InputManager.Instance.Selected != null) {
+                    Debug.Log("Deselected");
+                    InputManager.Instance.Selected.Deselect();
+                }
+                Select();
             }
-            InputManager.Instance.Selected = this;
-        }
-        // Deselect the piece if it is selected
-		else {
-            selected = false;
-            material.color = defaultColor;
-            InputManager.Instance.Selected = null;
+            // Deselect the piece if it is selected
+            else {
+                Deselect();
+            }
         }
 	}
+
+    /// <summary>
+    /// Select this piece.
+    /// </summary>
+    public void Select() {
+        selected = true;
+        material.color = selectedColor;
+        InputManager.Instance.Selected = this;
+    }
+
+    /// <summary>
+    /// Select this piece.
+    /// </summary>
+    public void Deselect() {
+        selected = false;
+        material.color = defaultColor;
+        InputManager.Instance.Selected = null;
+    }
 
     /// <summary>
     /// // Animates the piece from one square to another
