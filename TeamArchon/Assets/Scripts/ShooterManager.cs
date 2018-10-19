@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using actionPhase;
 namespace actionPhase {
-    public class ShooterManager : NetworkBehaviour
+    public class ShooterManager : MonoBehaviour
     {
 
         public GameObject pistol;
@@ -32,23 +32,6 @@ namespace actionPhase {
         {
             ResetScene();
 
-            if (isServer)
-            {
-                //SpawnPlayer(pistol);
-            }
-            /*
-            if (!isLocalPlayer)
-            {
-                GameObject newPlayer = Instantiate<GameObject>(pistol, Vector3.zero, Quaternion.identity);
-                NetworkConnection localConnection = NetworkServer.connections[0];
-
-                Destroy(localConnection.playerControllers[0].gameObject);
-
-                NetworkServer.ReplacePlayerForConnection(localConnection, newPlayer, localConnection.playerControllers[0].playerControllerId);
-
-                //Spawn Player for the future
-                //SpawnPlayer("Team1", pistol);
-            }*/
 
         }
 
@@ -70,9 +53,10 @@ namespace actionPhase {
                 ResetScene();
             }
         }
-        [Server]
+       
         void ResetPlayer(GameObject player, TwoDimensionWeapon.Weapon weaponType)
         {
+
             player.GetComponent<TwoDimensionWeapon>().ChangeWeapon(weaponType);
             player.GetComponent<PlayerStats>().Health = 100;
             if(player.GetComponentInParent<SquadManager>().team == 0)
@@ -110,7 +94,7 @@ namespace actionPhase {
             foreach (GameObject player in players)
             {
                 TwoDimensionWeapon.Weapon weaponType;
-                if (player.GetComponentInParent<SquadManager>().team == 0)
+                if (player.GetComponent<PlayerStats>().Team == 0)
                 {
                     if (MasterGame.Instance.Capture.LightPiece == EPieceType.LMachineGun)
                     {
@@ -140,7 +124,7 @@ namespace actionPhase {
 
         void roundEnd(int winningTeam)
         {
-
+            MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam));
         }
 
 
