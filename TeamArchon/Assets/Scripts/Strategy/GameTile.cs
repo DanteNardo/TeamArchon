@@ -26,9 +26,21 @@ public class GameTile : GamepadBehavior {
             Debug.Log("Piece Row&Col: " + InputManager.Instance.Selected.Z + " - " + InputManager.Instance.Selected.X);
             Debug.Log("Piece Index: " + InputManager.Instance.Selected.Index);
             Debug.Log("Tile Row&Col: " + Row + " - " + Col);
-            Move move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col));
+
+            // Check if this move is a capture
+            Move move;
+            if (Piece.IsOtherColor(
+                GameBoard.Instance[InputManager.Instance.Selected.Index], 
+                GameBoard.Instance[Board.IndexFromRowAndCol(Row, Col)])) {
+                move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col), true);
+            }
+            else {
+                move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col));
+            }
             Debug.Log("New Move: " + move.From + " - " + move.To);
             Debug.Log("Invalid Move?: " + move.Invalid);
+
+            // Tell the input manager (which tells the pieces) a move has been attempted
             InputManager.Instance.AttemptMove(move);
         }
     }

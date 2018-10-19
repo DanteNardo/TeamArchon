@@ -166,8 +166,9 @@ MonoBehaviour:
   material: {fileID: 0}
   defaultColor: {r: 0.2735849, g: 0, b: 0, a: 0}
   selectedColor: {r: 0.4339623, g: 0.10234961, b: 0.10234961, a: 0}
-  pieceType: 2
+  pieceType: 4
   direction: 8
+  X: 0
+  Z: 0
   selected: 0
   speed: 3
-  localPiece: 0

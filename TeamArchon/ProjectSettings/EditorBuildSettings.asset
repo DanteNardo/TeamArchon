@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Combined.unity
     guid: cde093550f2cb4545ba9832c464ba72c
+  - enabled: 1
+    path: Assets/Scenes/NonNetworkedShooterTest.unity
+    guid: d2f8aa073c6ad4f4382b197d8e12e019
   m_configObjects: {}

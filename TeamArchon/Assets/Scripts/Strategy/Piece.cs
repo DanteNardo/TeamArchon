@@ -72,12 +72,14 @@ public class Piece : GamepadBehavior {
 
             // Move the piece if the move is valid
             if (Rules.Instance.ValidMove(pieceType, m) && HasMove(m)) {
-                Debug.Log("Valid Move");
-                Moves.Clear();
-                X = Board.Col(m.To);
-                Z = Board.Row(m.To);
-                GameBoard.Instance.MovePiece(m);
-				StartCoroutine(Moving(m));
+                // If the piece begins moving
+                if (GameBoard.Instance.MovePiece(m)) {
+                    Debug.Log("Valid Move");
+                    Moves.Clear();
+                    X = Board.Col(m.To);
+                    Z = Board.Row(m.To);
+                    StartCoroutine(Moving(m));
+                }
 			}
             InputManager.Instance.MoveAttemptMade();
 		}

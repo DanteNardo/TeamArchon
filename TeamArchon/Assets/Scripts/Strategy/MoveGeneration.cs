@@ -54,13 +54,6 @@ public static class MoveGeneration {
         List<int> nextCells = new List<int>();
         int cc = start;
 
-        // TEST
-        if (start == 25) {
-            Debug.Log("WHY THE FUCK IS THE ORIGIN 25!!!!!");
-            Debug.Log("Piece Row&Col: " + piece.Z + " - " + piece.X);
-            Debug.Log("Current Index: " + piece.Index);
-        }
-
         // Next row
         if (Board.TileExists(cc + Board.Size)) {
             cells.Add(cc + Board.Size);
@@ -89,13 +82,19 @@ public static class MoveGeneration {
             // If the square contains a piece of the other color,
             // add the valid move, but do not move through it, and set capture to true
             if (Piece.IsOtherColor(piece.pieceType, GameBoard.Instance[cc])) {
-                moves.Add(new Move(start, cc, true));
-                Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
+                var move = new Move(start, cc, true);
+                if (NewMove(moves, move)) {
+                    moves.Add(move);
+                }
+                //Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
             }
             // Add this cell's neighbors to continue searching for possible moves
             else if (!GameBoard.Instance.PieceAt(cc) && cc != start) {
-                moves.Add(new Move(start, cc));
-                Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
+                var move = new Move(start, cc);
+                if (NewMove(moves, move)) {
+                    moves.Add(move);
+                }
+                //Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
 
                 // Next row
                 if (Board.TileExists(cc + Board.Size)) {
@@ -135,6 +134,25 @@ public static class MoveGeneration {
 
         // Default return
         return moves;
+    }
+
+    /// <summary>
+    /// Checks if a given move is new and not in the move list.
+    /// </summary>
+    /// <param name="moveList">The list of moves to check with</param>
+    /// <param name="potentialMove">A potentially new move</param>
+    /// <returns>Whether or not the move is in the list</returns>
+    private static bool NewMove(List<Move> moveList, Move potentialMove) {
+        foreach (var move in moveList) {
+            if (move.Capture == potentialMove.Capture &&
+                move.From == potentialMove.From &&
+                move.To == potentialMove.To) {
+                return false;
+            }
+        }
+
+        // Default return
+        return true;
     }
     #endregion
 }

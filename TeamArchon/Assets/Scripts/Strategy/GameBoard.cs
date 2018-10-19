@@ -31,11 +31,12 @@ public class GameBoard : Singleton<GameBoard> {
 		MoveGeneration.GenerateMoves(StrategyGame.Instance.Pieces);
 	}
 
-	public void MovePiece(Move move) {
+	public bool MovePiece(Move move) {
         // Check if this is going to trigger a capture
         if (move.Capture) {
             // A capture event occurs and we switch over to the Action phase
             MasterGame.Instance.CaptureAttempted.Invoke(move);
+            return false;
         }
         else {
             board.MovePiece(move);
@@ -46,6 +47,7 @@ public class GameBoard : Singleton<GameBoard> {
             foreach (var m in StrategyGame.Instance.Pieces[2].Moves) {
                 Debug.Log("Move: " + m.From + " - " + m.To);
             }
+            return true;
         }
     }
 
