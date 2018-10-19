@@ -118,7 +118,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   selected: 0
-  speed: 3
+  speed: 5
 --- !u!114 &114484311169276398
 MonoBehaviour:
   m_ObjectHideFlags: 1

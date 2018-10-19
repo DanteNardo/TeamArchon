@@ -163,7 +163,7 @@ MonoBehaviour:
       Secondary: 0
     targetController: 2
     Axis: 1
-    Invert: 0
+    Invert: 1
     Sensitivity: 1
     val: 0
   - Name: Joy2RightXAxis
@@ -191,7 +191,7 @@ MonoBehaviour:
       Secondary: 0
     targetController: 2
     Axis: 4
-    Invert: 0
+    Invert: 1
     Sensitivity: 1
     val: 0
   - Name: Joy2A

@@ -35,19 +35,16 @@ namespace actionPhase
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log(collision.gameObject);
-            if ((gameObject.tag == "Team1" && collision.gameObject.tag == "Team2") || (gameObject.tag == "Team2" && collision.gameObject.tag == "Team1"))
+            
+            
+            PlayerStats hitStats = collision.gameObject.GetComponent<PlayerStats>();
+            if (hitStats != null&&hitStats.Team!= team)
             {
-                PlayerStats hitStats = collision.gameObject.GetComponent<PlayerStats>();
-                if (hitStats != null&&hitStats.Team!= team)
-                {
-                    hitStats.Health -= damage;
-                }
-        }
-            if (collision.gameObject.tag != "Bullet")
-            {
-                gameObject.SetActive(false);
+                hitStats.Health -= damage;
             }
+       
+            gameObject.SetActive(false);
+            
         }
         public int Team
         {
