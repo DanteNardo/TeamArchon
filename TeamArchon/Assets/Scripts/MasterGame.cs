@@ -236,7 +236,7 @@ public class MasterGame : Singleton<MasterGame> {
         // TODO: Prepare for switching
 
         // Switch to action scene
-        SceneManager.LoadScene("ActionScene");
+        SceneManager.LoadScene("Scenes/NonNetworkedShooterTest", LoadSceneMode.Additive);
     }
     
     /// <summary>
@@ -289,8 +289,8 @@ public class MasterGame : Singleton<MasterGame> {
             }
         }
 
-        // Switch to strategy scene
-        SceneManager.LoadScene("StrategyScene");
+        // Unload the action scene
+        SceneManager.UnloadSceneAsync("Scenes/NonNetworkedShooterTest");
     }
 
     /// <summary>
