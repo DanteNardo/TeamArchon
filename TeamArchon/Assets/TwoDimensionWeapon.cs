@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 public class TwoDimensionWeapon : NetworkBehaviour{
     public GameObject pistolBulletPrefab;
     public GameObject machineGunBulletPrefab;
-    public enum Weapon { Pistol, MachineGun, ShotGun };
+    public GameObject sniperBulletPrefab;
+    public enum Weapon { Pistol, MachineGun, Sniper, ShotGun };
     public Weapon weaponType;
     private GameObject finalPrefab;
     private float fireRate;
@@ -124,8 +125,12 @@ public class TwoDimensionWeapon : NetworkBehaviour{
             finalPrefab = machineGunBulletPrefab;
         }else if(weaponType == Weapon.ShotGun)
         {
-            fireRate = 1.0f;
+            fireRate = 1.5f;
             finalPrefab = pistolBulletPrefab;
+        }else if(weaponType == Weapon.ShotGun)
+        {
+            fireRate = 1.0f;
+            finalPrefab = sniperBulletPrefab;
         }
     }
 }

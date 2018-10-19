@@ -10,6 +10,7 @@ namespace actionPhase
         public float damage;
         private float activeTimer = 0.00f;
         private Rigidbody2D rigid2D;
+        private int team;
         // Use this for initialization
         void Start() {
             rigid2D = gameObject.GetComponent<Rigidbody2D>();
@@ -38,7 +39,7 @@ namespace actionPhase
             if ((gameObject.tag == "Team1" && collision.gameObject.tag == "Team2") || (gameObject.tag == "Team2" && collision.gameObject.tag == "Team1"))
             {
                 PlayerStats hitStats = collision.gameObject.GetComponent<PlayerStats>();
-                if (hitStats != null)
+                if (hitStats != null&&hitStats.Team!= team)
                 {
                     hitStats.Health -= damage;
                 }
@@ -48,5 +49,11 @@ namespace actionPhase
                 gameObject.SetActive(false);
             }
         }
+        public int Team
+        {
+            get { return team; }
+            set { team = value; }
+        }
     }
+    
 }
