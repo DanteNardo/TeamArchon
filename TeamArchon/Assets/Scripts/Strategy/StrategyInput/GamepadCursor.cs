@@ -43,7 +43,7 @@ public class GamepadCursor : MonoBehaviour {
     /// </summary>
     private void UpdateMovement() {
         float xInput = 0, yInput = 0;
-
+        
         // Get input based on player axis
         switch (player.JoystickValue) {
             case 0:
@@ -51,8 +51,9 @@ public class GamepadCursor : MonoBehaviour {
                 yInput = hInput.GetAxis("Joy1LeftYAxis");
                 break;
             case 1:
+                //Debug.Log(player.JoystickValue);
                 xInput = hInput.GetAxis("Joy2LeftXAxis");
-                yInput = hInput.GetAxis("Joy2LeftYAxis");
+                yInput = -hInput.GetAxis("Joy2LeftYAxis");
                 break;
             case 2:
                 xInput = hInput.GetAxis("Joy3LeftXAxis");
@@ -92,6 +93,7 @@ public class GamepadCursor : MonoBehaviour {
     /// </summary>
     /// <returns>True if click input, else false</returns>
     private bool Click() {
+        
         switch (player.JoystickValue) {
             case 0: return hInput.GetButtonDown("Joy1A");
             case 1: return hInput.GetButtonDown("Joy2A");
