@@ -23,8 +23,6 @@ GameObject:
   - component: {fileID: 23398753016929712}
   - component: {fileID: 65123299881738374}
   - component: {fileID: 114209224183041492}
-  - component: {fileID: 114484311169276398}
-  - component: {fileID: 114821590339421532}
   m_Layer: 0
   m_Name: LightWall
   m_TagString: Untagged
@@ -119,56 +117,3 @@ MonoBehaviour:
   Z: 0
   selected: 0
   speed: 5
---- !u!114 &114484311169276398
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1298819292450234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 103
-    i1: 198
-    i2: 166
-    i3: 78
-    i4: 249
-    i5: 123
-    i6: 105
-    i7: 4
-    i8: 106
-    i9: 16
-    i10: 7
-    i11: 181
-    i12: 101
-    i13: 36
-    i14: 80
-    i15: 214
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!114 &114821590339421532
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1298819292450234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1

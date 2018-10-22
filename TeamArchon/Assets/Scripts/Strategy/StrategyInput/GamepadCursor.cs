@@ -53,7 +53,7 @@ public class GamepadCursor : MonoBehaviour {
             case 1:
                 //Debug.Log(player.JoystickValue);
                 xInput = hInput.GetAxis("Joy2LeftXAxis");
-                yInput = -hInput.GetAxis("Joy2LeftYAxis");
+                yInput = hInput.GetAxis("Joy2LeftYAxis");
                 break;
             case 2:
                 xInput = hInput.GetAxis("Joy3LeftXAxis");
