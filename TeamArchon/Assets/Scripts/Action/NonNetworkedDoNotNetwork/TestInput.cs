@@ -8,6 +8,8 @@ namespace actionPhase {
         public float speed;
         private Rigidbody2D rigid2D;
         public Player player;
+
+        private Vector3 previousUp;
         void Start()
         {
             rigid2D = gameObject.GetComponent<Rigidbody2D>();
@@ -42,7 +44,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy1LeftXAxis");
                     yMove = hInput.GetAxis("Joy1LeftYAxis");
-                    if (hInput.GetButton("Joy1A"))
+                    if (hInput.GetButton("Joy1A")|| hInput.GetButton("Joy1RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -53,7 +55,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy2LeftXAxis");
                     yMove = hInput.GetAxis("Joy2LeftYAxis");
-                    if (hInput.GetButton("Joy2A"))
+                    if (hInput.GetButton("Joy2A") || hInput.GetButton("Joy2RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -64,7 +66,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy3LeftXAxis");
                     yMove = hInput.GetAxis("Joy3LeftYAxis");
-                    if (hInput.GetButton("Joy3A"))
+                    if (hInput.GetButton("Joy3A") || hInput.GetButton("Joy3RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -75,7 +77,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy4LeftXAxis");
                     yMove = hInput.GetAxis("Joy4LeftYAxis");
-                    if (hInput.GetButton("Joy4A"))
+                    if (hInput.GetButton("Joy4A")|| hInput.GetButton("Joy4RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -86,7 +88,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy5LeftXAxis");
                     yMove = hInput.GetAxis("Joy5LeftYAxis");
-                    if (hInput.GetButton("Joy5A"))
+                    if (hInput.GetButton("Joy5A")||hInput.GetButton("Joy5RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -97,7 +99,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy6LeftXAxis");
                     yMove = hInput.GetAxis("Joy6LeftYAxis");
-                    if (hInput.GetButton("Joy6A"))
+                    if (hInput.GetButton("Joy6A") || hInput.GetButton("Joy6RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -108,7 +110,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy7LeftXAxis");
                     yMove = hInput.GetAxis("Joy7LeftYAxis");
-                    if (hInput.GetButton("Joy7A"))
+                    if (hInput.GetButton("Joy7A") || hInput.GetButton("Joy7RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -119,7 +121,7 @@ namespace actionPhase {
 
                     xMove = hInput.GetAxis("Joy8LeftXAxis");
                     yMove = hInput.GetAxis("Joy8LeftYAxis");
-                    if (hInput.GetButton("Joy8A"))
+                    if (hInput.GetButton("Joy8A") || hInput.GetButton("Joy8RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
                     }
@@ -137,9 +139,12 @@ namespace actionPhase {
 
             rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(xMove, yMove, 0)) * speed * Time.fixedDeltaTime);
 
-            Vector3 lookDirection = new Vector3(xTurn, yTurn, 0);
+            if (yTurn != 0.0f && xTurn != 0.0f)
+            {
+                Vector3 lookDirection = new Vector3(xTurn, yTurn, 0);
 
-            gameObject.transform.up = lookDirection;
+                gameObject.transform.up = lookDirection;
+            }
 
 
         }
