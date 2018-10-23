@@ -34,7 +34,7 @@ namespace actionPhase {
                 players.Add(Instantiate(playerPrefab));
                 players[i].GetComponent<PlayerStats>().Team = (int)MasterGame.Instance.playOrder[i].team;
                 players[i].GetComponent<TestInput>().player = MasterGame.Instance.playOrder[i];
-                if(players[i].GetComponent<PlayerStats>().Team == 0)
+                if(players[i].GetComponent<PlayerStats>().Team == 1)
                 {
                     players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
                 }
@@ -54,12 +54,12 @@ namespace actionPhase {
         {
             if (killCount0 >= killCountRequired / 2)
             {
-                roundEnd(0);
+                roundEnd(1);
                 ResetScene();
             }
             else if (killCount1 >= killCountRequired / 2)
             {
-                roundEnd(1);
+                roundEnd(0);
                 ResetScene();
             }
         }

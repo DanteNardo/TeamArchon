@@ -77,13 +77,9 @@ public class Piece : GamepadBehavior {
 
             // Move the piece if the move is valid
             if (Rules.Instance.ValidMove(pieceType, m) && HasMove(m)) {
-                // If the piece begins moving
+                // If the piece is moved internally, move it visually as well
                 if (GameBoard.Instance.MovePiece(m)) {
-                    Debug.Log("Valid Move");
-                    Moves.Clear();
-                    X = Board.Col(m.To);
-                    Z = Board.Row(m.To);
-                    StartCoroutine(Moving(m));
+                    Move(m);
                 }
 			}
             InputManager.Instance.MoveAttemptMade();
@@ -131,7 +127,18 @@ public class Piece : GamepadBehavior {
     }
 
     /// <summary>
-    /// // Animates the piece from one square to another
+    /// Moves the piece visually.
+    /// </summary>
+    public void Move(Move m) {
+        Debug.Log("Valid Move");
+        Moves.Clear();
+        X = Board.Col(m.To);
+        Z = Board.Row(m.To);
+        StartCoroutine(Moving(m));
+    }
+
+    /// <summary>
+    /// Animates the piece from one square to another.
     /// </summary>
     /// <param name="m">The move data</param>
     /// <returns>An Enumerator for the coroutine</returns>
@@ -160,7 +167,7 @@ public class Piece : GamepadBehavior {
     }
 
     /// <summary>
-    /// Converts next board position to world position
+    /// Converts next board position to world position.
     /// </summary>
     /// <param name="m">The move data</param>
     /// <returns>The world position</returns>
@@ -169,7 +176,7 @@ public class Piece : GamepadBehavior {
     }
 
     /// <summary>
-    /// Converts next board position to world position
+    /// Converts next board position to world position.
     /// </summary>
     /// <param name="m">The move data</param>
     /// <returns>The world position</returns>

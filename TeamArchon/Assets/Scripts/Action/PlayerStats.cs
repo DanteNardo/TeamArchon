@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+
 namespace actionPhase
 {
-    
     public class PlayerStats : MonoBehaviour
     {
-      
         private float health;
+        public int team;
+
         // Use this for initialization
-        private int team;
         void Start()
         {
             health = 100.00f;
@@ -19,13 +18,11 @@ namespace actionPhase
         // Update is called once per frame
         void Update()
         {
-            
              if (health <= 0)
              {
                  gameObject.SetActive(false);
                  ShooterManager.instance.countDeath(gameObject);
              }
-            
         }
 
         public float Health
