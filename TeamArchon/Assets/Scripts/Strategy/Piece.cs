@@ -106,6 +106,17 @@ public class Piece : GamepadBehavior {
                 Deselect();
             }
         }
+        // If there is a selected piece then a capture is being attempted
+        else if (InputManager.Instance.Selected != null) {
+            // Check if this move is a capture
+            Move move;
+            if (IsOtherColor(
+                GameBoard.Instance[InputManager.Instance.Selected.Index],
+                GameBoard.Instance[Index])) {
+                move = new Move(InputManager.Instance.Selected.Index, Index, true);
+                InputManager.Instance.AttemptMove(move);
+            }
+        }
 	}
 
     /// <summary>

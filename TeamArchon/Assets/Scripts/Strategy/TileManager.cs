@@ -5,7 +5,6 @@
 /// </summary>
 public class TileManager : Singleton<TileManager> {
     #region TileManager Members
-    public int pieceCount = 2;
     public GameObject lightTilePrefab;
     public GameObject darkTilePrefab;
     public GameObject[,] boardTiles;
@@ -45,12 +44,12 @@ public class TileManager : Singleton<TileManager> {
 
                 // Generate a light or dark tile
                 if (light) {
-                    GameObject lightTile = Instantiate(lightTilePrefab, position, Quaternion.identity);
+                    GameObject lightTile = Instantiate(lightTilePrefab, position, lightTilePrefab.transform.rotation);
                     lightTile.transform.parent = tileContainer.transform;
                     boardTiles[i, j] = lightTile;
                 }
                 else {
-                    GameObject darkTile = Instantiate(darkTilePrefab, position, Quaternion.identity);
+                    GameObject darkTile = Instantiate(darkTilePrefab, position, darkTilePrefab.transform.rotation);
                     darkTile.transform.parent = tileContainer.transform;
                     boardTiles[i, j] = darkTile;
                 }

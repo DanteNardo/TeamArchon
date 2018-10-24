@@ -97,19 +97,19 @@ public static class MoveGeneration {
                 //Debug.Log("New Move:" + moves[moves.Count - 1].From + " - " + moves[moves.Count - 1].To);
 
                 // Next row
-                if (Board.TileExists(cc + Board.Size)) {
+                if (Board.TileExists(cc + Board.Size) && BoardWrapCheck(cc, cc + Board.Size)) {
                     nextCells.Add(cc + Board.Size);
                 }
                 // Previous row
-                if (Board.TileExists(cc - Board.Size)) {
+                if (Board.TileExists(cc - Board.Size) && BoardWrapCheck(cc, cc - Board.Size)) {
                     nextCells.Add(cc - Board.Size);
                 }
                 // Next column
-                if (Board.TileExists(cc + 1)) {
+                if (Board.TileExists(cc + 1) && BoardWrapCheck(cc, cc + 1)) {
                     nextCells.Add(cc + 1);
                 }
                 // Previous column
-                if (Board.TileExists(cc - 1)) {
+                if (Board.TileExists(cc - 1) && BoardWrapCheck(cc, cc - 1)) {
                     nextCells.Add(cc - 1);
                 }
             }
@@ -153,6 +153,19 @@ public static class MoveGeneration {
 
         // Default return
         return true;
+    }
+
+    /// <summary>
+    /// Returns true if the board does not wrap.
+    /// This prevents movement from one edge of the board to the
+    /// complete other side of the board.
+    /// </summary>
+    /// <param name="from">The current square</param>
+    /// <param name="to">The next square</param>
+    /// <returns>True if the board does not wrap, else false</returns>
+    private static bool BoardWrapCheck(int from, int to) {
+        return Mathf.Abs(Board.Row(from) - Board.Row(to)) <= 1 &&
+               Mathf.Abs(Board.Col(from) - Board.Col(to)) <= 1;
     }
     #endregion
 }
