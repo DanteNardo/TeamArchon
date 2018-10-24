@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 using UnityEngine.UI;
+using actionPhase;
 
 #region Master Game Enumerators
 public enum ETeam {
@@ -237,9 +238,19 @@ public class MasterGame : Singleton<MasterGame> {
         // TODO: Prepare for switching
 
         // Switch to action scene
+
+        SceneManager.sceneLoaded += shotStart;
         SceneManager.LoadScene("Scenes/NonNetworkedShooterTest", LoadSceneMode.Additive);
     }
-    
+
+
+    private void shotStart(Scene scene, LoadSceneMode loadMoad)
+    {
+        //GameObject shooterManager = GameObject.Find("Shooter Manager");
+        //shooterManager.GetComponent<ShooterManager>().ShooterStart();
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("NonNetworkedShooterTest"));
+    }
+
     /// <summary>
     /// Handles deleting the correct piece after a capture event ended.
     /// In addition, reperforms the move if the moving piece was unable

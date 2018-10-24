@@ -203,7 +203,7 @@ MonoBehaviour:
     Negative:
       Primary: 0
       Secondary: 0
-    targetController: 1
+    targetController: 2
     Axis: 0
     Invert: 0
     Sensitivity: 1
@@ -217,7 +217,7 @@ MonoBehaviour:
     Negative:
       Primary: 0
       Secondary: 0
-    targetController: 1
+    targetController: 2
     Axis: 0
     Invert: 0
     Sensitivity: 1
@@ -231,7 +231,7 @@ MonoBehaviour:
     Negative:
       Primary: 0
       Secondary: 0
-    targetController: 1
+    targetController: 2
     Axis: 0
     Invert: 0
     Sensitivity: 1
@@ -245,7 +245,7 @@ MonoBehaviour:
     Negative:
       Primary: 0
       Secondary: 0
-    targetController: 1
+    targetController: 2
     Axis: 0
     Invert: 0
     Sensitivity: 1
@@ -259,7 +259,763 @@ MonoBehaviour:
     Negative:
       Primary: 0
       Secondary: 0
-    targetController: 1
+    targetController: 2
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3LeftXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3LeftYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 1
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3RightXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 3
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3RightYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 4
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3A
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 390
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 395
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3B
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 391
+      Secondary: 98
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3X
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 392
+      Secondary: 120
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy3Y
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 393
+      Secondary: 121
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 3
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4LeftXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4LeftYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 1
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4RightXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 3
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4RightYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 4
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4A
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 410
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 415
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4B
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 411
+      Secondary: 98
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4X
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 412
+      Secondary: 120
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy4Y
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 413
+      Secondary: 121
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 4
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5LeftXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5LeftYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 1
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5RightXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 3
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5RightYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 4
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5A
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 430
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 435
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5B
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 431
+      Secondary: 98
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5X
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 432
+      Secondary: 120
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy5Y
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 433
+      Secondary: 121
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 5
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6LeftXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6LeftYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 1
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6RightXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 3
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6RightYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 4
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6A
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 450
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 455
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6B
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 451
+      Secondary: 98
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6X
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 452
+      Secondary: 120
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy6Y
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 453
+      Secondary: 121
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 6
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7LeftXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7LeftYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 1
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7RightXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 3
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7RightYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 4
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7A
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 470
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 475
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7B
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 471
+      Secondary: 98
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7X
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 472
+      Secondary: 120
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy7Y
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 473
+      Secondary: 121
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 7
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8LeftXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8LeftYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 1
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8RightXAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 3
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8RightYAxis
+    UniqueName: 
+    Type: 2
+    Positive:
+      Primary: 0
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 4
+    Invert: 1
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8A
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 490
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8RightBumper
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 495
+      Secondary: 0
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8B
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 491
+      Secondary: 98
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8X
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 492
+      Secondary: 120
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
+    Axis: 0
+    Invert: 0
+    Sensitivity: 1
+    val: 0
+  - Name: Joy8Y
+    UniqueName: 
+    Type: 0
+    Positive:
+      Primary: 493
+      Secondary: 121
+    Negative:
+      Primary: 0
+      Secondary: 0
+    targetController: 8
     Axis: 0
     Invert: 0
     Sensitivity: 1

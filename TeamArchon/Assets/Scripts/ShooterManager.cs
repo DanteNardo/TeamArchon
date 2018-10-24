@@ -25,28 +25,39 @@ namespace actionPhase {
         private void Awake()
         {
             instance = this;
+          
+            
+
+
         }
 
         // Use this for initialization
         void Start()
         {
-            for(int i = 0; i< MasterGame.Instance.playOrder.Length; i++){
+           
+            ShooterStart();
+
+        }
+        
+        public void ShooterStart()
+        {
+            
+
+            for (int i = 0; i < MasterGame.Instance.playOrder.Length; i++)
+            {
                 players.Add(Instantiate(playerPrefab));
                 players[i].GetComponent<PlayerStats>().Team = (int)MasterGame.Instance.playOrder[i].team;
                 players[i].GetComponent<TestInput>().player = MasterGame.Instance.playOrder[i];
-                if(players[i].GetComponent<PlayerStats>().Team == 1)
+                if (players[i].GetComponent<PlayerStats>().Team == 1)
                 {
                     players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
                 }
             }
 
             ResetScene();
-
-
         }
 
-
-
+       
 
 
         // Update is called once per frame
@@ -157,6 +168,7 @@ namespace actionPhase {
         void roundEnd(int winningTeam)
         {
             MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Strategy"));
         }
 
 
