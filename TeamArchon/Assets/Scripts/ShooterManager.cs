@@ -24,7 +24,6 @@ namespace actionPhase {
 
         private void Awake()
         {
-            Debug.Log("@@@!!!@!@@@!!@@@! Shooter Scene Started");
             instance = this;
           
             
