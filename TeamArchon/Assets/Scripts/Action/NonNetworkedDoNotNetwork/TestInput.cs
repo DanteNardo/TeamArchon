@@ -139,7 +139,11 @@ namespace actionPhase {
 
             rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(xMove, yMove, 0)) * speed * Time.fixedDeltaTime);
 
-            if (yTurn != 0.0f && xTurn != 0.0f)
+            rigid2D.velocity = new Vector3(0.0f,0.0f,0.0f);
+
+            rigid2D.angularVelocity = 0.0f;
+
+            if (yTurn != 0.0f || xTurn != 0.0f)
             {
                 Vector3 lookDirection = new Vector3(xTurn, yTurn, 0);
 
