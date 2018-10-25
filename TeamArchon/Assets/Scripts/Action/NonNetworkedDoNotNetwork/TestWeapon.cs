@@ -8,6 +8,10 @@ namespace actionPhase {
         public GameObject pistolBulletPrefab;
         public GameObject machineGunBulletPrefab;
         public GameObject sniperBulletPrefab;
+        public Sprite pistolUnit;
+        public Sprite shotgunUnit;
+        public Sprite sniperUnit;
+        public Sprite machineGunUnit;
         public enum Weapon { Pistol, MachineGun, ShotGun, SniperRifle };
         public Weapon weaponType;
         private GameObject finalPrefab;
@@ -15,6 +19,7 @@ namespace actionPhase {
         private List<GameObject> bulletPool;
         private float fireTimer;
         private int team;
+        
         // Use this for initialization
         void Start()
         {
@@ -122,7 +127,11 @@ namespace actionPhase {
 
         }
         //tempBullet.SetActive(false, 5.0f);
-
+        /// <summary>
+        /// Method used to change the active weapon based on the weapontype input
+        /// Also changes the sprite to fit the current weapon.
+        /// </summary>
+        /// <param name="weaponType">The type of weapon</param>
         public void ChangeWeapon(Weapon weaponType)
         {
             this.weaponType = weaponType;
@@ -130,20 +139,34 @@ namespace actionPhase {
             {
                 fireRate = 2.0f;
                 finalPrefab = pistolBulletPrefab;
+
+                SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = pistolUnit;
+               
+               
             }
             else if (weaponType == Weapon.MachineGun)
             {
                 fireRate = 6.0f;
                 finalPrefab = machineGunBulletPrefab;
+                SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = machineGunUnit;
+               
             }
             else if (weaponType == Weapon.ShotGun)
             {
                 fireRate = 1.0f;
                 finalPrefab = pistolBulletPrefab;
+                SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = shotgunUnit;
+                
             } else if (weaponType == Weapon.SniperRifle)
             {
                 fireRate = 0.5f;
                 finalPrefab = sniperBulletPrefab;
+                SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = sniperUnit;
+                
             }
         }
     }
