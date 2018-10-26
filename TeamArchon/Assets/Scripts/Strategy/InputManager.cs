@@ -24,7 +24,7 @@ public class InputManager : Singleton<InputManager> {
     public void MoveAttemptMade() {
         MoveAttempt = false;
         InputMove = null;
-        Selected.material.color = Selected.defaultColor;
+        Selected.spriteRenderer.color = Selected.defaultColor;
         Selected.selected = false;
         Selected = null;
     }

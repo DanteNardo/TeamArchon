@@ -65,7 +65,7 @@ public class SquadManager : MonoBehaviour {
             Vector3 position = new Vector3(col, 0, row);
 
             // Create piece gameobject
-            var instance = Instantiate(prefabs[i], position, Quaternion.identity);
+            var instance = Instantiate(prefabs[i], position, prefabs[i].transform.rotation);
             Piece piece = instance.GetComponent<Piece>();
             pieces[i] = piece;
             piece.player = player;

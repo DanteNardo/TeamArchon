@@ -31,9 +31,10 @@ public enum EDirection {
 /// <summary>
 /// A parent to every possible piece type. Implements generic piece abilities.
 /// </summary>
+[RequireComponent(typeof(SpriteRenderer))]
 public class Piece : GamepadBehavior {
 	#region Piece Members
-	public Material material;
+	public SpriteRenderer spriteRenderer;
 	public Color defaultColor;
 	public Color selectedColor;
     public EPieceType pieceType;
@@ -62,7 +63,7 @@ public class Piece : GamepadBehavior {
     /// </summary>
     private void Awake() {
         Moves = new List<Move>();
-		material = GetComponent<MeshRenderer>().material;
+		spriteRenderer = GetComponent<SpriteRenderer>();
         X = Mathf.FloorToInt(transform.position.x);
 		Z = Mathf.FloorToInt(transform.position.z);
     }
@@ -124,7 +125,7 @@ public class Piece : GamepadBehavior {
     /// </summary>
     public void Select() {
         selected = true;
-        material.color = selectedColor;
+        spriteRenderer.color = selectedColor;
         InputManager.Instance.Selected = this;
     }
 
@@ -133,7 +134,7 @@ public class Piece : GamepadBehavior {
     /// </summary>
     public void Deselect() {
         selected = false;
-        material.color = defaultColor;
+        spriteRenderer.color = defaultColor;
         InputManager.Instance.Selected = null;
     }
 
