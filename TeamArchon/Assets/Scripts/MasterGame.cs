@@ -45,7 +45,7 @@ public class MasterGame : Singleton<MasterGame> {
     public List<BasicPlayer> baseList;
     public List<GameObject> playerList;
     public GameObject playerPrefab;
-    public GameObject playerTeamSelector;
+    
     public Player[] playOrder;
     public GamepadCursor[] gamepads;
     public int playIndex;
@@ -85,13 +85,16 @@ public class MasterGame : Singleton<MasterGame> {
         playOrder = new Player[8];
     }
 
+
+   
+
     /// <summary>
     /// Called when the game is started for the first time. Initilizes players in the world
     /// </summary>
-    public void StartGame()
+    public void StartGame(int[] teamPos)
     {
        //Load the scene
-       setTeamAndPos();
+       setTeamAndPos(teamPos);
        SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
        
     }
@@ -170,15 +173,14 @@ public class MasterGame : Singleton<MasterGame> {
     /// <summary>
     /// Loops through all user positions on the lobby scene and adds them to the list of basic players
     /// </summary>
-    void setTeamAndPos()
+    void setTeamAndPos(int[] posiitions)
     {
         int lightTeamPos = 0;
         int darkTeamPos = 0;
-        //Debug.Log(playerTeamSelector.transform.childCount);
-        for(int i = 0; i < playerTeamSelector.transform.childCount; i++)
+        for (int i = 0; i < 8; i++)
         {
-            // If the dropdown = 0 add a new light player otherwise add a new dark player
-            if(playerTeamSelector.transform.GetChild(i).GetComponent<Dropdown>().value == 0)
+
+            if (posiitions[i] == 0)
             {
                 baseList.Add(new BasicPlayer(0, lightTeamPos));
                 lightTeamPos++;
@@ -188,6 +190,9 @@ public class MasterGame : Singleton<MasterGame> {
                 baseList.Add(new BasicPlayer(1, darkTeamPos));
                 darkTeamPos++;
             }
+
+
+          
         }
 
     }
