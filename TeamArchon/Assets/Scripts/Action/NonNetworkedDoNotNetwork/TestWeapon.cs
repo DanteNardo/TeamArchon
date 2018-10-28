@@ -8,6 +8,7 @@ namespace actionPhase {
         public GameObject pistolBulletPrefab;
         public GameObject machineGunBulletPrefab;
         public GameObject sniperBulletPrefab;
+        public GameObject shotGunBulletPrefab;
         public Sprite pistolUnit;
         public Sprite shotgunUnit;
         public Sprite sniperUnit;
@@ -156,7 +157,7 @@ namespace actionPhase {
             else if (weaponType == Weapon.ShotGun)
             {
                 fireRate = 1.0f;
-                finalPrefab = pistolBulletPrefab;
+                finalPrefab = shotGunBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = shotgunUnit;
                 

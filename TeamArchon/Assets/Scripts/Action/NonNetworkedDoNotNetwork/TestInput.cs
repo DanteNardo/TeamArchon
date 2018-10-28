@@ -18,7 +18,7 @@ namespace actionPhase {
         // Update is called once per frame
         void FixedUpdate()
         {
-
+            gameObject.transform.up = previousUp;
 
             //Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
             //Vector3 dir = Vector3.Normalize(new Vector3(hInput.GetAxis("Joy1RightXAxis"),hInput.GetAxis("Joy1RightYAxis"),0))+pos;
@@ -148,6 +148,8 @@ namespace actionPhase {
                 Vector3 lookDirection = new Vector3(xTurn, yTurn, 0);
 
                 gameObject.transform.up = lookDirection;
+
+                previousUp = lookDirection;
             }
 
 
