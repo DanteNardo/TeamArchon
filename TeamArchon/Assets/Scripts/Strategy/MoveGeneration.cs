@@ -56,25 +56,57 @@ public static class MoveGeneration {
 
         // Next row
         if (Board.TileExists(cc + Board.Size)) {
-            cells.Add(cc + Board.Size);
+            // Check if there is a piece there
+            if (GameBoard.Instance.PieceAt(cc + Board.Size) &&
+                Piece.IsOtherColor(GameBoard.Instance[cc], GameBoard.Instance[cc + Board.Size])) {
+                cells.Add(cc + Board.Size);
+            }
+            else {
+                cells.Add(cc + Board.Size);
+            }
         }
         // Previous row
         if (Board.TileExists(cc - Board.Size)) {
-            cells.Add(cc - Board.Size);
+            // Check if there is a piece there
+            if (GameBoard.Instance.PieceAt(cc - Board.Size) &&
+                Piece.IsOtherColor(GameBoard.Instance[cc], GameBoard.Instance[cc - Board.Size])) {
+                cells.Add(cc - Board.Size);
+            }
+            else {
+                cells.Add(cc - Board.Size);
+            }
         }
         // Next column
         if (Board.TileExists(cc + 1)) {
-            cells.Add(cc + 1);
+            // Check if there is a piece there
+            if (GameBoard.Instance.PieceAt(cc + 1) &&
+                Piece.IsOtherColor(GameBoard.Instance[cc], GameBoard.Instance[cc + 1])) {
+                cells.Add(cc + 1);
+            }
+            else {
+                cells.Add(cc + 1);
+            }
         }
         // Previous column
         if (Board.TileExists(cc - 1)) {
-            cells.Add(cc - 1);
+            // Check if there is a piece there
+            if (GameBoard.Instance.PieceAt(cc - 1) &&
+                Piece.IsOtherColor(GameBoard.Instance[cc], GameBoard.Instance[cc - 1])) {
+                cells.Add(cc - 1);
+            }
+            else {
+                cells.Add(cc - 1);
+            }
         }
 
         // Keep stepping until we have completed every option
         while (steps < totalSteps) {
+            // No possible moves
+            if (cells.Count == 0) {
+                return moves;
+            }
             // Select a random current cell
-            if (cells.Count > 1) {
+            else if (cells.Count > 1) {
                 cc = cells[Random.Range(0, cells.Count)];
             }
             else cc = cells[0];

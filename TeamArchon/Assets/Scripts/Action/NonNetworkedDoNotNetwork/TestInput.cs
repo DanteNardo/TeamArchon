@@ -136,14 +136,16 @@ namespace actionPhase {
 
             Debug.Log(xTurn + " , " + yTurn);
 
-
-            rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(xMove, yMove, 0)) * speed * Time.fixedDeltaTime);
+            if (Mathf.Sqrt(Mathf.Pow(yMove, 2) + Mathf.Pow(xMove, 2)) >= 0.3f)
+            {
+                rigid2D.MovePosition(gameObject.transform.position + Vector3.Normalize(new Vector3(xMove, yMove, 0)) * speed * Time.fixedDeltaTime);
+            }
 
             rigid2D.velocity = new Vector3(0.0f,0.0f,0.0f);
 
             rigid2D.angularVelocity = 0.0f;
 
-            if (yTurn != 0.0f || xTurn != 0.0f)
+            if(Mathf.Sqrt(Mathf.Pow(yTurn,2)+Mathf.Pow(xTurn,2))>=0.3f)
             {
                 Vector3 lookDirection = new Vector3(xTurn, yTurn, 0);
 
