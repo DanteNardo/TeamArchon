@@ -16,6 +16,7 @@ public class UIPlayerControls : MonoBehaviour
     bool choiceLockedIn;
     bool cursorMoved;
     public GameObject UIparrent;
+
     #endregion
 
     //an override that locks in a player, only to be used in the editor if 8 controllers aren't avalibe
@@ -151,9 +152,13 @@ public class UIPlayerControls : MonoBehaviour
             }//lock a choice in when a is pressed
             if (hInput.GetButtonDown(joyValue + "A"))
             {
-                choiceLockedIn = true;
-                playerCursor.GetComponent<SpriteRenderer>().color = Color.green;
-                UIparrent.GetComponent<LobbyManager>().lockInValue(playerNum, cursorPos);
+                if(UIparrent.GetComponent<LobbyManager>().canLockIn(playerNum, cursorPos))
+                {
+
+                    choiceLockedIn = true;
+                    playerCursor.GetComponent<SpriteRenderer>().color = Color.green;
+                    UIparrent.GetComponent<LobbyManager>().lockInValue(playerNum, cursorPos);
+                }
 
             }
 

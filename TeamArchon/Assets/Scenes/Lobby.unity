@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -143,6 +143,7 @@ MonoBehaviour:
   masterGame: {fileID: 0}
   selectedVal: 
   lockedIn: 
+  maxLockinAmmount: 0
 --- !u!4 &172237157
 Transform:
   m_ObjectHideFlags: 0
@@ -375,6 +376,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 1390356299}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &257667486
 GameObject:
@@ -786,6 +788,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 1228518838}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &586669798
 GameObject:
@@ -960,7 +963,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 672906347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.37, y: 5.15, z: 0}
+  m_LocalPosition: {x: -1.37, y: 5.28, z: 0}
   m_LocalScale: {x: 7.9732, y: 1.6746, z: 1}
   m_Children: []
   m_Father: {fileID: 1074576557}
@@ -1060,6 +1063,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 257667486}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &816043046
 GameObject:
@@ -1109,6 +1113,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 1096028245}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &832758532
 GameObject:
@@ -1383,6 +1388,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 598498421}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &1074576556
 GameObject:
@@ -1428,10 +1434,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 0
   startPos: 0
-  rows: 1
+  rows: 2
   UIElements: []
   playerCursor: {fileID: 580520539}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &1096028245
 GameObject:
@@ -1706,6 +1713,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 324112032}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &1228518838
 GameObject:
@@ -1830,6 +1838,7 @@ MonoBehaviour:
   UIElements: []
   playerCursor: {fileID: 1701683469}
   UIparrent: {fileID: 1765857869}
+  maxLockinAmmount: 0
   lockinOverride: 0
 --- !u!1 &1350023444
 GameObject:
@@ -2079,7 +2088,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1512160678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.64, y: 5.15, z: 0}
+  m_LocalPosition: {x: 4.64, y: 5.28, z: 0}
   m_LocalScale: {x: 7.9732, y: 1.6746, z: 1}
   m_Children: []
   m_Father: {fileID: 1074576557}
@@ -2481,6 +2490,7 @@ MonoBehaviour:
   masterGame: {fileID: 1969382566}
   selectedVal: 
   lockedIn: 
+  maxLockinAmmount: 4
 --- !u!1 &1834853622
 GameObject:
   m_ObjectHideFlags: 0
