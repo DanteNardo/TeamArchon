@@ -42,7 +42,7 @@ namespace actionPhase
             {
                 hitStats.Health -= damage;
             }
-       
+            activeTimer = 0.00f;
             gameObject.SetActive(false);
             
         }
