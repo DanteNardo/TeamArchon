@@ -73,7 +73,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   selected: 0
-  speed: 4
+  speed: 5
 --- !u!212 &212152892582527510
 SpriteRenderer:
   m_ObjectHideFlags: 1

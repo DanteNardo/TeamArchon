@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
 public class GameTile : GamepadBehavior {
-    #region Methods
+    #region Members
     public GameObject overlay;
     private bool highlighted;
     public int Row;
     public int Col;
+    public string sceneName;
     #endregion
 
     #region Properties
@@ -53,12 +54,12 @@ public class GameTile : GamepadBehavior {
             // Check if this move is a capture
             Move move;
             if (Piece.IsOtherColor(
-                GameBoard.Instance[InputManager.Instance.Selected.Index], 
-                GameBoard.Instance[Board.IndexFromRowAndCol(Row, Col)])) {
-                move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col), true);
+                GameBoard.Instance[Index],
+                GameBoard.Instance[InputManager.Instance.Selected.Index])) {
+                move = new Move(InputManager.Instance.Selected.Index, Index, true, this);
             }
             else {
-                move = new Move(InputManager.Instance.Selected.Index, Board.IndexFromRowAndCol(Row, Col));
+                move = new Move(InputManager.Instance.Selected.Index, Index, this);
             }
             Debug.Log("New Move: " + move.From + " - " + move.To);
             Debug.Log("Invalid Move?: " + move.Invalid);

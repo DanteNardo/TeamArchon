@@ -7,6 +7,7 @@ public class Move {
     public int To { get; private set; }
     public bool Capture { get; private set; }
     public bool Invalid { get { return From == -1 && To == -1; } }
+    public GameTile Tile { get; private set; }
     #endregion
 
     #region Move Methods
@@ -16,10 +17,11 @@ public class Move {
     /// <param name="from">The index to move from</param>
     /// <param name="to">The index to move to</param>
     /// <param name="capture">Whether or not this is a capture move</param>
-    public Move(int from, int to, bool capture = false) {
+    public Move(int from, int to, bool capture = false, GameTile tile = null) {
         From = from;
         To = to;
         Capture = capture;
+        Tile = tile;
     }
 
     /// <summary>

@@ -98,6 +98,7 @@ MonoBehaviour:
   overlay: {fileID: 1414828815512148}
   Row: 0
   Col: 0
+  sceneName: NonNetworkedShooterTest
 --- !u!212 &212234667940803680
 SpriteRenderer:
   m_ObjectHideFlags: 1

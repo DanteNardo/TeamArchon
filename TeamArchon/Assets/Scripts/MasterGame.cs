@@ -78,25 +78,19 @@ public class MasterGame : Singleton<MasterGame> {
         // Start listening to round ends
         RoundEnded.AddListener(OnRoundEnded);
 
-
         // Set the scenemanager to call on gamestart when a scene is loaded
         SceneManager.sceneLoaded += OnGameStart;
         baseList = new List<BasicPlayer>();
         playOrder = new Player[8];
     }
 
-
-   
-
     /// <summary>
     /// Called when the game is started for the first time. Initilizes players in the world
     /// </summary>
-    public void StartGame(int[] teamPos)
-    {
+    public void StartGame(int[] teamPos) {
        //Load the scene
        setTeamAndPos(teamPos);
        SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
-       
     }
 
     /// <summary>
@@ -177,24 +171,16 @@ public class MasterGame : Singleton<MasterGame> {
     {
         int lightTeamPos = 0;
         int darkTeamPos = 0;
-        for (int i = 0; i < 8; i++)
-        {
-
-            if (posiitions[i] == 0)
-            {
+        for (int i = 0; i < 8; i++) {
+            if (posiitions[i] == 0) {
                 baseList.Add(new BasicPlayer(0, lightTeamPos));
                 lightTeamPos++;
             }
-            else
-            {
+            else {
                 baseList.Add(new BasicPlayer(1, darkTeamPos));
                 darkTeamPos++;
             }
-
-
-          
         }
-
     }
     
     /// <summary>
@@ -243,17 +229,18 @@ public class MasterGame : Singleton<MasterGame> {
         // TODO: Prepare for switching
 
         // Switch to action scene
-
-        SceneManager.sceneLoaded += shotStart;
-        SceneManager.LoadScene("Scenes/NonNetworkedShooterTest", LoadSceneMode.Additive);
+        Debug.Log("Capture Tile: " + Capture.Tile);
+        Debug.Log("Capture Tile Scene: " + Capture.Tile.sceneName);
+        SceneManager.sceneLoaded += SceneLoaded;
+        SceneManager.LoadScene(Capture.Tile.sceneName, LoadSceneMode.Additive);
     }
 
 
-    private void shotStart(Scene scene, LoadSceneMode loadMoad)
+    private void SceneLoaded(Scene scene, LoadSceneMode loadMoad)
     {
         //GameObject shooterManager = GameObject.Find("Shooter Manager");
         //shooterManager.GetComponent<ShooterManager>().ShooterStart();
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("NonNetworkedShooterTest"));
+        SceneManager.SetActiveScene(scene);
     }
 
     /// <summary>

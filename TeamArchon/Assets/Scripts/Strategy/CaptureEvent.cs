@@ -19,6 +19,7 @@ public class CaptureData {
     public EPieceType LightPiece { get; private set; }
     public EPieceType DarkPiece { get; private set; }
     public int Turn { get; private set; }
+    public GameTile Tile { get { return CaptureMove.Tile; } }
     #endregion
 
     #region Methods
