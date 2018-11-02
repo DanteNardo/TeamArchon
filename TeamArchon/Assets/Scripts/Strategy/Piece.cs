@@ -53,6 +53,7 @@ public class Piece : GamepadBehavior {
         }
     }
     public int Speed { get { return speed; } }
+    public float Health { get; set; } = 400;
     public List<Move> Moves { get; private set; }
     public Player player { get; set; }
     #endregion

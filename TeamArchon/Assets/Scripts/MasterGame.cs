@@ -2,9 +2,6 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-using UnityEngine.UI;
-using actionPhase;
-
 #region Master Game Enumerators
 public enum ETeam {
     Light,
@@ -206,7 +203,14 @@ public class MasterGame : Singleton<MasterGame> {
         }
 
         // Create final capture data for action portion
-        Capture = new CaptureData(move, light, dark, (int)StrategyGame.Instance.TurnState);
+        switch (StrategyGame.Instance.TurnState) {
+            case ETeam.Light:
+                Capture = new CaptureData(move, light, dark, GetPieceHealth(move.From), GetPieceHealth(move.To), (int)StrategyGame.Instance.TurnState);
+                break;
+            case ETeam.Dark:
+                Capture = new CaptureData(move, light, dark, GetPieceHealth(move.To), GetPieceHealth(move.From), (int)StrategyGame.Instance.TurnState);
+                break;
+        }
 
         // Begin switch to Action portion
         SwitchToAction();
@@ -219,12 +223,16 @@ public class MasterGame : Singleton<MasterGame> {
     /// <param name="rr">The round results from the Action phase</param>
     private void OnRoundEnded(RoundResults rr) {
         // TODO: Finish implementation when round results are expanded
-        Round = new RoundData(rr.WinningTeam);
+        Round = new RoundData(rr.WinningTeam, rr.Health);
 
         // Begin switch to Strategy portion
         SwitchToStrategy();
     }
 
+    /// <summary>
+    /// Adds the SceneLoaded method to the sceneLoaded event delegate.
+    /// Also loads the specific action scene based on the given GameTile.
+    /// </summary>
     private void SwitchToAction() {
         // TODO: Prepare for switching
 
@@ -235,11 +243,13 @@ public class MasterGame : Singleton<MasterGame> {
         SceneManager.LoadScene(Capture.Tile.sceneName, LoadSceneMode.Additive);
     }
 
-
-    private void SceneLoaded(Scene scene, LoadSceneMode loadMoad)
-    {
-        //GameObject shooterManager = GameObject.Find("Shooter Manager");
-        //shooterManager.GetComponent<ShooterManager>().ShooterStart();
+    /// <summary>
+    /// This is called when the scene is loaded. 
+    /// It sets the active scene since we are loading the scene in additive mode. 
+    /// </summary>
+    /// <param name="scene">The loaded scene</param>
+    /// <param name="loadMoad">The loading type for the scene</param>
+    private void SceneLoaded(Scene scene, LoadSceneMode loadMoad) {
         SceneManager.SetActiveScene(scene);
     }
 
@@ -304,6 +314,9 @@ public class MasterGame : Singleton<MasterGame> {
         StrategyGame.Instance.Pieces.Remove(removePiece);
         Destroy(removePiece.gameObject);
 
+        // Update the health of the surviving piece
+        movePiece.Health = Round.Health;
+
         // Move the piece visually
         movePiece.Move(Capture.CaptureMove);
 
@@ -316,6 +329,23 @@ public class MasterGame : Singleton<MasterGame> {
     /// </summary>
     public void NextPlayersTurn() {
         playIndex = playIndex + 1 < playOrder.Length ? playIndex + 1 : 0;
+    }
+
+    /// <summary>
+    /// Gets a piece health from its index.
+    /// </summary>
+    /// <param name="index">The index the piece is at</param>
+    /// <returns>The health of the piece at the index, or -1</returns>
+    private float GetPieceHealth(int index) {
+        // Iterate through all pieces
+        foreach (Piece piece in StrategyGame.Instance.Pieces) {
+            if (piece.Index == index) {
+                return piece.Health;
+            }
+        }
+
+        // Default return : this shouldn't occur
+        return -1;
     }
     #endregion
 }

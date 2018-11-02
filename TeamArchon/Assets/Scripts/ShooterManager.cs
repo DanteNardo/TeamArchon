@@ -167,7 +167,7 @@ namespace actionPhase {
 
         void roundEnd(int winningTeam)
         {
-            MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam));
+            MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam, 400));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Strategy"));
         }
 

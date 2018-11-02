@@ -13,6 +13,7 @@ public class RoundEvent : UnityEvent<RoundResults> { }
 public class RoundData {
     #region Properties
     public int WinningTeam { get; private set; }
+    public float Health { get; private set; }
     #endregion
 
     #region Methods
@@ -20,8 +21,9 @@ public class RoundData {
     /// Constructor
     /// </summary>
     /// <param name="winningTeam">The team that won the Action phase</param>
-    public RoundData(int winningTeam) {
+    public RoundData(int winningTeam, float health) {
         WinningTeam = winningTeam;
+        Health = health;
     }
     #endregion
 }
