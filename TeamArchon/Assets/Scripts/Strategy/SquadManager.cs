@@ -32,10 +32,6 @@ public class SquadManager : MonoBehaviour {
         // Set the team of this player's squad
         this.team = team;
 
-        if (prefabs.Length == 0) {
-            Debug.Log("This bitch empty!");
-        }
-
         // Generate pieces for this player
         for (int i = 0; i < prefabs.Length; i++) {
             Debug.Log("...Instantiating pieces in for loop");

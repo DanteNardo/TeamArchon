@@ -116,7 +116,7 @@ public class MasterGame : Singleton<MasterGame> {
             GameObject tempObj = Instantiate(playerPrefab);
             var playerComp = tempObj.GetComponent<Player>();
             tempObj.name = "Player" + playerNum.ToString();
-            playerComp.SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i);
+            playerComp.SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i, new GameObject[0]);
 
             // Save the Player script
             playOrder[playPos] = playerComp;

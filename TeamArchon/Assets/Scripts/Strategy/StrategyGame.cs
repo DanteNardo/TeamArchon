@@ -66,10 +66,11 @@ public class StrategyGame : Singleton<StrategyGame> {
     /// gives it a list of prefabs that determine its squad.
     /// </summary>
     /// <param name="squad">The new strategy player's squadmanager</param>
-    public void NewPlayer(SquadManager squad, int color) {
+    /// <param name="prefabs">The player's squad pieces</param>
+    /// <param name="color">The team the player is on</param>
+    public void NewPlayer(SquadManager squad, GameObject[] prefabs, int color) {
         Debug.Log("================== NEW PLAYER! ==================");
         Debug.Log("Player Count: " + playerCount);
-
 
         // Determine which type of player to add (light or dark)
         squad.team = color;
@@ -78,7 +79,7 @@ public class StrategyGame : Singleton<StrategyGame> {
         Debug.Log("Team: " + (ETeam)squad.team);
 
         // Set list of prefabs for squad based on team
-        squad.prefabs = ((ETeam)squad.team == ETeam.Light) ? lightPrefabs : darkPrefabs;
+        squad.prefabs = prefabs;
 
         Debug.Log("Prefabs Length: " + squad.prefabs.Length);
     }
