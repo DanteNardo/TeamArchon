@@ -9,19 +9,24 @@ public class LobbyManager : MonoBehaviour
     public GameObject masterGame;
     //2 arrays one to check if all players have locked in a value and the other to store the value
     public int[] selectedVal;
+    public int[] otherSelectVals;
     public bool[] lockedIn;
-    public int maxLockinAmmount;
 
+
+    public int maxLockinAmmount;
+    public int changeFunction;
+    public GameObject otherSelect;
 
     // Use this for initialization
     void Start()
     {
         selectedVal = new int[8];
         lockedIn = new bool[8];
-        if(maxLockinAmmount <= 0)
+        if (maxLockinAmmount <= 0)
         {
             maxLockinAmmount = int.MaxValue;
         }
+        
     }
 
     // Update is called once per frame
@@ -43,21 +48,28 @@ public class LobbyManager : MonoBehaviour
         int lockCount = 0;
         for (int i = 0; i < 8; i++)
         {
-            if(pos != i && lockedIn[i])
+            if (pos != i && lockedIn[i])
             {
-                if(selectedVal[i] == value)
+                if (selectedVal[i] == value)
                 {
                     lockCount++;
                 }
             }
         }
-        if(lockCount >= maxLockinAmmount)
+        if (lockCount >= maxLockinAmmount)
         {
             return false;
         }
         return true;
 
     }
+
+    public void loadSelect(int[] otherSelects)
+    {
+        this.gameObject.SetActive(true);
+        otherSelectVals = otherSelects;
+    }
+
 
     //unlock a specific value
     public void unlockValue(int pos)
@@ -78,7 +90,23 @@ public class LobbyManager : MonoBehaviour
             }
         }
         Debug.Log("All Locked In");
-        masterGame.GetComponent<MasterGame>().StartGame(selectedVal);
+
+        switch (changeFunction)
+        {
+            case 0:
+                otherSelect.GetComponent<LobbyManager>().loadSelect(selectedVal);
+                break;
+            case 1:
+              
+                GameObject[] obj = otherSelect.GetComponent<LoadoutManager>().getLoadouts(otherSelectVals, selectedVal);
+                
+                masterGame.GetComponent<MasterGame>().StartGame(otherSelectVals, obj);
+                break;
+
+            default:
+                break;
+        }
+        
         this.gameObject.SetActive(false);
     }
 }

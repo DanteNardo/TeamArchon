@@ -17,11 +17,12 @@ public struct BasicPlayer
 {
     public int team;
     public int teamPos;
-
+    public GameObject[] pawns;
     public BasicPlayer(int setTeam, int setPos)
     {
         team = setTeam;
         teamPos = setPos;
+        pawns = new GameObject[4];
     }
 
     public void print()
@@ -42,7 +43,9 @@ public class MasterGame : Singleton<MasterGame> {
     public List<BasicPlayer> baseList;
     public List<GameObject> playerList;
     public GameObject playerPrefab;
+
     
+
     public Player[] playOrder;
     public GamepadCursor[] gamepads;
     public int playIndex;
@@ -84,9 +87,9 @@ public class MasterGame : Singleton<MasterGame> {
     /// <summary>
     /// Called when the game is started for the first time. Initilizes players in the world
     /// </summary>
-    public void StartGame(int[] teamPos) {
+    public void StartGame(int[] teamPos, GameObject[] loadouts) {
        //Load the scene
-       setTeamAndPos(teamPos);
+       setTeamAndPos(teamPos,loadouts);
        SceneManager.LoadScene("Scenes/Strategy", LoadSceneMode.Single);
     }
 
@@ -116,7 +119,7 @@ public class MasterGame : Singleton<MasterGame> {
             GameObject tempObj = Instantiate(playerPrefab);
             var playerComp = tempObj.GetComponent<Player>();
             tempObj.name = "Player" + playerNum.ToString();
-            playerComp.SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i, new GameObject[0]);
+            playerComp.SetPlayer((ETeam)baseList[i].team, baseList[i].teamPos, i, baseList[i].pawns);
 
             // Save the Player script
             playOrder[playPos] = playerComp;
@@ -164,7 +167,7 @@ public class MasterGame : Singleton<MasterGame> {
     /// <summary>
     /// Loops through all user positions on the lobby scene and adds them to the list of basic players
     /// </summary>
-    void setTeamAndPos(int[] posiitions)
+    void setTeamAndPos(int[] posiitions, GameObject[] pawns)
     {
         int lightTeamPos = 0;
         int darkTeamPos = 0;
@@ -176,6 +179,10 @@ public class MasterGame : Singleton<MasterGame> {
             else {
                 baseList.Add(new BasicPlayer(1, darkTeamPos));
                 darkTeamPos++;
+            }
+            for(int j = 0; j< 4; j++)
+            {
+                baseList[i].pawns[j] = pawns[i * 4 + j];
             }
         }
     }
