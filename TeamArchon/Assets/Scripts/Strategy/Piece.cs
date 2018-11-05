@@ -56,6 +56,7 @@ public class Piece : GamepadBehavior {
     public float Health { get; set; } = 400;
     public List<Move> Moves { get; private set; }
     public Player player { get; set; }
+    public GameTile Tile { get; private set; }
     #endregion
 
     #region Piece Methods
@@ -86,6 +87,11 @@ public class Piece : GamepadBehavior {
 			}
             InputManager.Instance.MoveAttemptMade();
 		}
+
+        // Check if we know what GameTile we have
+        if (Tile == null) {
+            GetGameTile();
+        }
 	}
 
     /// <summary>
@@ -115,7 +121,7 @@ public class Piece : GamepadBehavior {
             if (IsOtherColor(
                 GameBoard.Instance[InputManager.Instance.Selected.Index],
                 GameBoard.Instance[Index])) {
-                move = new Move(InputManager.Instance.Selected.Index, Index, true);
+                move = new Move(InputManager.Instance.Selected.Index, Index, true, Tile);
                 InputManager.Instance.AttemptMove(move);
             }
         }
@@ -140,10 +146,27 @@ public class Piece : GamepadBehavior {
     }
 
     /// <summary>
+    /// Raycasts to find the GameTile beneath this piece.
+    /// </summary>
+    public void GetGameTile() {
+        // Raycast down and hit object that has been clicked on
+        RaycastHit hit;
+        Physics.Raycast(transform.position, Vector3.down, out hit, 1000);
+
+        // Handle hit object if it has a GameTile behavior
+        GameTile tile;
+        if (hit.collider != null && hit.collider.gameObject != null &&
+           (tile = hit.collider.gameObject.GetComponent<GameTile>()) != null) {
+            Tile = tile;
+        }
+    }
+
+    /// <summary>
     /// Moves the piece visually.
     /// </summary>
     public void Move(Move m) {
         Debug.Log("Valid Move");
+        Tile = null;
         Moves.Clear();
         X = Board.Col(m.To);
         Z = Board.Row(m.To);
