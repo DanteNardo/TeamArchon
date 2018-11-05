@@ -24,7 +24,7 @@ namespace actionPhase
         {
              if (health <= 0)
              {
-                 
+                health = 0.0f;
                  ShooterManager.instance.countDeath(gameObject);
                 gameObject.SetActive(false);
             }

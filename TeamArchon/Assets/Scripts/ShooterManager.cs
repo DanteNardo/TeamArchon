@@ -45,6 +45,7 @@ namespace actionPhase {
             {
                 testPlayers.SetActive(false);
 
+                //MasterGame.Instance.
 
                 for (int i = 0; i < MasterGame.Instance.playOrder.Length; i++)
                 {
@@ -187,9 +188,12 @@ namespace actionPhase {
         void roundEnd(int winningTeam)
         {
             float healthTotal = 0.0f;
+            foreach(GameObject player in players)
+            {
+                healthTotal+=player.GetComponent<PlayerStats>().Health;
+            }
 
-
-            MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam, 400));
+            MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam, healthTotal));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Strategy"));
         }
 
