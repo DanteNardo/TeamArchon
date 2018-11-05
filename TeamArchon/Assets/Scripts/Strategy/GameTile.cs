@@ -59,7 +59,7 @@ public class GameTile : GamepadBehavior {
                 move = new Move(InputManager.Instance.Selected.Index, Index, true, this);
             }
             else {
-                move = new Move(InputManager.Instance.Selected.Index, Index, this);
+                move = new Move(InputManager.Instance.Selected.Index, Index, false, this);
             }
             Debug.Log("New Move: " + move.From + " - " + move.To);
             Debug.Log("Invalid Move?: " + move.Invalid);
