@@ -115,7 +115,7 @@ public class GamepadCursor : MonoBehaviour {
         RaycastHit hit;
         Physics.Raycast(transform.position, Vector3.down, out hit, 1000);
 
-        // Handle hit object if it has a strategy behavior (which handles "clicks")
+        // Handle hit object if it has a gamepad behavior (which handles "clicks")
         GamepadBehavior behavior;
         if (hit.collider != null && hit.collider.gameObject != null &&
            (behavior = hit.collider.gameObject.GetComponent<GamepadBehavior>()) != null) {
