@@ -24,9 +24,10 @@ namespace actionPhase
         {
              if (health <= 0)
              {
-                 gameObject.SetActive(false);
+                 
                  ShooterManager.instance.countDeath(gameObject);
-             }
+                gameObject.SetActive(false);
+            }
 
             healthBar.parent = null;
             healthBar.localScale = new Vector3(health / 100.0f,1 , 1);

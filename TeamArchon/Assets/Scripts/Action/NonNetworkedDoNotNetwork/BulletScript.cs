@@ -26,6 +26,7 @@ namespace actionPhase
 
             Debug.Log(activeTimer);
             activeTimer += Time.fixedDeltaTime;
+           
             if (activeTimer > lifespan)
             {
                 activeTimer = 0.00f;
@@ -41,9 +42,13 @@ namespace actionPhase
             if (hitStats != null&&hitStats.Team!= team)
             {
                 hitStats.Health -= damage;
+                gameObject.SetActive(false);
             }
             activeTimer = 0.00f;
+            
             gameObject.SetActive(false);
+            
+  
             
         }
         public int Team

@@ -50,6 +50,8 @@ namespace actionPhase {
 
         public void CmdFire()
         {
+
+            Debug.Log("Firing for real");
             if (weaponType != Weapon.ShotGun)
             {
                 //firerate check

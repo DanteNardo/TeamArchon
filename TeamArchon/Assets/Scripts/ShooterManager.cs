@@ -7,7 +7,7 @@ using actionPhase;
 namespace actionPhase {
     public class ShooterManager : MonoBehaviour
     {
-
+        public GameObject testPlayers;
         public GameObject playerPrefab;
         public static ShooterManager instance;
         public int playerCount;
@@ -41,19 +41,38 @@ namespace actionPhase {
         
         public void ShooterStart()
         {
-            
-
-            for (int i = 0; i < MasterGame.Instance.playOrder.Length; i++)
+            if (MasterGame.Instance != null)
             {
-                players.Add(Instantiate(playerPrefab));
-                players[i].GetComponent<PlayerStats>().Team = (int)MasterGame.Instance.playOrder[i].team;
-                players[i].GetComponent<TestInput>().player = MasterGame.Instance.playOrder[i];
-                if (players[i].GetComponent<PlayerStats>().Team == 1)
+                testPlayers.SetActive(false);
+
+
+                for (int i = 0; i < MasterGame.Instance.playOrder.Length; i++)
                 {
-                    players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                    players.Add(Instantiate(playerPrefab));
+                    players[i].GetComponent<PlayerStats>().Team = (int)MasterGame.Instance.playOrder[i].team;
+                    players[i].GetComponent<TestInput>().joyStickValue = MasterGame.Instance.playOrder[i].JoystickValue;
+                    if (players[i].GetComponent<PlayerStats>().Team == 1)
+                    {
+                        players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                    }
                 }
             }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    players.Add( testPlayers.transform.GetChild(i).gameObject);
+                    
+                    players[i].GetComponent<TestInput>().joyStickValue = i;
 
+                    if (players[i].GetComponent<PlayerStats>().Team == 1)
+                    {
+                        players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                    }
+                }
+
+                
+            }
             ResetScene();
         }
 
@@ -167,6 +186,9 @@ namespace actionPhase {
 
         void roundEnd(int winningTeam)
         {
+            float healthTotal = 0.0f;
+
+
             MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam, 400));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Strategy"));
         }

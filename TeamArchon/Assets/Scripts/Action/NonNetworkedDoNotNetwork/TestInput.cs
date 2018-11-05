@@ -7,12 +7,13 @@ namespace actionPhase {
     {
         public float speed;
         private Rigidbody2D rigid2D;
-        public Player player;
+        public int joyStickValue;
 
         private Vector3 previousUp;
         void Start()
         {
             rigid2D = gameObject.GetComponent<Rigidbody2D>();
+            
         }
 
         // Update is called once per frame
@@ -36,7 +37,7 @@ namespace actionPhase {
             //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             //transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-            switch (player.JoystickValue)
+            switch (joyStickValue)
             {
                 case 0:
                     xTurn = hInput.GetAxis("Joy1RightXAxis");
@@ -47,7 +48,9 @@ namespace actionPhase {
                     if (hInput.GetButton("Joy1A")|| hInput.GetButton("Joy1RightBumper"))
                     {
                         gameObject.GetComponent<TestWeapon>().CmdFire();
+                        Debug.Log("Fired");
                     }
+
                     break;
                 case 1:
                     xTurn = hInput.GetAxis("Joy2RightXAxis");
@@ -134,7 +137,7 @@ namespace actionPhase {
                     break;
             }
 
-            Debug.Log(xTurn + " , " + yTurn);
+           
 
             if (Mathf.Sqrt(Mathf.Pow(yMove, 2) + Mathf.Pow(xMove, 2)) >= 0.3f)
             {
