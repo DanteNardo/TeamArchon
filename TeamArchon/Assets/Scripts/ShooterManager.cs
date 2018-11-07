@@ -95,19 +95,23 @@ namespace actionPhase {
             }
         }
        
-        void ResetPlayer(GameObject player, TestWeapon.Weapon weaponType)
+        void ResetPlayer(GameObject player, TestWeapon.Weapon weaponType, float darkHealth, float lightHealth)
         {
+            Debug.Log("dark health " + darkHealth);
+            Debug.Log("light health " +lightHealth);
 
             player.GetComponent<TestWeapon>().ChangeWeapon(weaponType);
-            player.GetComponent<PlayerStats>().Health = 100;
+            
             if(player.GetComponent<PlayerStats>().Team == 0)
             {
                 player.transform.position = spawnPoints0[spawnCount0].transform.position;
+                player.GetComponent<PlayerStats>().Health = lightHealth/4;
                 spawnCount0++;
             }
             else
             {
                 player.transform.position = spawnPoints1[spawnCount1].transform.position;
+                player.GetComponent<PlayerStats>().Health = darkHealth / 4;
                 spawnCount1++;
             }
         }
@@ -179,7 +183,7 @@ namespace actionPhase {
                         weaponType = TestWeapon.Weapon.SniperRifle;
                     }
                 }
-                ResetPlayer(player, weaponType);
+                ResetPlayer(player, weaponType, MasterGame.Instance.Capture.DarkHealth, MasterGame.Instance.Capture.LightHealth);
 
                 killCountRequired++;
             }
