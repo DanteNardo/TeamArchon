@@ -19,10 +19,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Bullets
-  - 
-  - 
-  - 
+  - LightBullets
+  - DarkBullets
+  - LightPlayer
+  - DarkPlayer
   - 
   - 
   - 

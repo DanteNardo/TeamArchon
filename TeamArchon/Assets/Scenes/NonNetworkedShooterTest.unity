@@ -760,6 +760,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114684493659004208, guid: f0ccc9e61479e984e84833e4d9a5d86e,
+        type: 2}
+      propertyPath: weaponType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0ccc9e61479e984e84833e4d9a5d86e, type: 2}
   m_IsPrefabAsset: 0
@@ -856,6 +861,11 @@ Prefab:
     - target: {fileID: 1636384648889862, guid: f0ccc9e61479e984e84833e4d9a5d86e, type: 2}
       propertyPath: m_Name
       value: Player2DPistol (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114684493659004208, guid: f0ccc9e61479e984e84833e4d9a5d86e,
+        type: 2}
+      propertyPath: weaponType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0ccc9e61479e984e84833e4d9a5d86e, type: 2}
