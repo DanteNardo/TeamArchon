@@ -20,14 +20,19 @@ namespace actionPhase {
         private List<GameObject> bulletPool;
         private float fireTimer;
         private int team;
+        private PlayerStats playerStats;
+        private TestInput input;
         
         // Use this for initialization
         void Start()
         {
+            input = gameObject.GetComponent<TestInput>();
+            playerStats = gameObject.GetComponent<PlayerStats>();
+            team = playerStats.Team;
             fireTimer = 20.0f;
             bulletPool = new List<GameObject>();
             ChangeWeapon(weaponType);
-            team = gameObject.GetComponent<PlayerStats>().Team;
+          
         }
 
         // Update is called once per frame
@@ -76,6 +81,15 @@ namespace actionPhase {
                     if (createNew)
                     {
                         GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
+                        //setting collisionlayer
+                        if (gameObject.layer == 11)
+                        {
+                            tempBullet.layer = 9;
+                        }
+                        else
+                        {
+                            tempBullet.layer = 10;
+                        }
                         tempBullet.transform.Rotate(new Vector3(0, 0, 90));
                         tempBullet.GetComponent<BulletScript>().Team = team;
                         //making the bullet be on it's players "team"
@@ -116,6 +130,15 @@ namespace actionPhase {
                     {
                         Debug.Log(newBullets);
                         GameObject tempBullet = Instantiate(finalPrefab, gameObject.transform.position + Vector3.Normalize(gameObject.transform.up) * gameObject.GetComponent<SpriteRenderer>().size.x * 0.75f, gameObject.transform.rotation);
+                        //setting collisionlayer
+                        if (gameObject.layer == 11)
+                        {
+                            tempBullet.layer = 9;
+                        }
+                        else
+                        {
+                            tempBullet.layer = 10;
+                        }
                         tempBullet.transform.Rotate(new Vector3(0, 0, 90 + ((-angleSpread * 2) + (angleSpread * newBullets))));
                         tempBullet.GetComponent<BulletScript>().Team = team;
                         //making the bullet be on it's players "team"
@@ -145,6 +168,8 @@ namespace actionPhase {
 
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = pistolUnit;
+
+                input.speed = 20;
                
                
             }
@@ -154,6 +179,8 @@ namespace actionPhase {
                 finalPrefab = machineGunBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = machineGunUnit;
+
+                input.speed = 15;
                
             }
             else if (weaponType == Weapon.ShotGun)
@@ -162,6 +189,7 @@ namespace actionPhase {
                 finalPrefab = shotGunBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = shotgunUnit;
+                input.speed = 15;
                 
             } else if (weaponType == Weapon.SniperRifle)
             {
@@ -169,7 +197,7 @@ namespace actionPhase {
                 finalPrefab = sniperBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = sniperUnit;
-                
+                input.speed = 10;
             }
         }
     }

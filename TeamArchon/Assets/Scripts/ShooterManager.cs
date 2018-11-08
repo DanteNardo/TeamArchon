@@ -55,6 +55,11 @@ namespace actionPhase {
                     if (players[i].GetComponent<PlayerStats>().Team == 1)
                     {
                         players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                        players[i].layer = 12;
+                    }
+                    else
+                    {
+                        players[i].layer = 11;
                     }
                 }
             }
@@ -69,6 +74,11 @@ namespace actionPhase {
                     if (players[i].GetComponent<PlayerStats>().Team == 1)
                     {
                         players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                        players[i].layer = 12;
+                    }
+                    else
+                    {
+                        players[i].layer = 11;
                     }
                 }
 
