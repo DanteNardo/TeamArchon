@@ -157,7 +157,13 @@ public class Piece : GamepadBehavior {
         GameTile tile;
         if (hit.collider != null && hit.collider.gameObject != null &&
            (tile = hit.collider.gameObject.GetComponent<GameTile>()) != null) {
+            // Reset the objective's occupation status
+            if (Tile != null) Tile.Occupation = ETeam.None;
             Tile = tile;
+
+            // Set the new objective's occupation status
+            if (IsDark(pieceType)) Tile.Occupation = ETeam.Dark;
+            else Tile.Occupation = ETeam.Light;
         }
     }
 
@@ -196,7 +202,8 @@ public class Piece : GamepadBehavior {
                 X = Mathf.FloorToInt(transform.position.x);
                 Z = Mathf.FloorToInt(transform.position.z);
                 moving = false;
-				yield break;
+                GetGameTile();
+                yield break;
 			}
 			else yield return null;
 		}

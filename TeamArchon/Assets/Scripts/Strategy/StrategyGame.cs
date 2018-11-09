@@ -35,6 +35,12 @@ public class StrategyGame : Singleton<StrategyGame> {
         EventManager.Instance.StartListening("PieceMoved", pieceMoved);
     }
 
+    private void Update() {
+        if (MasterGame.Instance.GameOver()) {
+            Debug.Log("GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER");
+        }
+    }
+
     /// <summary>
     /// Iterates the entire game to the next turn.
     /// </summary>

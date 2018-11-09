@@ -54,6 +54,14 @@ public class TileManager : Singleton<TileManager> {
                     boardTiles[i, j] = darkTile;
                 }
 
+                // Hardcoded to only code the middle four squares as objective markers
+                if ((i == 3 && j == 3) || (i == 3 && j == 4) ||
+                    (i == 4 && j == 3) || (i == 4 && j == 4)) {
+                    var tile = boardTiles[i, j].GetComponent<GameTile>();
+                    tile.objective = true;
+                    MasterGame.Instance.objectiveTiles.Add(tile);
+                }
+
                 // Switch between light and dark tiles
                 light = !light;
             }

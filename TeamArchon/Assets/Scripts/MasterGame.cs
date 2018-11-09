@@ -44,11 +44,11 @@ public class MasterGame : Singleton<MasterGame> {
     public List<GameObject> playerList;
     public GameObject playerPrefab;
 
-    
-
     public Player[] playOrder;
     public GamepadCursor[] gamepads;
     public int playIndex;
+
+    public List<GameTile> objectiveTiles;
     #endregion
 
     #region Properties
@@ -82,6 +82,9 @@ public class MasterGame : Singleton<MasterGame> {
         SceneManager.sceneLoaded += OnGameStart;
         baseList = new List<BasicPlayer>();
         playOrder = new Player[8];
+
+        // Set up the list of objective tiles
+        objectiveTiles = new List<GameTile>();
     }
 
     /// <summary>
@@ -353,6 +356,41 @@ public class MasterGame : Singleton<MasterGame> {
 
         // Default return : this shouldn't occur
         return -1;
+    }
+
+    /// <summary>
+    /// Determines whether or not the game is over and who won.
+    /// </summary>
+    /// <returns>Whether or not the game is over</returns>
+    public bool GameOver() {
+        // Game is over if one team owns a majority of the objectives
+        int lightCount = 0, darkCount = 0;
+        foreach (var tile in objectiveTiles) {
+            if (tile.Occupation == ETeam.Light) {
+                lightCount++;
+            }
+            else if (tile.Occupation == ETeam.Dark) {
+                darkCount++;
+            }
+        }
+
+        // LIGHT WINS!
+        if (lightCount > (objectiveTiles.Count/2) + 1) {
+            Debug.Log("===============================================");
+            Debug.Log("================== LIGHT WINS! ================");
+            Debug.Log("===============================================");
+            return true;
+        }
+        // DARK WINS!
+        if (darkCount > (objectiveTiles.Count / 2) + 1) {
+            Debug.Log("===============================================");
+            Debug.Log("=================== DARK WINS! ================");
+            Debug.Log("===============================================");
+            return true;
+        }
+
+        // Default return
+        return false;
     }
     #endregion
 }

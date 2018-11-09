@@ -3,18 +3,21 @@
 public class GameTile : GamepadBehavior {
     #region Members
     public GameObject overlay;
+    public GameObject objectiveImage;
     private bool highlighted;
     public int Row;
     public int Col;
     public string sceneName;
+    public bool objective = false;
     #endregion
 
     #region Properties
-    public int Index {         // Row & Column as a single integer
+    public int Index { // Row & Column as a single integer
         get {
             return Board.IndexFromRowAndCol(Row, Col);
         }
     }
+    public ETeam Occupation { get; set; } = ETeam.None;
     #endregion
 
     #region Methods
@@ -24,8 +27,16 @@ public class GameTile : GamepadBehavior {
     private void Start() {
         Row = Mathf.FloorToInt(transform.position.z);
 		Col = Mathf.FloorToInt(transform.position.x);
+
+        // Disable objective image if it's unnecessary
+        if (!objective) {
+            objectiveImage.SetActive(false);
+        }
     }
 
+    /// <summary>
+    /// Updates the tile's highlighting.
+    /// </summary>
     private void Update() {
         if (PotentialMovementSquare()) {
             // If this square is a potential movement square and isn't highlighted start
@@ -104,5 +115,7 @@ public class GameTile : GamepadBehavior {
         highlighted = false;
         overlay.SetActive(false);
     }
+
+    
     #endregion
 }
