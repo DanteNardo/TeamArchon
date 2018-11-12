@@ -41,6 +41,7 @@ namespace actionPhase {
         
         public void ShooterStart()
         {
+            
             if (MasterGame.Instance != null)
             {
                 testPlayers.SetActive(false);
@@ -95,11 +96,14 @@ namespace actionPhase {
         {
             if (killCount0 >= killCountRequired / 2)
             {
+                Debug.Log("_____ Round is over Dark wins");
                 roundEnd(1);
                 ResetScene();
             }
             else if (killCount1 >= killCountRequired / 2)
             {
+
+                Debug.Log("_____ Round is over Light wins");
                 roundEnd(0);
                 ResetScene();
             }
