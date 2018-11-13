@@ -67,5 +67,14 @@ public class TileManager : Singleton<TileManager> {
             }
         }
     }
+
+    /// <summary>
+    /// Gets a game tile based on an index.
+    /// </summary>
+    /// <param name="index">The index where the tile exists</param>
+    /// <returns>The game tile another script needs</returns>
+    public GameTile GetTile(int index) {
+        return boardTiles[Board.Col(index), Board.Row(index)].GetComponent<GameTile>();
+    }
     #endregion
 }

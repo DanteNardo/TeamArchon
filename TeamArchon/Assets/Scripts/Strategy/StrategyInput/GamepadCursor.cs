@@ -29,8 +29,11 @@ public class GamepadCursor : MonoBehaviour {
         if (MasterGame.Instance.CurrentPlayer == player) {
             UpdateMovement();
 
-            if (Click()) {
-                OnClick();
+            if (ClickA()) {
+                OnClickA();
+            }
+            else if (ClickY()) {
+                OnClickY();
             }
             else {
                 Reset();
@@ -89,11 +92,10 @@ public class GamepadCursor : MonoBehaviour {
     }
 
     /// <summary>
-    /// Determines whether or not a cursor has clicked.
+    /// Determines whether or not a cursor has clicked A.
     /// </summary>
     /// <returns>True if click input, else false</returns>
-    private bool Click() {
-        
+    private bool ClickA() {
         switch (player.JoystickValue) {
             case 0: return hInput.GetButtonDown("Joy1A");
             case 1: return hInput.GetButtonDown("Joy2A");
@@ -108,9 +110,27 @@ public class GamepadCursor : MonoBehaviour {
     }
 
     /// <summary>
+    /// Determines whether or not a cursor has clicked Y.
+    /// </summary>
+    /// <returns>True if click input, else false</returns>
+    private bool ClickY() {
+        switch (player.JoystickValue) {
+            case 0: return hInput.GetButtonDown("Joy1Y");
+            case 1: return hInput.GetButtonDown("Joy2Y");
+            case 2: return hInput.GetButtonDown("Joy3Y");
+            case 3: return hInput.GetButtonDown("Joy4Y");
+            case 4: return hInput.GetButtonDown("Joy5Y");
+            case 5: return hInput.GetButtonDown("Joy6Y");
+            case 6: return hInput.GetButtonDown("Joy7Y");
+            case 7: return hInput.GetButtonDown("Joy8Y");
+            default: return false;
+        }
+    }
+
+    /// <summary>
     /// Activates the clicked behavior on any strategy object that has a valid click behavior.
     /// </summary>
-    private void OnClick() {
+    private void OnClickA() {
         // Raycast down and hit object that has been clicked on
         RaycastHit hit;
         Physics.Raycast(transform.position, Vector3.down, out hit, 1000);
@@ -121,6 +141,18 @@ public class GamepadCursor : MonoBehaviour {
            (behavior = hit.collider.gameObject.GetComponent<GamepadBehavior>()) != null) {
             ClickedObject = hit.collider.gameObject;
             behavior.OnClick(this);
+        }
+    }
+
+    /// <summary>
+    /// Attempts to activate a piece's special ability.
+    /// </summary>
+    private void OnClickY() {
+        if (!InputManager.Instance.SpecialAttempt) {
+            InputManager.Instance.AttemptSpecial();
+        }
+        else {
+            InputManager.Instance.SpecialAttemptMade();
         }
     }
 

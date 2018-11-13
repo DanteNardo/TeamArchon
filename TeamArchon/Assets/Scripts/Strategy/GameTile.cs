@@ -38,10 +38,23 @@ public class GameTile : GamepadBehavior {
     /// Updates the tile's highlighting.
     /// </summary>
     private void Update() {
-        if (PotentialMovementSquare()) {
-            // If this square is a potential movement square and isn't highlighted start
-            if (!highlighted) {
-                StartHighlight();
+        // Check to make sure that a piece is selected
+        if (InputManager.Instance.Selected != null) {
+            if (!InputManager.Instance.Selected.SpecialMode && PotentialMovementSquare()) {
+                // If this square is a potential movement square and isn't highlighted start
+                if (!highlighted) {
+                    StartHighlight();
+                }
+            }
+            else if (InputManager.Instance.Selected.SpecialMode && PotentialSpecialSquare()) {
+                // If this square is a potential special square isn't highlighted start
+                if (!highlighted) {
+                    StartHighlight();
+                }
+            }
+            // If this square has no potential and is highlighted stop
+            else if (highlighted) {
+                EndHighlight();
             }
         }
         // If this square has no potential and is highlighted stop
@@ -55,7 +68,7 @@ public class GameTile : GamepadBehavior {
     /// </summary>
     public override void OnClick(GamepadCursor cursor) {
         // Create an attempted move if there is a selected piece
-        if (InputManager.Instance.Selected != null) {
+        if (InputManager.Instance.Selected != null && !InputManager.Instance.Selected.SpecialMode) {
             // Generate potential move and save it in InputManager
             Debug.Log("Selected: " + InputManager.Instance.Selected);
             Debug.Log("Piece Row&Col: " + InputManager.Instance.Selected.Z + " - " + InputManager.Instance.Selected.X);
@@ -81,7 +94,7 @@ public class GameTile : GamepadBehavior {
     }
 
     /// <summary>
-    /// Determines whether or not this tile should be highlighted.
+    /// Determines whether or not this tile should be highlighted for movement.
     /// </summary>
     /// <returns></returns>
     private bool PotentialMovementSquare() {
@@ -101,9 +114,29 @@ public class GameTile : GamepadBehavior {
     }
 
     /// <summary>
+    /// Determines whether or not this tile should be highlighted for a special ability.
+    /// </summary>
+    /// <returns></returns>
+    private bool PotentialSpecialSquare() {
+        // Return false if no selected piece
+        if (InputManager.Instance.Selected == null)
+            return false;
+
+        // See if the selected piece has a move that ends on this tile
+        foreach (var move in InputManager.Instance.Selected.SpecialMoves) {
+            if (move.To == Index) {
+                return true;
+            }
+        }
+
+        // Default return
+        return false;
+    }
+
+    /// <summary>
     /// Starts the highlighting of this piece.
     /// </summary>
-    private void StartHighlight() {
+    public void StartHighlight() {
         highlighted = true;
         overlay.SetActive(true);
     }
@@ -111,11 +144,9 @@ public class GameTile : GamepadBehavior {
     /// <summary>
     /// Ends the highlighting of this piece.
     /// </summary>
-    private void EndHighlight() {
+    public void EndHighlight() {
         highlighted = false;
         overlay.SetActive(false);
     }
-
-    
     #endregion
 }

@@ -97,5 +97,22 @@ public class StrategyGame : Singleton<StrategyGame> {
         Debug.Log("Player Count: " + playerCount);
         playerCount++;
     }
+
+    /// <summary>
+    /// Returns the piece at the specified index.
+    /// </summary>
+    /// <param name="move">Checking a piece against an index</param>
+    /// <returns>The piece on that square</returns>
+    public Piece GetPiece(int index) {
+        // Find the piece with the
+        foreach (var piece in Pieces) {
+            if (piece.Index == index) {
+                return piece;
+            }
+        }
+
+        // Default return - shouldn't occur
+        return null;
+    }
     #endregion
 }

@@ -43,7 +43,10 @@ public class Piece : GamepadBehavior {
     public int Z; // Row
 	public bool selected;
     public int speed = 3;
-	private bool moving;
+    public float maxHealth = 400;
+    protected float health;
+    protected bool moving = false;
+    protected bool specialMode = false;
     #endregion
 
     #region Piece Properties
@@ -52,11 +55,17 @@ public class Piece : GamepadBehavior {
             return Board.IndexFromRowAndCol(Z, X);
         }
     }
+    public float Health {
+        get { return health; }
+        set { health = Mathf.Clamp(value, 0.0f, maxHealth); }
+    }
     public int Speed { get { return speed; } }
-    public float Health = 400;
+    public bool SpecialMode { get { return specialMode; } }
     public List<Move> Moves { get; private set; }
+    public List<Move> SpecialMoves { get; private set; }
     public Player player { get; set; }
     public GameTile Tile { get; private set; }
+    public Piece SpecialTarget { get; set; }
     #endregion
 
     #region Piece Methods
@@ -65,17 +74,26 @@ public class Piece : GamepadBehavior {
     /// </summary>
     private void Awake() {
         Moves = new List<Move>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
+        SpecialMoves = new List<Move>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         X = Mathf.FloorToInt(transform.position.x);
 		Z = Mathf.FloorToInt(transform.position.z);
+        health = maxHealth;
     }
 
     /// <summary>
     /// Moves pieces when they are selected and the player tries to move them
     /// </summary>
     private void Update() {
+        UpdatePiece();
+	}
+
+    /// <summary>
+    /// Moves pieces if correct input.
+    /// </summary>
+    protected void UpdatePiece() {
         // Check if a player is attempting to move this piece
-		if (selected && InputManager.Instance.MoveAttempt) {
+        if (selected && InputManager.Instance.MoveAttempt) {
             Move m = InputManager.Instance.InputMove;
 
             // Move the piece if the move is valid
@@ -84,22 +102,28 @@ public class Piece : GamepadBehavior {
                 if (GameBoard.Instance.MovePiece(m)) {
                     Move(m);
                 }
-			}
+            }
             InputManager.Instance.MoveAttemptMade();
-		}
+        }
 
         // Check if we know what GameTile we have
         if (Tile == null) {
             GetGameTile();
         }
-	}
+    }
 
     /// <summary>
     /// Select or deselect the piece when it is clicked on (if it can be selected)
     /// </summary>
     public override void OnClick(GamepadCursor cursor) {
+        // Set this to the target of a special ability and activate that ability
+        if (InputManager.Instance.Selected != null &&
+            InputManager.Instance.Selected.SpecialMode) {
+            InputManager.Instance.Selected.SpecialTarget = this;
+            InputManager.Instance.Selected.ActivateSpecialAbility();
+        }
         // Only the correct player can click on this piece
-        if (cursor.player == player) {
+        else if (cursor.player == player) {
             // Select the piece if it is possible
             if (!selected) {
                 // Deselect old piece and select this piece
@@ -115,7 +139,8 @@ public class Piece : GamepadBehavior {
             }
         }
         // If there is a selected piece then a capture is being attempted
-        else if (InputManager.Instance.Selected != null) {
+        else if (InputManager.Instance.Selected != null &&
+                !InputManager.Instance.Selected.SpecialMode) {
             // Check if this move is a capture
             Move move;
             if (IsOtherColor(
@@ -125,7 +150,7 @@ public class Piece : GamepadBehavior {
                 InputManager.Instance.AttemptMove(move);
             }
         }
-	}
+    }
 
     /// <summary>
     /// Select this piece.
@@ -249,6 +274,27 @@ public class Piece : GamepadBehavior {
     }
 
     /// <summary>
+    /// Starts the special mode process.
+    /// </summary>
+    public void BeginSpecialMode() {
+        specialMode = true;
+    }
+
+    /// <summary>
+    /// Ends the special mode process.
+    /// </summary>
+    public void EndSpecialMode() {
+        specialMode = false;
+    }
+
+    /// <summary>
+    /// Calls the functions necessary to activate a special ability.
+    /// </summary>
+    public virtual void ActivateSpecialAbility() {
+
+    }
+
+    /// <summary>
     /// Determines if a piece is light from its type.
     /// </summary>
     /// <param name="type">The type of the piece</param>
@@ -277,6 +323,14 @@ public class Piece : GamepadBehavior {
     public static bool IsOtherColor(EPieceType type1, EPieceType type2) {
         return (IsLight(type1) && IsDark(type2)) ||
                (IsDark(type1) && IsLight(type2));
+    }
+
+    /// <summary>
+    /// Heals a piece.
+    /// </summary>
+    /// <param name="healingAmount">The amount to heal a piece by</param>
+    public void Heal(int healingAmount) {
+        Health = health + healingAmount;
     }
 	#endregion
 }

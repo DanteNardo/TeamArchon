@@ -195,7 +195,7 @@ public static class MoveGeneration {
     /// <param name="from">The current square</param>
     /// <param name="to">The next square</param>
     /// <returns>True if the board does not wrap, else false</returns>
-    private static bool BoardWrapCheck(int from, int to) {
+    public static bool BoardWrapCheck(int from, int to) {
         return Mathf.Abs(Board.Row(from) - Board.Row(to)) <= 1 &&
                Mathf.Abs(Board.Col(from) - Board.Col(to)) <= 1;
     }

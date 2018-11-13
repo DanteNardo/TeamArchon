@@ -6,6 +6,7 @@ public class InputManager : Singleton<InputManager> {
     public Piece Selected { get; set; }
     public bool MoveAttempt { get; private set; }
     public Move InputMove { get; private set; }
+    public bool SpecialAttempt { get; private set; }
     #endregion
 
     #region InputManager Methods
@@ -27,6 +28,22 @@ public class InputManager : Singleton<InputManager> {
         Selected.spriteRenderer.color = Selected.defaultColor;
         Selected.selected = false;
         Selected = null;
+    }
+
+    /// <summary>
+    /// Attempts to perform a special move on a selected piece.
+    /// </summary>
+    public void AttemptSpecial() {
+        if (Selected != null) {
+            SpecialAttempt = true;
+        }
+    }
+
+    /// <summary>
+    /// Resets flag after special attempt is made.
+    /// </summary>
+    public void SpecialAttemptMade() {
+        SpecialAttempt = false;
     }
     #endregion
 }
