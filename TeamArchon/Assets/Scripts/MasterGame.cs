@@ -275,6 +275,8 @@ public class MasterGame : Singleton<MasterGame> {
         int removeIndex = -1;
         int moveIndex = -1;
 
+        Debug.Log("Winning team: " + (ETeam)Round.WinningTeam);
+
         // Light won, light turn, delete To and move
         if ((ETeam)Round.WinningTeam == ETeam.Light &&
             StrategyGame.Instance.TurnState == ETeam.Light) {
@@ -301,7 +303,7 @@ public class MasterGame : Singleton<MasterGame> {
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
         }
         // Dark won, dark turn, delete To and move
-        else if ((ETeam)Round.WinningTeam == ETeam.Light) {
+        else if ((ETeam)Round.WinningTeam == ETeam.Dark) {
             // Remove capture flag and remove piece
             removeIndex = Capture.CaptureMove.To;
             moveIndex = Capture.CaptureMove.From;
@@ -312,10 +314,10 @@ public class MasterGame : Singleton<MasterGame> {
 
         // Find the piece to remove and the piece to move
         foreach (var piece in StrategyGame.Instance.Pieces) {
-            if (piece.Index == removeIndex) {
+            if (piece.Index == removeIndex && removeIndex != -1) {
                 removePiece = piece;
             }
-            else if (piece.Index == moveIndex) {
+            else if (piece.Index == moveIndex && moveIndex != -1) {
                 movePiece = piece;
             }
         }

@@ -160,6 +160,9 @@ namespace actionPhase {
         /// <param name="weaponType">The type of weapon</param>
         public void ChangeWeapon(Weapon weaponType)
         {
+            input = gameObject.GetComponent<TestInput>();
+            Debug.Log("Current Weapon:   " + weaponType);
+
             this.weaponType = weaponType;
             if (this.weaponType == Weapon.Pistol)
             {

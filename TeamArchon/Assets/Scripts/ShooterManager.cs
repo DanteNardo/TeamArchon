@@ -160,6 +160,7 @@ namespace actionPhase {
 
             foreach (GameObject player in players)
             {
+                Debug.Log("Piece Type:    " + MasterGame.Instance.Capture.DarkPiece + "    " + player.GetComponent<PlayerStats>().Team);
                 TestWeapon.Weapon weaponType;
                 if (player.GetComponent<PlayerStats>().Team == 0)
                 {
@@ -170,7 +171,8 @@ namespace actionPhase {
                     else if(MasterGame.Instance.Capture.LightPiece == EPieceType.LPistol)
                     {
                         weaponType = TestWeapon.Weapon.Pistol;
-                    }else if(MasterGame.Instance.Capture.LightPiece == EPieceType.LShotgun)
+                    }
+                    else if(MasterGame.Instance.Capture.LightPiece == EPieceType.LShotgun)
                     {
                         weaponType = TestWeapon.Weapon.ShotGun;
                     }
@@ -210,7 +212,7 @@ namespace actionPhase {
             {
                 healthTotal+=player.GetComponent<PlayerStats>().Health;
             }
-
+            Debug.Log("ROUND ENDED CALLED ______________ "  );
             MasterGame.Instance.RoundEnded.Invoke(new RoundResults(winningTeam, healthTotal));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Strategy"));
         }
