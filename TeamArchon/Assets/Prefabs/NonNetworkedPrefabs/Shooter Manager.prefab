@@ -66,3 +66,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  roundTime: 0
+  timeText: {fileID: 0}
