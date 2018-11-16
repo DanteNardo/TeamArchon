@@ -339,7 +339,7 @@ public class MasterGame : Singleton<MasterGame> {
         }
 
         // Unload the action scene
-        SceneManager.UnloadSceneAsync("Scenes/NonNetworkedShooterTest");
+        SceneManager.UnloadSceneAsync(Capture.Tile.sceneName);
     }
 
     /// <summary>

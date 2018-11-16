@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 212050970236618428}
-  defaultColor: {r: 1, g: 0.2509804, b: 0.2509804, a: 0}
+  defaultColor: {r: 1, g: 0, b: 0, a: 1}
   selectedColor: {r: 1, g: 0, b: 0, a: 0}
   pieceType: 7
   direction: 8
@@ -74,6 +74,7 @@ MonoBehaviour:
   Z: 0
   selected: 0
   speed: 2
+  maxHealth: 400
 --- !u!212 &212050970236618428
 SpriteRenderer:
   m_ObjectHideFlags: 1
