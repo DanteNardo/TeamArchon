@@ -5,8 +5,7 @@
 /// </summary>
 public class TileManager : Singleton<TileManager> {
     #region TileManager Members
-    public GameObject lightTilePrefab;
-    public GameObject darkTilePrefab;
+    public GameObject[] tilePrefabs;
     public GameObject[,] boardTiles;
     #endregion
 
@@ -42,14 +41,17 @@ public class TileManager : Singleton<TileManager> {
                 // Generate world space coordinate position
                 Vector3 position = new Vector3(i, -0.55f, j);
 
+                // Get prefab
+                GameObject prefab = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
+
                 // Generate a light or dark tile
                 if (light) {
-                    GameObject lightTile = Instantiate(lightTilePrefab, position, lightTilePrefab.transform.rotation);
+                    GameObject lightTile = Instantiate(prefab, position, prefab.transform.rotation);
                     lightTile.transform.parent = tileContainer.transform;
                     boardTiles[i, j] = lightTile;
                 }
                 else {
-                    GameObject darkTile = Instantiate(darkTilePrefab, position, darkTilePrefab.transform.rotation);
+                    GameObject darkTile = Instantiate(prefab, position, prefab.transform.rotation);
                     darkTile.transform.parent = tileContainer.transform;
                     boardTiles[i, j] = darkTile;
                 }
