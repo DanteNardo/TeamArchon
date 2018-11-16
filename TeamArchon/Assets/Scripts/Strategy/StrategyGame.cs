@@ -50,6 +50,9 @@ public class StrategyGame : Singleton<StrategyGame> {
 
         // Iterate to next player's turn
         IteratePlayer();
+
+        // Iterate turnstate
+        TurnState = TurnState == ETeam.Light ? ETeam.Dark : ETeam.Light;
     }
 
     /// <summary>

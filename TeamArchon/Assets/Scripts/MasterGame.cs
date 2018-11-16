@@ -270,19 +270,18 @@ public class MasterGame : Singleton<MasterGame> {
     /// </summary>
     private void SwitchToStrategy() {
         // Used to determine deletion later
+        ETeam oldTurnState = StrategyGame.Instance.TurnState;
         Piece removePiece = null;
-        Piece movePiece = null;
+        Piece winPiece = null;
         int removeIndex = -1;
-        int moveIndex = -1;
-
-        Debug.Log("Winning team: " + (ETeam)Round.WinningTeam);
+        int winIndex = -1;
 
         // Light won, light turn, delete To and move
         if ((ETeam)Round.WinningTeam == ETeam.Light &&
             StrategyGame.Instance.TurnState == ETeam.Light) {
             // Remove capture flag and remove piece
             removeIndex = Capture.CaptureMove.To;
-            moveIndex = Capture.CaptureMove.From;
+            winIndex = Capture.CaptureMove.From;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.To);
             GameBoard.Instance.MovePiece(Capture.CaptureMove);
@@ -291,6 +290,7 @@ public class MasterGame : Singleton<MasterGame> {
         else if ((ETeam)Round.WinningTeam == ETeam.Light) {
             // Remove capture flag and remove piece
             removeIndex = Capture.CaptureMove.From;
+            winIndex = Capture.CaptureMove.To;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
         }
@@ -299,6 +299,7 @@ public class MasterGame : Singleton<MasterGame> {
                  StrategyGame.Instance.TurnState == ETeam.Light) {
             // Remove capture flag and remove piece
             removeIndex = Capture.CaptureMove.From;
+            winIndex = Capture.CaptureMove.To;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
         }
@@ -306,7 +307,7 @@ public class MasterGame : Singleton<MasterGame> {
         else if ((ETeam)Round.WinningTeam == ETeam.Dark) {
             // Remove capture flag and remove piece
             removeIndex = Capture.CaptureMove.To;
-            moveIndex = Capture.CaptureMove.From;
+            winIndex = Capture.CaptureMove.From;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.To);
             GameBoard.Instance.MovePiece(Capture.CaptureMove);
@@ -314,11 +315,11 @@ public class MasterGame : Singleton<MasterGame> {
 
         // Find the piece to remove and the piece to move
         foreach (var piece in StrategyGame.Instance.Pieces) {
-            if (piece.Index == removeIndex && removeIndex != -1) {
+            if (piece.Index == removeIndex) {
                 removePiece = piece;
             }
-            else if (piece.Index == moveIndex && moveIndex != -1) {
-                movePiece = piece;
+            else if (piece.Index == winIndex) {
+                winPiece = piece;
             }
         }
 
@@ -327,10 +328,15 @@ public class MasterGame : Singleton<MasterGame> {
         Destroy(removePiece.gameObject);
 
         // Update the health of the surviving piece
-        movePiece.Health = Round.Health;
+        winPiece.Health = Round.Health;
 
-        // Move the piece visually
-        movePiece.Move(Capture.CaptureMove);
+        // Move the piece visually if necessary
+        if ((ETeam)Round.WinningTeam == ETeam.Light && oldTurnState == ETeam.Light) {
+            winPiece.Move(Capture.CaptureMove);
+        }
+        else if ((ETeam)Round.WinningTeam == ETeam.Dark && oldTurnState == ETeam.Dark) {
+            winPiece.Move(Capture.CaptureMove);
+        }
 
         // Unload the action scene
         SceneManager.UnloadSceneAsync("Scenes/NonNetworkedShooterTest");
