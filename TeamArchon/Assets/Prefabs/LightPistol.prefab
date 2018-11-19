@@ -73,7 +73,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   selected: 0
-  speed: 6
+  speed: 2
   maxHealth: 400
   healingFactor: 100
 --- !u!212 &212622175628701270

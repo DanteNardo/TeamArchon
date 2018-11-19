@@ -73,7 +73,8 @@ MonoBehaviour:
   X: 0
   Z: 0
   selected: 0
-  speed: 2
+  speed: 4
+  maxHealth: 400
 --- !u!212 &212959787170553432
 SpriteRenderer:
   m_ObjectHideFlags: 1

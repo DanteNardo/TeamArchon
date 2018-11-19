@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 212906134856391094}
   - component: {fileID: 114966220026134962}
   m_Layer: 0
-  m_Name: DarkTile
+  m_Name: Tile_Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   objectiveImage: {fileID: 1414828815512148}
   Row: 0
   Col: 0
-  sceneName: GridMap
+  sceneName: NonNetworkedShooterTest
   objective: 0
 --- !u!212 &212234667940803680
 SpriteRenderer:
@@ -258,8 +258,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: edb7f0090924479448ac53528717adf5, type: 3}
-  m_Color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ae52c957b77604520b99f1e4035e0bf3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
