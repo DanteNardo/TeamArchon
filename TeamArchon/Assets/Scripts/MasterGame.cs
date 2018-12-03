@@ -293,6 +293,9 @@ public class MasterGame : Singleton<MasterGame> {
             winIndex = Capture.CaptureMove.To;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
+
+            // Must call this function that is normally called by move
+            NextPlayersTurn();
         }
         // Dark won, light turn, delete From, do not move
         else if ((ETeam)Round.WinningTeam == ETeam.Dark &&
@@ -302,6 +305,9 @@ public class MasterGame : Singleton<MasterGame> {
             winIndex = Capture.CaptureMove.To;
             Capture.CaptureMove.ResetCaptureFlag();
             GameBoard.Instance.RemovePiece(Capture.CaptureMove.From);
+
+            // Must call this function that is normally called by move
+            NextPlayersTurn();
         }
         // Dark won, dark turn, delete To and move
         else if ((ETeam)Round.WinningTeam == ETeam.Dark) {
