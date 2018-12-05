@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  player: {fileID: 0}
+  joyStickValue: 0
 --- !u!114 &114684493659004208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,10 +142,17 @@ MonoBehaviour:
     type: 2}
   shotGunBulletPrefab: {fileID: 1139348704567810, guid: 3e976a947e7614d48a5df3b0ed3edc5f,
     type: 2}
-  pistolUnit: {fileID: 21300000, guid: 8b67c6eab03487c4f83d7d4e213fdc1f, type: 3}
-  shotgunUnit: {fileID: 21300000, guid: 9b765ee385674204eb8fceadff86b28c, type: 3}
-  sniperUnit: {fileID: 21300000, guid: eafc7aa39f7c1764498de1786d4485c4, type: 3}
-  machineGunUnit: {fileID: 21300000, guid: b006960798166d645938ffa6a98c8714, type: 3}
+  pistolUnitLight: {fileID: 21300006, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
+  medicUnitLight: {fileID: 21300000, guid: 688745e79a1da834bb37e4a3804f797a, type: 3}
+  shotgunUnitLight: {fileID: 21300008, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
+  sniperUnitLight: {fileID: 21300000, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
+  machineGunUnitLight: {fileID: 21300012, guid: 2085c4e9e5686c44695b928468b40d43,
+    type: 3}
+  pistolUnitDark: {fileID: 21300004, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
+  medicUnitDark: {fileID: 21300002, guid: 688745e79a1da834bb37e4a3804f797a, type: 3}
+  shotgunUnitDark: {fileID: 21300010, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
+  sniperUnitDark: {fileID: 21300002, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
+  machineGunUnitDark: {fileID: 21300014, guid: 2085c4e9e5686c44695b928468b40d43, type: 3}
   weaponType: 0
 --- !u!114 &114807874045700256
 MonoBehaviour:
