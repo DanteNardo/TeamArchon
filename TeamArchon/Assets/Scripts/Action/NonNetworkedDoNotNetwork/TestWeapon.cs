@@ -9,11 +9,18 @@ namespace actionPhase {
         public GameObject machineGunBulletPrefab;
         public GameObject sniperBulletPrefab;
         public GameObject shotGunBulletPrefab;
-        public Sprite pistolUnit;
-        public Sprite shotgunUnit;
-        public Sprite sniperUnit;
-        public Sprite machineGunUnit;
-        public enum Weapon { Pistol, MachineGun, ShotGun, SniperRifle };
+        public Sprite pistolUnitLight;
+        public Sprite medicUnitLight;
+        public Sprite shotgunUnitLight;
+        public Sprite sniperUnitLight;
+        public Sprite machineGunUnitLight;
+        public Sprite pistolUnitDark;
+        public Sprite medicUnitDark;
+        public Sprite shotgunUnitDark;
+        public Sprite sniperUnitDark;
+        public Sprite machineGunUnitDark;
+
+        public enum Weapon { Pistol, Medic, MachineGun, ShotGun, SniperRifle };
         public Weapon weaponType;
         private GameObject finalPrefab;
         private float fireRate;
@@ -22,7 +29,7 @@ namespace actionPhase {
         private int team;
         private PlayerStats playerStats;
         private TestInput input;
-        
+        public bool lightTeam;
         // Use this for initialization
         void Start()
         {
@@ -31,7 +38,7 @@ namespace actionPhase {
             team = playerStats.Team;
             fireTimer = 20.0f;
             bulletPool = new List<GameObject>();
-            ChangeWeapon(weaponType);
+            ChangeWeapon(weaponType, lightTeam);
           
         }
 
@@ -158,19 +165,30 @@ namespace actionPhase {
         /// Also changes the sprite to fit the current weapon.
         /// </summary>
         /// <param name="weaponType">The type of weapon</param>
-        public void ChangeWeapon(Weapon weaponType)
+        public void ChangeWeapon(Weapon weaponType, bool isLight)
         {
+            
             input = gameObject.GetComponent<TestInput>();
             Debug.Log("Current Weapon:   " + weaponType);
 
             this.weaponType = weaponType;
             if (this.weaponType == Weapon.Pistol)
             {
+
                 fireRate = 2.0f;
                 finalPrefab = pistolBulletPrefab;
 
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = pistolUnit;
+                if (isLight)
+                {
+                    spriteRenderer.sprite = pistolUnitLight;
+
+                }
+                else
+                {
+                    spriteRenderer.sprite = pistolUnitDark;
+
+                }
 
                 input.speed = 20;
                
@@ -181,7 +199,16 @@ namespace actionPhase {
                 fireRate = 6.0f;
                 finalPrefab = machineGunBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = machineGunUnit;
+                if (isLight)
+                {
+                    spriteRenderer.sprite = machineGunUnitLight;
+
+                }
+                else
+                {
+                    spriteRenderer.sprite = machineGunUnitDark;
+
+                }
 
                 input.speed = 15;
                
@@ -191,7 +218,16 @@ namespace actionPhase {
                 fireRate = 1.0f;
                 finalPrefab = shotGunBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = shotgunUnit;
+                if (isLight)
+                {
+                    spriteRenderer.sprite = shotgunUnitLight;
+
+                }
+                else
+                {
+                    spriteRenderer.sprite = shotgunUnitDark;
+
+                }
                 input.speed = 15;
                 
             } else if (weaponType == Weapon.SniperRifle)
@@ -199,7 +235,16 @@ namespace actionPhase {
                 fireRate = 0.5f;
                 finalPrefab = sniperBulletPrefab;
                 SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = sniperUnit;
+                if (isLight)
+                {
+                    spriteRenderer.sprite = sniperUnitLight;
+
+                }
+                else
+                {
+                    spriteRenderer.sprite = sniperUnitDark;
+
+                }
                 input.speed = 10;
             }
         }
