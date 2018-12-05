@@ -129,7 +129,7 @@ MonoBehaviour:
   objectiveImage: {fileID: 1414828815512148}
   Row: 0
   Col: 0
-  sceneName: PillarsOfDoom
+  sceneName: DeathBridges
   objective: 0
 --- !u!212 &212234667940803680
 SpriteRenderer:

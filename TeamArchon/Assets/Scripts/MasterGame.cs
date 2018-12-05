@@ -8,6 +8,11 @@ public enum ETeam {
     Dark,
     None
 }
+
+public enum EGameState {
+    Strategy,
+    Action
+}
 #endregion
 
 /// <summary>
@@ -59,6 +64,7 @@ public class MasterGame : Singleton<MasterGame> {
     public RoundData Round { get; private set; }
 
     public Player CurrentPlayer { get { return playOrder[playIndex]; } }
+    public EGameState GameState { get; private set; } = EGameState.Strategy;
     #endregion
 
     #region Methods
@@ -251,6 +257,9 @@ public class MasterGame : Singleton<MasterGame> {
         Debug.Log("Capture Tile Scene: " + Capture.Tile.sceneName);
         SceneManager.sceneLoaded += SceneLoaded;
         SceneManager.LoadScene(Capture.Tile.sceneName, LoadSceneMode.Additive);
+
+        // Change game state
+        GameState = EGameState.Action;
     }
 
     /// <summary>
@@ -346,6 +355,9 @@ public class MasterGame : Singleton<MasterGame> {
 
         // Unload the action scene
         SceneManager.UnloadSceneAsync(Capture.Tile.sceneName);
+
+        // Change game state
+        GameState = EGameState.Strategy;
     }
 
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class LobbyManager : MonoBehaviour
     public int[] selectedVal;
     public int[] otherSelectVals;
     public bool[] lockedIn;
+    public Text Title;
 
-
+    public GameObject loadoutInfo;
     public int maxLockinAmmount;
     public int changeFunction;
     public GameObject otherSelect;
@@ -95,6 +97,8 @@ public class LobbyManager : MonoBehaviour
         {
             case 0:
                 otherSelect.GetComponent<LobbyManager>().loadSelect(selectedVal);
+                Title.text = "choose your loadout";
+                loadoutInfo.SetActive(true);
                 break;
             case 1:
               
