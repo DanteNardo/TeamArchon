@@ -26,7 +26,8 @@ public class GamepadCursor : MonoBehaviour {
     /// </summary>
     private void Update() {
         // Only update the cursor if it is this player's turn
-        if (MasterGame.Instance.CurrentPlayer == player) {
+        if (MasterGame.Instance.CurrentPlayer == player &&
+            MasterGame.Instance.GameState == EGameState.Strategy) {
             UpdateMovement();
 
             if (ClickA()) {
