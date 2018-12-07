@@ -187,7 +187,7 @@ namespace actionPhase
             Debug.Log("dark health " + darkHealth);
             Debug.Log("light health " + lightHealth);
 
-            player.GetComponent<TestWeapon>().ChangeWeapon(weaponType, player.GetComponent<PlayerStats>().Team == 1);
+            player.GetComponent<TestWeapon>().ChangeWeapon(weaponType, player.GetComponent<PlayerStats>().Team == 1G);
 
             if (player.GetComponent<PlayerStats>().Team == 0)
             {
