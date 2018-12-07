@@ -66,8 +66,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 212858477867311320}
-  defaultColor: {r: 1, g: 0.2509804, b: 0.2509804, a: 0}
-  selectedColor: {r: 1, g: 0, b: 0, a: 0}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   pieceType: 8
   direction: 8
   X: 0
