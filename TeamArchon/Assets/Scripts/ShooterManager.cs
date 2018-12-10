@@ -73,7 +73,7 @@ namespace actionPhase
                     players[i].GetComponent<TestInput>().joyStickValue = MasterGame.Instance.playOrder[i].JoystickValue;
                     if (players[i].GetComponent<PlayerStats>().Team == 1)
                     {
-                        players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                        //players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
                         players[i].layer = 12;
                     }
                     else
@@ -92,7 +92,7 @@ namespace actionPhase
 
                     if (players[i].GetComponent<PlayerStats>().Team == 1)
                     {
-                        players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+                        //players[i].GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
                         players[i].layer = 12;
                     }
                     else
@@ -187,8 +187,7 @@ namespace actionPhase
             Debug.Log("dark health " + darkHealth);
             Debug.Log("light health " + lightHealth);
 
-            //FIX THIS !!!
-            player.GetComponent<TestWeapon>().ChangeWeapon(weaponType, true);
+            player.GetComponent<TestWeapon>().ChangeWeapon(weaponType, player.GetComponent<PlayerStats>().Team == 1);
 
             if (player.GetComponent<PlayerStats>().Team == 0)
             {
@@ -235,7 +234,7 @@ namespace actionPhase
 
             foreach (GameObject player in players)
             {
-                Debug.Log("Piece Type:    " + MasterGame.Instance.Capture.DarkPiece + "    " + player.GetComponent<PlayerStats>().Team);
+                Debug.Log("Piece Type!!!!!:    " + MasterGame.Instance.Capture.DarkPiece + "    " + player.GetComponent<PlayerStats>().Team);
                 TestWeapon.Weapon weaponType;
                 if (player.GetComponent<PlayerStats>().Team == 0)
                 {

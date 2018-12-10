@@ -38,7 +38,7 @@ namespace actionPhase {
             team = playerStats.Team;
             fireTimer = 20.0f;
             bulletPool = new List<GameObject>();
-            ChangeWeapon(weaponType, lightTeam);
+            //ChangeWeapon(weaponType, lightTeam);
           
         }
 
@@ -169,10 +169,10 @@ namespace actionPhase {
         {
             
             input = gameObject.GetComponent<TestInput>();
-            Debug.Log("Current Weapon:   " + weaponType);
+            Debug.Log("Current Weapon:   " + isLight);
 
             this.weaponType = weaponType;
-            if (this.weaponType == Weapon.Pistol)
+            if (this.weaponType == Weapon.Pistol || this.weaponType == Weapon.Medic)
             {
 
                 fireRate = 2.0f;

@@ -301,7 +301,9 @@ public class Piece : GamepadBehavior {
     /// <returns>True or false</returns>
     public static bool IsLight(EPieceType type) {
         return type == EPieceType.LPistol ||
-               type == EPieceType.LMachineGun;
+               type == EPieceType.LMachineGun ||
+               type == EPieceType.LShotgun ||
+               type == EPieceType.LSniper;
     }
 
     /// <summary>
@@ -311,7 +313,9 @@ public class Piece : GamepadBehavior {
     /// <returns>True or false</returns>
     public static bool IsDark(EPieceType type) {
         return type == EPieceType.DPistol ||
-               type == EPieceType.DMachineGun;
+               type == EPieceType.DMachineGun||
+               type == EPieceType.DShotgun ||
+                type == EPieceType.DSniper;
     }
 
     /// <summary>
