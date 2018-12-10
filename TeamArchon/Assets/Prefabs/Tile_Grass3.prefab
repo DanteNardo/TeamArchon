@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 212906134856391094}
   - component: {fileID: 114966220026134962}
   m_Layer: 0
-  m_Name: Tile_Lava
+  m_Name: Tile_Grass3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   objectiveImage: {fileID: 1414828815512148}
   Row: 0
   Col: 0
-  sceneName: GridMap
+  sceneName: Sniper Map
   objective: 0
 --- !u!212 &212234667940803680
 SpriteRenderer:
@@ -166,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d3b83c23008b10949b5fba60605fa615, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e2dc4e12f97584f9e9b86ed759f28bcc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -213,7 +213,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: edb7f0090924479448ac53528717adf5, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -258,7 +258,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5336e4c05e298404191b4bcf798331e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c3386b7d084b7488db874b4b779b5d99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
